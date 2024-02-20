@@ -5,3 +5,4 @@ Jace Walden
 Nidhi Tarpara
 Jessica Kalloor
 Ryan Corbett
+Christine Lee
