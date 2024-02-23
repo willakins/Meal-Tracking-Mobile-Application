@@ -1,5 +1,6 @@
 package com.views;
 
+import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -9,6 +10,6 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentViews(R.layout.welcome_page);
+        setContentView(R.layout.activity_welcome);
     }
 }
