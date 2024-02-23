@@ -1,6 +1,8 @@
 package com.views;
 
-public class WelcomeActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class WelcomeActivity extends AppCompatActivity {
     //This is the splash page
     // Just display an initial visual of some kind, then instantly move to LoginActivity
 
