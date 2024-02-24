@@ -1,0 +1,409 @@
+Index: app/src/main/java/com/views/LoginActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.views;\n\npublic class LoginActivity {\n    //Has a quit button\n    //Has header \"Enter username and password to login\"\n    //Has 2 textFields for username and password\n    //Has a login button that changes to HomeActivity\n    //Has a button that changes to AccountCreateActivity\n    //Null and whitespace checks for text fields\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/views/LoginActivity.java b/app/src/main/java/com/views/LoginActivity.java
+--- a/app/src/main/java/com/views/LoginActivity.java	
++++ b/app/src/main/java/com/views/LoginActivity.java	
+@@ -1,10 +1,34 @@
+ package com.views;
+ 
+-public class LoginActivity {
++import androidx.appcompat.app.AppCompatActivity;
++
++import com.google.firebase.auth.FirebaseAuth;
++
++public class LoginActivity extends AppCompatActivity {
+     //Has a quit button
+     //Has header "Enter username and password to login"
+     //Has 2 textFields for username and password
+     //Has a login button that changes to HomeActivity
+     //Has a button that changes to AccountCreateActivity
+     //Null and whitespace checks for text fields
++    private FirebaseAuth mAuth;
++
++
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout);
++    }
++    /**
++    public void onStart() {
++        super.onStart();
++        // Check if user is signed in (non-null) and update UI accordingly.
++        FirebaseUser currentUser = mAuth.getCurrentUser();
++        if(currentUser != null){
++            reload();
++        }
++    }
++    */
++
+ }
+Index: app/src/main/java/com/viewmodels/LoginViewModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.viewmodels;\n\npublic class LoginViewModel {\n    private static LoginViewModel instance;\n\n    public static synchronized LoginViewModel getInstance() {\n        if (instance == null) {\n            instance = new LoginViewModel();\n        }\n        return instance;\n    }\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/viewmodels/LoginViewModel.java b/app/src/main/java/com/viewmodels/LoginViewModel.java
+--- a/app/src/main/java/com/viewmodels/LoginViewModel.java	
++++ b/app/src/main/java/com/viewmodels/LoginViewModel.java	
+@@ -1,7 +1,13 @@
+ package com.viewmodels;
+ 
++import com.model.User;
++
+ public class LoginViewModel {
+     private static LoginViewModel instance;
++    final private User user;
++    public LoginViewModel() {
++        user = new User();
++    }
+ 
+     public static synchronized LoginViewModel getInstance() {
+         if (instance == null) {
+@@ -9,4 +15,8 @@
+         }
+         return instance;
+     }
++
++    public User getUser() {
++        return user;
++    }
+ }
+Index: app/src/main/java/com/views/IngredientActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.views;\n\npublic class IngredientActivity {\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/views/IngredientActivity.java b/app/src/main/java/com/views/IngredientActivity.java
+--- a/app/src/main/java/com/views/IngredientActivity.java	
++++ b/app/src/main/java/com/views/IngredientActivity.java	
+@@ -1,4 +1,6 @@
+ package com.views;
+ 
+-public class IngredientActivity {
++import androidx.appcompat.app.AppCompatActivity;
++
++public class IngredientActivity extends AppCompatActivity {
+ }
+Index: app/src/main/java/com/views/ShoppingActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.views;\n\npublic class ShoppingActivity {\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/views/ShoppingActivity.java b/app/src/main/java/com/views/ShoppingActivity.java
+--- a/app/src/main/java/com/views/ShoppingActivity.java	
++++ b/app/src/main/java/com/views/ShoppingActivity.java	
+@@ -1,4 +1,6 @@
+ package com.views;
+ 
+-public class ShoppingActivity {
++import androidx.appcompat.app.AppCompatActivity;
++
++public class ShoppingActivity extends AppCompatActivity {
+ }
+Index: app/src/main/java/com/model/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.model;\n\npublic class User {\n    private String username;\n    private String password;\n\n    public void setUsername(String username) {\n        this.username = username;\n    }\n\n    public void setPassword(String password) {\n        this.password = password;\n    }\n\n    public String getUsername() {\n        return this.username;\n    }\n\n    public String getPassword() {\n        return this.password;\n    }\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/model/User.java b/app/src/main/java/com/model/User.java
+--- a/app/src/main/java/com/model/User.java	
++++ b/app/src/main/java/com/model/User.java	
+@@ -1,22 +1,206 @@
+ package com.model;
+ 
++import android.annotation.SuppressLint;
++
++import java.util.ArrayList;
++import java.util.HashMap;
++import java.time.format.DateTimeFormatter;
++import java.time.LocalDateTime;
++
+ public class User {
+     private String username;
+     private String password;
++    private int height;
++    private int weight;
++    private boolean isMale;
++    private HashMap<String, Integer> calorie_intake;
++    private ArrayList<String> dietary_restrictions;
++    private HashMap<String, Integer> meals;
++    @SuppressLint("NewApi")
++    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+ 
++    /**
++     * Sets the user's username to the inputted String
++     * @param username the user's new username
++     */
+     public void setUsername(String username) {
+         this.username = username;
+     }
+ 
++    /**
++     * Sets the user's password to the inputted String
++     * @param password the user's new password
++     */
+     public void setPassword(String password) {
+         this.password = password;
+     }
+ 
++    /**
++     * Changes the user's height
++     * @param height an int representing the user's new height
++     */
++    public void setHeight(int height) {
++        this.height = height;
++    }
++
++    /**
++     * Changes the user's weight
++     * @param weight an int representing the user's new weight
++     */
++    public void setWeight(int weight) {
++        this.weight = weight;
++    }
++
++    /**
++     * Changes the user's gender. If isMale is true, then the user is male
++     * @param isMale a boolean representing the user's new gender
++     */
++    public void setIsMale(boolean isMale) {
++        this.isMale = isMale;
++    }
++
++    /**
++     * Adds a <Date, calories> pair into the HashMap of calorie intake
++     * @param calories the number of calories the user has had today.
++     */
++    public void setCaloriesToday(int calories) {
++        if (this.calorie_intake == null) {
++            this.calorie_intake = new HashMap<>();
++        }
++        this.calorie_intake.put(getToday(), calories);
++    }
++
++    /**
++     * Changes the user's list of restrictions
++     * @param restrictions an arraylist of the user's new restrictions;
++     */
++    public void setRestrictions(ArrayList<String> restrictions) {
++        this.dietary_restrictions = restrictions;
++    }
++    /**
++     * Adds a new dietary restriction to the list of restrictions
++     * @param restriction a string representing the type of restriction
++     */
++    public void addRestriction(String restriction) {
++        if (this.dietary_restrictions == null) {
++            this.dietary_restrictions = new ArrayList<>();
++        }
++        this.dietary_restrictions.add(restriction);
++    }
++
++    /**
++     * Removes a dietary restriction from the user's list
++     * If the restriction is not present, then does not affect list
++     * @param restriction a string representing the restriction the user is removing
++     */
++    public void removeRestriction(String restriction) {
++        if (this.dietary_restrictions != null) {
++            this.dietary_restrictions.remove(restriction);
++        }
++    }
++
++    /**
++     * Adds a meal to the user's list
++     * @param mealName a String representing the name of the meal
++     * @param calories an int representing how many calories the meal was
++     */
++    public void addMeal(String mealName, int calories) {
++        if (this.meals == null) {
++            this.meals = new HashMap<>();
++        }
++        this.meals.put(mealName, calories);
++        String today = getToday();
++        if (today != null) {
++            if (this.calorie_intake == null) {
++                this.calorie_intake = new HashMap<>();
++            }
++            int newCalories = (calorie_intake.get(today) != null) ? calorie_intake.get(today) + calories : calories;
++            calorie_intake.put(today, newCalories);
++        } else {
++            throw new NullPointerException("today instance was null in addMeal");
++        }
++    }
++
++    /**
++     * Removes a meal from the user's list
++     * If the meal is not in their list, does nothing
++     * @param mealName the name of the meal being removed from the list
++     */
++    public void removeMeal(String mealName) {
++        if (this.meals == null) {
++            this.meals = new HashMap<>();
++        }
++        this.meals.remove(mealName);
++        String today = getToday();
++        if (today != null) {
++            if (this.calorie_intake == null) {
++                this.calorie_intake = new HashMap<>();
++            }
++            int calories = calorie_intake.get(mealName) != null ? calorie_intake.get(mealName) : 0;
++            int newCalories = (calorie_intake.get(today) != null) ? calorie_intake.get(today) - calories : 0;
++            calorie_intake.put(today, newCalories);
++        } else {
++            throw new NullPointerException("today instance was null in removeMeal");
++        }
++
++
++    }
++
++    /**
++     * Getter for username
++     * @return the user's username in String format
++     */
+     public String getUsername() {
+         return this.username;
+     }
+ 
++    /**
++     * Getter for password
++     * @return the user's password in String format
++     */
+     public String getPassword() {
+         return this.password;
+     }
++
++    /**
++     * Getter for height
++     * @return the user's height
++     */
++    public int getHeight() {
++        return this.height;
++    }
++
++    /**
++     * Getter for weight
++     * @return the user's weight
++     */
++    public int getWeight() {
++        return this.weight;
++    }
++
++    /**
++     * Getter for isMale
++     * @return true if the user is male, false if female
++     */
++    public boolean getIsMale() {
++        return this.isMale;
++    }
++
++    /**
++     * Getter for daily_calories
++     * @return the user's daily calories
++     */
++    public HashMap<String, Integer> getCalorieIntake() {
++        return this.calorie_intake;
++    }
++
++    /**
++     * Gets the current day in String format
++     * @return a String representing today's date in yyyy/mm/dd format
++     */
++    @SuppressLint("NewApi")
++    private String getToday() {
++        LocalDateTime now = LocalDateTime.now();
++        return dtf.format(now);
++    }
+ }
+Index: app/src/main/java/com/views/WelcomeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.views;\n\npublic class WelcomeActivity {\n    //This is the splash page\n    // Just display an initial visual of some kind, then instantly move to LoginActivity\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/views/WelcomeActivity.java b/app/src/main/java/com/views/WelcomeActivity.java
+--- a/app/src/main/java/com/views/WelcomeActivity.java	
++++ b/app/src/main/java/com/views/WelcomeActivity.java	
+@@ -1,6 +1,8 @@
+ package com.views;
+ 
+-public class WelcomeActivity {
++import androidx.appcompat.app.AppCompatActivity;
++
++public class WelcomeActivity extends AppCompatActivity {
+     //This is the splash page
+     // Just display an initial visual of some kind, then instantly move to LoginActivity
+ }
+Index: app/src/main/java/com/views/InputMealActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.views;\n\npublic class InputMealActivity {\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/views/InputMealActivity.java b/app/src/main/java/com/views/InputMealActivity.java
+--- a/app/src/main/java/com/views/InputMealActivity.java	
++++ b/app/src/main/java/com/views/InputMealActivity.java	
+@@ -1,4 +1,6 @@
+ package com.views;
+ 
+-public class InputMealActivity {
++import androidx.appcompat.app.AppCompatActivity;
++
++public class InputMealActivity extends AppCompatActivity {
+ }
+Index: app/src/main/java/com/views/RecipeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.views;\n\npublic class RecipeActivity {\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/views/RecipeActivity.java b/app/src/main/java/com/views/RecipeActivity.java
+--- a/app/src/main/java/com/views/RecipeActivity.java	
++++ b/app/src/main/java/com/views/RecipeActivity.java	
+@@ -1,4 +1,7 @@
+ package com.views;
+ 
+-public class RecipeActivity {
++import androidx.appcompat.app.AppCompatActivity;
++
++public class RecipeActivity extends AppCompatActivity {
++
+ }
+Index: app/src/main/java/com/views/AccountCreateActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.views;\n\npublic class AccountCreateActivity {\n    //Has textfields for username, new password, confirm password\n    //Says messages like \"Password must contain a number\"\n    //Connects to database\n    //Null and whitespace checks for textfields\n    //Moves to HomeActivity on successful account creation\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/views/AccountCreateActivity.java b/app/src/main/java/com/views/AccountCreateActivity.java
+--- a/app/src/main/java/com/views/AccountCreateActivity.java	
++++ b/app/src/main/java/com/views/AccountCreateActivity.java	
+@@ -1,6 +1,8 @@
+ package com.views;
+ 
+-public class AccountCreateActivity {
++import androidx.appcompat.app.AppCompatActivity;
++
++public class AccountCreateActivity extends AppCompatActivity {
+     //Has textfields for username, new password, confirm password
+     //Says messages like "Password must contain a number"
+     //Connects to database
+Index: app/src/main/java/com/views/HomeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.views;\n\npublic class HomeActivity {\n    //Activates when user successfully logs in\n    //Has a nav bar that can navigate to: InputMealActivity, RecipeActivity, Ingredient Activity,\n    //                                      and Shopping Activity\n    // Nav bar should also exist on all 4 of those \"main feature\" screens\n}\n
+===================================================================
+diff --git a/app/src/main/java/com/views/HomeActivity.java b/app/src/main/java/com/views/HomeActivity.java
+--- a/app/src/main/java/com/views/HomeActivity.java	
++++ b/app/src/main/java/com/views/HomeActivity.java	
+@@ -1,6 +1,8 @@
+ package com.views;
+ 
+-public class HomeActivity {
++import androidx.appcompat.app.AppCompatActivity;
++
++public class HomeActivity extends AppCompatActivity {
+     //Activates when user successfully logs in
+     //Has a nav bar that can navigate to: InputMealActivity, RecipeActivity, Ingredient Activity,
+     //                                      and Shopping Activity
