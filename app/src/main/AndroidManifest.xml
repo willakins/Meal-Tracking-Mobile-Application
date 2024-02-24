@@ -13,21 +13,56 @@
         android:theme="@style/Theme.CS2340Project"
         tools:targetApi="31" >
 
-    <activity
-        android:name=".ActivitySplash"
-        android:label="Splash Page"
-        android:theme="@style/ThemeSplash">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-    <activity
-        android:name=".ActivityHome"
-        android:label="Home Page" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-</application>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".InputMealActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".AccountCreateActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".ShoppingActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".RecipeActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".IngredientActivity"
+            android:exported="true">
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+    </application>
 
 
 </manifest>

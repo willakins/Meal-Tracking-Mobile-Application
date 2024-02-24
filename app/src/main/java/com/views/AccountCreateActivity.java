@@ -1,6 +1,8 @@
 package com.views;
 
-public class AccountCreateActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class AccountCreateActivity extends AppCompatActivity {
     //Has textfields for username, new password, confirm password
     //Says messages like "Password must contain a number"
     //Connects to database
