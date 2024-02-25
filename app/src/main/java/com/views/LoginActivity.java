@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.viewmodels.LoginViewModel;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class LoginActivity extends AppCompatActivity {
     //Has a quit button
     //Has header "Enter username and password to login"
@@ -33,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginViewModel = LoginViewModel.getInstance();
-        usernameEditText = findViewById(R.id.editTextTextUsername);
-        passwordEditText = findViewById(R.id.editTextTextUsername);
+        usernameEditText = findViewById(R.id.editTextUsername);
+        passwordEditText = findViewById(R.id.editTextPassword);
         loginButton = findViewById(R.id.loginButton);
         toCreateAccount = findViewById(R.id.createAccountButton);
         quitButton = findViewById(R.id.quitButton);
@@ -44,14 +47,9 @@ public class LoginActivity extends AppCompatActivity {
             hideKeyboard();
             String username = usernameEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            if (username.equals("Null") || password.equals("Null")) {
-                Toast.makeText(this, "Username or password cannot be null",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                if (loginViewModel.login(this, mAuth, username, password)) {
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                }
+            if (loginViewModel.login(this, mAuth, username, password)) {
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
         });
 

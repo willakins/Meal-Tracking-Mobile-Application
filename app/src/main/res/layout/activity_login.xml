@@ -67,7 +67,7 @@
                 android:focusableInTouchMode="false"/>
 
             <EditText
-                android:id="@+id/editTextTextUsername"
+                android:id="@+id/editTextUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="96dp"
@@ -79,7 +79,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editTextTextPassword"
+                android:id="@+id/editTextPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="96dp"

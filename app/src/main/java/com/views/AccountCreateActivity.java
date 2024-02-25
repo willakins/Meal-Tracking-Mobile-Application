@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -52,15 +53,17 @@ public class AccountCreateActivity extends AppCompatActivity {
         });
 
         createButton.setOnClickListener(v -> {
+            String username = newUsername.getText().toString();
+            String password = newPassword.getText().toString();
             hideKeyboard();
-            String username = newUsername.getText().equals("") ? "Null" : newUsername.getText().toString();
-            String password = newPassword.getText().equals("") ? "Null" : newPassword.getText().toString();
-            if (username.equals("Null") || password.equals("Null")) {
-                Toast.makeText(this, "Username or password cannot be null",
-                                    Toast.LENGTH_SHORT).show();
-            } else if (accCreViewModel.createAccount(this, mAuth, username, password)) {
-                Intent intent = new Intent(AccountCreateActivity.this, HomeActivity.class);
-                startActivity(intent);
+            if (!(username.equals("") || password.equals(""))) {
+                if (accCreViewModel.createAccount(this, mAuth, username, password)) {
+                    Intent intent = new Intent(AccountCreateActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                }
+            } else {
+                Toast.makeText(this, "Invalid Input",
+                        Toast.LENGTH_SHORT).show();
             }
 
         });
