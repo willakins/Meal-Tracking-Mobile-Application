@@ -64,7 +64,7 @@ public class LoginViewModel {
      */
     private boolean checkUserInput(String username, String password) {
         //Checks if the input is empty
-        Log.d("The password is: " + password, password);
+        //Log.d("The password is: " + password, password);
         if (username.equals("") || password.equals("")) {
             return false;
         }
