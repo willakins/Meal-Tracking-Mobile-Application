@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.views.AccountCreateActivity;
 import com.views.HomeActivity;
 import com.views.LoginActivity;
 
@@ -50,6 +51,34 @@ public class LoginViewModel {
             return success;
         } else {
             Toast.makeText(la, "Invalid Input",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    public boolean createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
+        if (checkUserInput(username, password)) {
+            mAuth.createUserWithEmailAndPassword(username, password)
+                    .addOnCompleteListener(aca, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                success = true;
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(aca, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                success = false;
+                            }
+                        }
+                    });
+            return success;
+        } else {
+            Toast.makeText(aca, "Invalid Input",
                     Toast.LENGTH_SHORT).show();
             return false;
         }

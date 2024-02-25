@@ -1,27 +1,18 @@
 package com.views;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.viewmodels.AccountCreateViewModel;
+import com.viewmodels.LoginViewModel;
 
 public class AccountCreateActivity extends AppCompatActivity {
     //Has textfields for username, new password, confirm password
@@ -34,16 +25,16 @@ public class AccountCreateActivity extends AppCompatActivity {
     private Button createButton;
     private Button quitButton;
     private FirebaseAuth mAuth;
-    private AccountCreateViewModel accCreViewModel;
+    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        accCreViewModel = AccountCreateViewModel.getInstance();
-        newPassword = findViewById(R.id.editTextUsername);
-        newUsername = findViewById(R.id.editTextPassword);
+        loginViewModel = LoginViewModel.getInstance();
+        newUsername = findViewById(R.id.editTextUsername);
+        newPassword = findViewById(R.id.editTextPassword);
         createButton = findViewById(R.id.createAccountButton);
         quitButton = findViewById(R.id.quitButton);
         mAuth = FirebaseAuth.getInstance();
@@ -57,7 +48,7 @@ public class AccountCreateActivity extends AppCompatActivity {
             String password = newPassword.getText().toString();
             hideKeyboard();
             if (!(username.equals("") || password.equals(""))) {
-                if (accCreViewModel.createAccount(this, mAuth, username, password)) {
+                if (LoginViewModel.createAccount(this, mAuth, username, password)) {
                     Intent intent = new Intent(AccountCreateActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }
