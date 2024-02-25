@@ -65,6 +65,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Helper method for removing the keyboard from focus
+     */
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
