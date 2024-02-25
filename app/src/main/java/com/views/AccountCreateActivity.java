@@ -48,7 +48,7 @@ public class AccountCreateActivity extends AppCompatActivity {
             String password = newPassword.getText().toString();
             hideKeyboard();
             if (!(username.equals("") || password.equals(""))) {
-                if (LoginViewModel.createAccount(this, mAuth, username, password)) {
+                if (loginViewModel.createAccount(this, mAuth, username, password)) {
                     Intent intent = new Intent(AccountCreateActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }

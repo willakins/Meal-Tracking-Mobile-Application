@@ -70,8 +70,6 @@ public class LoginViewModel {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(aca, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
                                 success = false;
                             }
                         }
