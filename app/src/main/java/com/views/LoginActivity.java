@@ -13,22 +13,15 @@ public class LoginActivity extends AppCompatActivity {
     //Has a login button that changes to HomeActivity
     //Has a button that changes to AccountCreateActivity
     //Null and whitespace checks for text fields
-    //private EditText usernameEditText;
-    private ImageView background;
-    /**
+    private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
-    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        background = findViewById(R.id.backgroundImage);
-
-        /**
-        usernameEditText = findViewById(R.id.usernameText);
-        passwordEditText = findViewById(R.id.passwordText);
+        usernameEditText = findViewById(R.id.editTextTextUsername);
+        passwordEditText = findViewById(R.id.editTextTextUsername);
         loginButton = findViewById(R.id.loginButton);
-        */
     }
 }
