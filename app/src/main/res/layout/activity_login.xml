@@ -39,7 +39,8 @@
                 android:backgroundTint="@color/black"
                 android:text="Login"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:focusableInTouchMode="false"/>
 
             <Button
                 android:id="@+id/createAccountButton"
@@ -50,7 +51,8 @@
                 android:backgroundTint="@color/black"
                 android:text="Create Account"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:focusableInTouchMode="false"/>
 
             <Button
                 android:id="@+id/quitButton"
@@ -61,7 +63,8 @@
                 android:backgroundTint="@color/black"
                 android:text="Quit"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:focusableInTouchMode="false"/>
 
             <EditText
                 android:id="@+id/editTextTextUsername"
@@ -71,7 +74,7 @@
                 android:layout_marginTop="82dp"
                 android:ems="10"
                 android:hint="username"
-                android:inputType="textPassword"
+                android:inputType="text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

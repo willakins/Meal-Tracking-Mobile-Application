@@ -61,8 +61,8 @@
                 android:layout_marginStart="96dp"
                 android:layout_marginTop="82dp"
                 android:ems="10"
-                android:hint="username"
-                android:inputType="textPassword"
+                android:hint="email"
+                android:inputType="text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
