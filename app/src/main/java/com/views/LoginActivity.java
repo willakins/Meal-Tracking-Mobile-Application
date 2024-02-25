@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         loginViewModel = LoginViewModel.getInstance();
         usernameEditText = findViewById(R.id.editTextUsername);
         passwordEditText = findViewById(R.id.editTextPassword);
@@ -64,9 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Helper method for removing the keyboard from focus
-     */
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {

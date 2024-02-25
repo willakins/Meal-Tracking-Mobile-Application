@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "783039250064",
-    "project_id": "cs2340project-c9d2b",
-    "storage_bucket": "cs2340project-c9d2b.appspot.com"
+    "project_number": "721825496667",
+    "project_id": "greenplate-a9fc9",
+    "storage_bucket": "greenplate-a9fc9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:783039250064:android:3290c3c6986773bd296215",
+        "mobilesdk_app_id": "1:721825496667:android:d8618d02d427aeb761897e",
         "android_client_info": {
           "package_name": "com.example.cs2340project"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDeqXW-4Rl4P52KwU8xBJceldkRCul50IA"
+          "current_key": "AIzaSyCRNJ3IyTQerMzmGBRdBxJDS_9e4zXZ-pY"
         }
       ],
       "services": {
