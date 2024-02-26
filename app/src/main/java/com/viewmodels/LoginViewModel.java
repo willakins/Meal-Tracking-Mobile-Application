@@ -38,7 +38,7 @@ public class LoginViewModel {
      * @param password the user's password
      * @return true if it was successful in logging the user in.
      */
-    public boolean login(LoginActivity la, FirebaseAuth mAuth, String username, String password) {
+    public void login(LoginActivity la, FirebaseAuth mAuth, String username, String password) {
         if (checkUserInput(username, password)) {
             mAuth.signInWithEmailAndPassword(username, password)
                     .addOnCompleteListener(la, new OnCompleteListener<AuthResult>() {
@@ -47,24 +47,22 @@ public class LoginViewModel {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                success = true;
+                                Intent intent = new Intent(la, HomeActivity.class);
+                                la.startActivity(intent);
                             } else {
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(la, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
-                                success = false;
                             }
                         }
                     });
-            return success;
         } else {
             Toast.makeText(la, "Invalid Input",
                     Toast.LENGTH_SHORT).show();
-            return false;
         }
     }
 
-    public boolean createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
+    public void createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
         if (checkUserInput(username, password)) {
             mAuth.createUserWithEmailAndPassword(username, password)
                     .addOnCompleteListener(aca, new OnCompleteListener<AuthResult>() {
@@ -74,19 +72,17 @@ public class LoginViewModel {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                success = true;
+                                Intent intent = new Intent(aca, HomeActivity.class);
+                                aca.startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                success = false;
                             }
                         }
                     });
-            return success;
         } else {
             Toast.makeText(aca, "Invalid Input",
                     Toast.LENGTH_SHORT).show();
-            return false;
         }
     }
 
