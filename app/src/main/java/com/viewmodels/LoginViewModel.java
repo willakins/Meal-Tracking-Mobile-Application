@@ -62,7 +62,7 @@ public class LoginViewModel {
         }
     }
 
-    public void createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
+    public boolean createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
         if (checkUserInput(username, password)) {
             mAuth.createUserWithEmailAndPassword(username, password)
                     .addOnCompleteListener(aca, new OnCompleteListener<AuthResult>() {
@@ -72,17 +72,19 @@ public class LoginViewModel {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                Intent intent = new Intent(aca, InputMealActivity.class);
-                                aca.startActivity(intent);
+                                success = true;
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                success = true;
                             }
                         }
                     });
+            return success;
         } else {
             Toast.makeText(aca, "Invalid Input",
                     Toast.LENGTH_SHORT).show();
+            return false;
         }
     }
 

@@ -47,7 +47,16 @@ public class AccountCreateActivity extends AppCompatActivity {
             String username = newUsername.getText().toString();
             String password = newPassword.getText().toString();
             hideKeyboard();
-            loginViewModel.createAccount(this, mAuth, username, password);
+//            loginViewModel.createAccount(this, mAuth, username, password);
+            if (!(username.equals("")||password.equals(""))) {
+                if (loginViewModel.createAccount(this, mAuth, username, password)) {
+                    Intent intent = new Intent(AccountCreateActivity.this, InputMealActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
+
+                }
+            }
         });
     }
 
