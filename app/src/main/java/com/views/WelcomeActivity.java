@@ -14,21 +14,17 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        Thread timerThread;
         Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
         timerThread = new Thread() {
             public void run() {
-                boolean timerRunning = true;
-                while(timerRunning) {
-                    try {
-                        Thread.sleep(1000);
-                        startActivity(intent);
-                        timerRunning = false;
-                    } catch (InterruptedException e) {
-                        timerRunning = false;
-                        throw new RuntimeException(e);
-                    }
+                try {
+                    Thread.sleep(1000);
+                    startActivity(intent);
+                    WelcomeActivity.this.finish();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-
             }
         };
         timerThread.start();
