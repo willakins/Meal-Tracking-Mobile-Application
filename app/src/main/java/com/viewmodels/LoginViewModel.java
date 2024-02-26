@@ -61,7 +61,8 @@ public class LoginViewModel {
         }
     }
 
-    public boolean createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
+    public boolean createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username,
+                                 String password) {
         if (checkUserInput(username, password)) {
             mAuth.createUserWithEmailAndPassword(username, password)
                     .addOnCompleteListener(aca, new OnCompleteListener<AuthResult>() {
