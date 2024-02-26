@@ -51,6 +51,10 @@ public class AccountCreateActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Helper method that allows the keyboard to unfocus
+     * Taken from sprint 0.5
+     */
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
