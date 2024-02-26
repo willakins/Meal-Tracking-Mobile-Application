@@ -9,9 +9,6 @@ public class WelcomeActivity extends AppCompatActivity {
     // Just display an initial visual of some kind, then instantly move to LoginActivity
     private Thread timerThread;
 
-<<<<<<< HEAD
-
-=======
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,5 +33,4 @@ public class WelcomeActivity extends AppCompatActivity {
         };
         timerThread.start();
     }
->>>>>>> 8710ce285a991a9d6939aaca2c739d9786dfa610
 }
