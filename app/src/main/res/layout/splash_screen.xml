@@ -7,11 +7,11 @@
     >
 
     <TextView
-        android:id="@+id/ShoppingTextView"
+        android:id="@+id/SplashScreenTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Shopping List"
+        android:text="Splash Screen"
         android:textAllCaps="true"
-        android:textSize="20sp"
+        android:textSize="40sp"
         android:textStyle="bold" />
 </LinearLayout>
