@@ -21,7 +21,8 @@ public class InputMealActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         binding = ActivityInputMealBinding.inflate(getLayoutInflater());
-        setontentView(binding.getRoot());
+        setContentView(binding.getRoot());
+        replaceFragment(new MealsFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.meals) {
