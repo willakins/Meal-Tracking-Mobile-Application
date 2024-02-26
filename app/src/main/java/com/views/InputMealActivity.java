@@ -1,11 +1,6 @@
 package com.views;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.widget.Button;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -19,7 +14,7 @@ public class InputMealActivity extends AppCompatActivity {
     //Has a nav bar that can navigate to: InputMealActivity, RecipeActivity, Ingredient Activity,
     //                                      and Shopping Activity
     // Nav bar should also exist on all 4 of those "main feature" screens
-    ActivityInputMealBinding binding;
+    private ActivityInputMealBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,10 +41,12 @@ public class InputMealActivity extends AppCompatActivity {
         });
     }
 
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
+
 }
