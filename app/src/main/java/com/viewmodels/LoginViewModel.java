@@ -36,7 +36,6 @@ public class LoginViewModel {
      * @param mAuth the firebase authentication
      * @param username the user's username/email
      * @param password the user's password
-     * @return true if it was successful in logging the user in.
      */
     public void login(LoginActivity la, FirebaseAuth mAuth, String username, String password) {
         if (checkUserInput(username, password)) {
