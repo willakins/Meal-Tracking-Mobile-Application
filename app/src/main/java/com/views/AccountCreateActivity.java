@@ -53,7 +53,6 @@ public class AccountCreateActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
