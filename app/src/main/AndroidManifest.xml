@@ -34,7 +34,7 @@
         </activity>
 
         <activity
-            android:name=".InputMealActivity"
+            android:name=".HomeActivity"
             android:exported="true">
         </activity>
 

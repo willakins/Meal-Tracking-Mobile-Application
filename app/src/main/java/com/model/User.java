@@ -6,20 +6,28 @@ public class User {
     private int height;
     private int weight;
     private boolean isMale;
+    private int calorieGoal;
+    private int caloriesToday;
     //Height is measured in inches
     private static final int DEFAULT_HEIGHT = 64;
     //Weight is measured in pounds
     private static final int DEFAULT_WEIGHT = 130;
     //I support women
     private static final boolean DEFAULT_IS_MALE = false;
+    private static final int DEFAULT_CALORIE_GOAL = 2000;
+    private static final int DEFAULT_CALORIES_TODAY = 0;
 
     /**
      * Constructor for no args case
      */
-    public User() {
+    public User(String username, String password) {
         this.height = DEFAULT_HEIGHT;
         this.weight = DEFAULT_WEIGHT;
         this.isMale = DEFAULT_IS_MALE;
+        this.calorieGoal = DEFAULT_CALORIE_GOAL;
+        this.caloriesToday = DEFAULT_CALORIES_TODAY;
+        this.username = username;
+        this.password = password;
     }
 
 
@@ -43,6 +51,14 @@ public class User {
         this.isMale = isMale;
     }
 
+    public void setCaloriesToday(int calories) {
+        this.caloriesToday = calories;
+    }
+
+    public void setCalorieGoal(int calories) {
+        this.calorieGoal = calories;
+    }
+
     public String getUsername() {
         return this.username;
     }
@@ -63,6 +79,14 @@ public class User {
         return this.isMale;
     }
 
+    public int getCaloriesToday() {
+        return this.caloriesToday;
+    }
+
+    public int getCalorieGoal() {
+        return this.calorieGoal;
+    }
+
     /**
      * Helper method that calculates daily calorie goal for user
      * Mifflin-St Jeor Equation:
@@ -80,6 +104,7 @@ public class User {
         } else {
             calories = (10 * this.weight) + (6.25 * this.height) - 221;
         }
+        this.calorieGoal = (int) Math.ceil(calories);
         return (int) Math.ceil(calories);
     }
 
