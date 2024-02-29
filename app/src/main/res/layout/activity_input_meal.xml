@@ -22,41 +22,6 @@
             android:layout_height="match_parent">
 
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="478dp"
-                android:layout_height="995dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.496"
-                app:srcCompat="@drawable/spring_wallpaper_1_50" />
-
-            <EditText
-                android:id="@+id/editTextUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="96dp"
-                android:layout_marginTop="82dp"
-                android:ems="10"
-                android:hint="username"
-                android:inputType="text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="96dp"
-                android:layout_marginTop="156dp"
-                android:ems="10"
-                android:hint="password"
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

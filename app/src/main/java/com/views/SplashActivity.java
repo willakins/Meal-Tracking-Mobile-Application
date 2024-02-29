@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
     //This is the splash page
     // Just display an initial visual of some kind, then instantly move to LoginActivity
     private Thread timerThread;
@@ -15,13 +15,13 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Thread timerThread;
-        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
         timerThread = new Thread() {
             public void run() {
                 try {
                     Thread.sleep(1000);
                     startActivity(intent);
-                    WelcomeActivity.this.finish();
+                    SplashActivity.this.finish();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
