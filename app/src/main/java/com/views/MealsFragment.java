@@ -58,22 +58,22 @@ public class MealsFragment extends Fragment {
         initializeDefaults();
 
         /**
-         * TODO: Should save data from mealName and mealCalories and send it to database
-         * TODO: Should also clear text fields and check for invalid input
+         * TODO 1: Should save data from mealName and mealCalories and send it to database
+         * TODO 1: Should also clear text fields and check for invalid input
          */
         submitMealButton.setOnClickListener(v -> {
 
         });
 
         /**
-         * TODO: Should display calorie data using imported library of choosing
+         * TODO 2: Should display calorie data using imported library of choosing
          */
         dataVisual1Button.setOnClickListener(v -> {
 
         });
 
         /**
-         * TODO: Should display calorie data using imported library of choosing
+         * TODO 2: Should display calorie data using imported library of choosing
          */
         dataVisual2Button.setOnClickListener(v -> {
 

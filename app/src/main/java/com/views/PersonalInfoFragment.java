@@ -39,9 +39,9 @@ public class PersonalInfoFragment extends Fragment {
         switchGender = view.findViewById(R.id.switchGender);
         saveInfoButton = view.findViewById(R.id.buttonSaveInfo);
         /**
-         * TODO: Should save data from 2 edit texts and switch and send it to database
-         * TODO: Should set this data in other tabs like input meals screen
-         * TODO: Should check user input for null and invalid
+         * TODO 3: Should save data from 2 edit texts and switch and send it to database
+         * TODO 3: Should set this data in other tabs like input meals screen
+         * TODO 3: Should check user input for null and invalid
          */
         saveInfoButton.setOnClickListener(v -> {
             //...
