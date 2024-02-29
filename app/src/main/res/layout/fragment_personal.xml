@@ -7,9 +7,116 @@
     android:background="#FFFF"
     tools:context=".PersonalInfoFragment">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/greenhills_50" />
+    <FrameLayout
+        android:layout_width="450dp"
+        android:layout_height="900dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="544dp"
+                android:layout_height="1028dp"
+                android:src="@drawable/greenhills_50"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="97dp"
+                android:layout_marginEnd="69dp"
+                android:layout_marginBottom="763dp"
+                android:text="Enter Your Personal Info"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/editTextHeight"
+                android:layout_width="216dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="116dp"
+                android:layout_marginTop="172dp"
+                android:layout_marginEnd="118dp"
+                android:layout_marginBottom="667dp"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Enter Your Height"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <EditText
+                android:id="@+id/editTextWeight"
+                android:layout_width="216dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="116dp"
+                android:layout_marginTop="244dp"
+                android:layout_marginEnd="118dp"
+                android:layout_marginBottom="594dp"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Enter Your Weight"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Switch
+                android:id="@+id/switchGender"
+                android:layout_width="102dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="174dp"
+                android:layout_marginTop="315dp"
+                android:layout_marginEnd="174dp"
+                android:layout_marginBottom="541dp"
+                android:text="Male"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="120dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="165dp"
+                android:layout_marginTop="396dp"
+                android:layout_marginEnd="165dp"
+                android:layout_marginBottom="438dp"
+                android:backgroundTint="@color/black"
+                android:text="Save Info"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
 </FrameLayout>
