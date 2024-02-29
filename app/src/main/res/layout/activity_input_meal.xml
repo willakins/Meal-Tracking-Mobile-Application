@@ -8,6 +8,7 @@
 
 
     <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="404dp"
         android:layout_height="853dp"
         tools:ignore="MissingConstraints"
@@ -21,14 +22,12 @@
 
 
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="471dp"
-                android:layout_height="1155dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/spring_wallpaper_1" />
+                android:id="@+id/imageView4"
+                android:layout_width="408dp"
+                android:layout_height="840dp"
+                app:srcCompat="@drawable/spring_wallpaper_1_50"
+                tools:layout_editor_absoluteX="-2dp"
+                tools:layout_editor_absoluteY="-3dp" />
 
             <EditText
                 android:id="@+id/editTextUsername"
@@ -61,17 +60,6 @@
             android:layout_height="50dp">
 
         </RelativeLayout>
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
