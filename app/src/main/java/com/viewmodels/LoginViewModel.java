@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.model.User;
 import com.views.AccountCreateActivity;
-import com.views.HomeActivity;
+import com.views.InputMealActivity;
 import com.views.LoginActivity;
 
 import java.util.Objects;
@@ -49,7 +49,7 @@ public class LoginViewModel {
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 assignUser(username, password);
-                                Intent intent = new Intent(la, HomeActivity.class);
+                                Intent intent = new Intent(la, InputMealActivity.class);
                                 la.startActivity(intent);
                             } else {
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -75,7 +75,7 @@ public class LoginViewModel {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 assignUser(username, password);
-                                Intent intent = new Intent(aca, HomeActivity.class);
+                                Intent intent = new Intent(aca, InputMealActivity.class);
                                 aca.startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.

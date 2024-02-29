@@ -11,7 +11,7 @@ import com.views.databinding.ActivityInputMealBinding;
 /**
  * Center feature screen; contains navbar and has all aspects of fragments
  */
-public class HomeActivity extends AppCompatActivity {
+public class InputMealActivity extends AppCompatActivity {
     private ActivityInputMealBinding binding;
 
     @Override
