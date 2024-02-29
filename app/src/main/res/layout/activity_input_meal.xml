@@ -9,11 +9,12 @@
 
     <FrameLayout
         android:id="@+id/frame_layout"
-        android:layout_width="404dp"
-        android:layout_height="853dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="-3dp">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/relativeLayout"
@@ -23,11 +24,15 @@
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="408dp"
-                android:layout_height="840dp"
-                app:srcCompat="@drawable/spring_wallpaper_1_50"
-                tools:layout_editor_absoluteX="-2dp"
-                tools:layout_editor_absoluteY="-3dp" />
+                android:layout_width="478dp"
+                android:layout_height="995dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.507"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.496"
+                app:srcCompat="@drawable/spring_wallpaper_1_50" />
 
             <EditText
                 android:id="@+id/editTextUsername"
