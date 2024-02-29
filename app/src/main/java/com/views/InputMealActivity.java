@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.views.databinding.ActivityInputMealBinding;
 
+import org.w3c.dom.Text;
+
 /**
  * Center feature screen; contains navbar and has all aspects of fragments
  */
@@ -23,12 +25,17 @@ public class InputMealActivity extends AppCompatActivity {
     private Button submitMealButton;
     private Button dataVisual1;
     private Button dataVisual2;
-    private EditText mealName;
-    private EditText mealCalories;
+    private EditText editMealName;
+    private EditText editMealCalories;
+    private TextView textHeight;
+    private TextView textWeight;
+    private TextView textGender;
+    private TextView textCalorieGoal;
+    private TextView textCaloriesToday;
 
-    private EditText height;
-    private EditText weight;
-    private Switch gender;
+    private EditText editHeight;
+    private EditText editWeight;
+    private Switch switchGender;
     private Button saveInfo;
 
     @Override
@@ -42,6 +49,11 @@ public class InputMealActivity extends AppCompatActivity {
         submitMealButton = findViewById(R.id.buttonSubmitMeal);
         dataVisual1 = findViewById(R.id.buttonDataVisual1);
         dataVisual2 = findViewById(R.id.buttonDataVisual2);
+        editMealName = findViewById(R.id.editMealName);
+        editMealCalories = findViewById(R.id.editTextCalories);
+        editHeight = findViewById(R.id.editTextHeight);
+        editWeight = findViewById(R.id.editTextWeight);
+        switchGender = findViewById(R.id.switchGender);
         saveInfo = findViewById(R.id.buttonSaveInfo);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -64,9 +76,44 @@ public class InputMealActivity extends AppCompatActivity {
             return false;
         });
 
+        /**
+         * TODO: Should save data from mealName and mealCalories and send it to database
+         * TODO: Should also clear text fields and check for invalid input
+         */
+        submitMealButton.setOnClickListener(v -> {
+
+        });
+
+        /**
+         * TODO: Should display calorie data using imported library of choosing
+         */
+        dataVisual1.setOnClickListener(v -> {
+
+        });
+
+        /**
+         * TODO: Should display calorie data using imported library of choosing
+         */
+        dataVisual2.setOnClickListener(v -> {
+
+        });
+
+        /**
+         * TODO: Should save data from 2 edit texts and switch and send it to database
+         * TODO: Should set this data in other tabs like input meals screen
+         * TODO: Should check user input for null and invalid
+         */
+        saveInfo.setOnClickListener(v -> {
+            //...
+            //textHeight.setText(newHeight);
+        });
 
     }
 
+    /**
+     * Helper method that changes the fragment visual currently on screen
+     * @param fragment the new screen fragment to be displayed
+     */
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
