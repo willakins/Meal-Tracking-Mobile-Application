@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,13 +15,22 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.views.databinding.ActivityInputMealBinding;
 
-
+/**
+ * Center feature screen; contains navbar and has all aspects of fragments
+ */
 public class InputMealActivity extends AppCompatActivity {
-    //Activates when user successfully logs in
-    //Has a nav bar that can navigate to: InputMealActivity, RecipeActivity, Ingredient Activity,
-    //                                      and Shopping Activity
-    // Nav bar should also exist on all 4 of those "main feature" screens
-    ActivityInputMealBinding binding;
+    private ActivityInputMealBinding binding;
+    private Button submitMealButton;
+    private Button dataVisual1;
+    private Button dataVisual2;
+    private EditText mealName;
+    private EditText mealCalories;
+
+    private EditText height;
+    private EditText weight;
+    private Switch gender;
+    private Button saveInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -27,6 +38,11 @@ public class InputMealActivity extends AppCompatActivity {
         binding = ActivityInputMealBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new MealsFragment());
+
+        submitMealButton = findViewById(R.id.buttonSubmitMeal);
+        dataVisual1 = findViewById(R.id.buttonDataVisual1);
+        dataVisual2 = findViewById(R.id.buttonDataVisual2);
+        saveInfo = findViewById(R.id.buttonSaveInfo);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.meals) {
@@ -47,6 +63,8 @@ public class InputMealActivity extends AppCompatActivity {
             }
             return false;
         });
+
+
     }
 
     private void replaceFragment(Fragment fragment){

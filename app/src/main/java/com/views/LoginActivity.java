@@ -6,22 +6,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.viewmodels.LoginViewModel;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/**
+ * Has a quit button, 2 edit texts for username and password, a login button,
+ * and a button to switch to createAccount page
+ * Must also check for whitespace and null input to edit texts
+ */
 public class LoginActivity extends AppCompatActivity {
-    //Has a quit button
-    //Has header "Enter username and password to login"
-    //Has 2 textFields for username and password
-    //Has a login button that changes to HomeActivity
-    //Has a button that changes to AccountCreateActivity
-    //Null and whitespace checks for text fields
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;

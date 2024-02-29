@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+//This is the splash page
+// Just display an initial visual of some kind, then instantly move to LoginActivity
 public class SplashActivity extends AppCompatActivity {
-    //This is the splash page
-    // Just display an initial visual of some kind, then instantly move to LoginActivity
     private Thread timerThread;
 
     @Override

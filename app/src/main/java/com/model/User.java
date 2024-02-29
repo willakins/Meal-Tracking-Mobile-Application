@@ -11,7 +11,7 @@ public class User {
     //Weight is measured in pounds
     private static final int DEFAULT_WEIGHT = 130;
     //I support women
-    private static final boolean DEFAULT_ISMALE = false;
+    private static final boolean DEFAULT_IS_MALE = false;
 
     /**
      * Constructor for no args case
@@ -19,7 +19,7 @@ public class User {
     public User() {
         this.height = DEFAULT_HEIGHT;
         this.weight = DEFAULT_WEIGHT;
-        this.isMale = DEFAULT_ISMALE;
+        this.isMale = DEFAULT_IS_MALE;
     }
 
 
