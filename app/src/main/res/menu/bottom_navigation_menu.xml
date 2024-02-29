@@ -17,4 +17,9 @@
         android:title="Shopping"
         android:icon="@drawable/shopping"
         android:id="@+id/shopping"/>
+
+    <item
+        android:title="Personal Info"
+        android:icon="@drawable/shopping"
+        android:id="@+id/info"/>
 </menu>

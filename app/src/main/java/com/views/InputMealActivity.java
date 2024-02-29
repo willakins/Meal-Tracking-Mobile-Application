@@ -41,6 +41,9 @@ public class InputMealActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.shopping) {
                 replaceFragment(new ShoppingFragment());
                 return true;
+            } else if (item.getItemId() == R.id.info) {
+                replaceFragment(new PersonalInfoFragment());
+                return true;
             }
             return false;
         });
