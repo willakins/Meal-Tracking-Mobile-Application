@@ -8,13 +8,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.views.databinding.ActivityInputMealBinding;
 
-
+/**
+ * Center feature screen; contains navbar and has all aspects of fragments
+ */
 public class InputMealActivity extends AppCompatActivity {
-    //Activates when user successfully logs in
-    //Has a nav bar that can navigate to: InputMealActivity, RecipeActivity, Ingredient Activity,
-    //                                      and Shopping Activity
-    // Nav bar should also exist on all 4 of those "main feature" screens
     private ActivityInputMealBinding binding;
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,11 +35,18 @@ public class InputMealActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.shopping) {
                 replaceFragment(new ShoppingFragment());
                 return true;
+            } else if (item.getItemId() == R.id.info) {
+                replaceFragment(new PersonalInfoFragment());
+                return true;
             }
             return false;
         });
     }
 
+    /**
+     * Helper method that changes the fragment visual currently on screen
+     * @param fragment the new screen fragment to be displayed
+     */
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

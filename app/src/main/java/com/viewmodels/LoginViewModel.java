@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.model.User;
 import com.views.AccountCreateActivity;
 import com.views.InputMealActivity;
 import com.views.LoginActivity;
@@ -22,6 +23,7 @@ import java.util.Objects;
 public class LoginViewModel {
     private static LoginViewModel instance;
     private boolean success = false;
+    private User currentUser;
 
     public static synchronized LoginViewModel getInstance() {
         if (instance == null) {
@@ -46,6 +48,7 @@ public class LoginViewModel {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                assignUser(username, password);
                                 Intent intent = new Intent(la, InputMealActivity.class);
                                 la.startActivity(intent);
                             } else {
@@ -61,8 +64,7 @@ public class LoginViewModel {
         }
     }
 
-    public boolean createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username,
-                                 String password) {
+    public void createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
         if (checkUserInput(username, password)) {
             mAuth.createUserWithEmailAndPassword(username, password)
                     .addOnCompleteListener(aca, new OnCompleteListener<AuthResult>() {
@@ -72,19 +74,18 @@ public class LoginViewModel {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                success = true;
+                                assignUser(username, password);
+                                Intent intent = new Intent(aca, InputMealActivity.class);
+                                aca.startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                success = true;
                             }
                         }
                     });
-            return success;
         } else {
             Toast.makeText(aca, "Invalid Input",
                     Toast.LENGTH_SHORT).show();
-            return false;
         }
     }
 
@@ -117,5 +118,25 @@ public class LoginViewModel {
             }
         }
         return true;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public User getUser() {
+        if (this.currentUser == null) {
+            throw new NullPointerException("User was not initialized in getUser()");
+        }
+        return this.currentUser;
+    }
+
+    /**
+     *
+     * @param username
+     * @param password
+     */
+    private void assignUser(String username, String password) {
+        currentUser = new User(username, password);
     }
 }
