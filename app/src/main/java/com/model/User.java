@@ -8,6 +8,7 @@ public class User {
     private boolean isMale;
     private int calorieGoal;
     private int caloriesToday;
+    private String userId;
     //Height is measured in inches
     private static final int DEFAULT_HEIGHT = 64;
     //Weight is measured in pounds
@@ -17,9 +18,11 @@ public class User {
     private static final int DEFAULT_CALORIE_GOAL = 2000;
     private static final int DEFAULT_CALORIES_TODAY = 0;
 
-    /**
-     * Constructor for no args case
-     */
+
+    public User() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
     public User(String username, String password) {
         this.height = DEFAULT_HEIGHT;
         this.weight = DEFAULT_WEIGHT;
@@ -28,6 +31,7 @@ public class User {
         this.caloriesToday = DEFAULT_CALORIES_TODAY;
         this.username = username;
         this.password = password;
+        this.userId = generateUserId();
     }
 
 
@@ -87,6 +91,10 @@ public class User {
         return this.calorieGoal;
     }
 
+    public String getUserId() {
+        return this.userId;
+    }
+
     /**
      * Helper method that calculates daily calorie goal for user
      * Mifflin-St Jeor Equation:
@@ -106,6 +114,14 @@ public class User {
         }
         this.calorieGoal = (int) Math.ceil(calories);
         return (int) Math.ceil(calories);
+    }
+
+    /**
+     * Helper method that generates a userId which will be used for databases
+     * @return an int representing a hopefully unique userId in string format
+     */
+    private String generateUserId() {
+        return Integer.toString(this.username.hashCode() + this.password.hashCode());
     }
 
 }

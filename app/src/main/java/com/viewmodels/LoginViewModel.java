@@ -13,6 +13,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.model.User;
 import com.views.AccountCreateActivity;
 import com.views.InputMealActivity;
@@ -23,11 +25,15 @@ import java.util.Objects;
 public class LoginViewModel {
     private static LoginViewModel instance;
     private boolean success = false;
-    private User currentUser;
+    private static User currentUser;
+    private static FirebaseDatabase database;
+    private static DatabaseReference mDatabase;
 
     public static synchronized LoginViewModel getInstance() {
         if (instance == null) {
             instance = new LoginViewModel();
+            database = FirebaseDatabase.getInstance();
+            mDatabase = database.getReference();
         }
         return instance;
     }
@@ -75,6 +81,7 @@ public class LoginViewModel {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 assignUser(username, password);
+                                writeNewUser();
                                 Intent intent = new Intent(aca, InputMealActivity.class);
                                 aca.startActivity(intent);
                             } else {
@@ -138,5 +145,16 @@ public class LoginViewModel {
      */
     private void assignUser(String username, String password) {
         currentUser = new User(username, password);
+    }
+
+    /**
+     *
+     */
+    public void writeNewUser() {
+        mDatabase.child("users").child(currentUser.getUserId()).setValue(currentUser);
+    }
+
+    public DatabaseReference getmDatabase() {
+        return this.mDatabase;
     }
 }
