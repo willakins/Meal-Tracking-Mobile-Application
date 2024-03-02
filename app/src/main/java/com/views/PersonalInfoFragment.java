@@ -41,11 +41,7 @@ public class PersonalInfoFragment extends Fragment {
         switchGender = view.findViewById(R.id.switchGender);
         saveInfoButton = view.findViewById(R.id.buttonSaveInfo);
         userViewModel = UserViewModel.getInstance();
-        /**
-         * TODO 3: Should save data from 2 edit texts and switch and send it to database
-         * TODO 3: Should set this data in other tabs like input meals screen
-         * TODO 3: Should check user input for null and invalid
-         */
+
         saveInfoButton.setOnClickListener(v -> {
             String height = editHeight.getText().toString();
             String weight = editWeight.getText().toString();
@@ -69,7 +65,9 @@ public class PersonalInfoFragment extends Fragment {
     }
 
     /**
+     * Helper method that allows this view to output toast messages to the screen
      *
+     * @param context the view page that is currently being displayed (InputMealActivity)
      */
     public void setContext(InputMealActivity context) {
         this.currentContext = context;

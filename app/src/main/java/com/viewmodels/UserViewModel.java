@@ -1,21 +1,26 @@
 package com.viewmodels;
 import android.content.Context;
 import android.widget.Toast;
-
 import com.google.firebase.database.DatabaseReference;
 import com.model.Meal;
 import com.model.User;
-import com.views.InputMealActivity;
-
 import java.util.Objects;
 
-
+/**
+ * Singleton view model that abstracts the connection between the view, the database, and the model
+ *
+ * @author Will Akins
+ */
 public class UserViewModel {
     private static User user;
     private static LoginViewModel loginViewModel;
     private static UserViewModel instance;
     private static DatabaseReference mDatabase;
 
+    /**
+     * Singleton Constructor
+     * @return the userViewModel instance
+     */
     public static synchronized UserViewModel getInstance() {
         if (instance == null) {
             instance = new UserViewModel();
@@ -26,10 +31,14 @@ public class UserViewModel {
         return instance;
     }
 
-    public void setUserCalorieGoal(String calorieGoal) {
-
-    }
-
+    /**
+     * Abstracts the process of updating the user's data after the button click
+     *
+     * @param personalInfo the context so that invalid input message can be displayed
+     * @param height the user's new height
+     * @param weight the user's new weight
+     * @param isMale true if the user is male; false otherwise
+     */
     public void updateUserData(Context personalInfo, String height, String weight, boolean isMale) {
         if (checkUserInput(height, weight)) {
             user.setHeight(Integer.parseInt(height));
@@ -47,14 +56,16 @@ public class UserViewModel {
         }
     }
 
+    /**
+     * Abstracts the process of adding a meal to the database and to the user instance
+     *
+     * @param name the name of the meal
+     * @param calories the calories of the meal
+     */
     public void addUserMeal(String name, String calories) {
         user.addCalories(Integer.parseInt(calories));
         user.getMeals().add(new Meal(name, Integer.parseInt(calories)));
         mDatabase.child("meals").child(user.getUserId()).setValue(user.getMeals());
-    }
-
-    public User getUser() {
-        return user;
     }
 
     /**
@@ -81,5 +92,14 @@ public class UserViewModel {
             }
         }
         return true;
+    }
+
+    /**
+     * Allows other classes to access the user
+     *
+     * @return the current logged in user
+     */
+    public User getUser() {
+        return user;
     }
 }

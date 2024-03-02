@@ -1,13 +1,9 @@
 package com.viewmodels;
-
 import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,10 +20,14 @@ import com.views.AccountCreateActivity;
 import com.views.InputMealActivity;
 import com.views.LoginActivity;
 import com.views.MealsFragment;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Singleton view model that abstracts the connection between the view, the user database, and the model
+ *
+ * @author Will Akins
+ */
 public class LoginViewModel {
     private static LoginViewModel instance;
     private static User user;
@@ -35,6 +35,10 @@ public class LoginViewModel {
     private static DatabaseReference mDatabase;
     private MealsFragment mealsFragment;
 
+    /**
+     * Singleton Constructor
+     * @return the instance of the viewModel
+     */
     public static synchronized LoginViewModel getInstance() {
         if (instance == null) {
             instance = new LoginViewModel();
@@ -46,6 +50,7 @@ public class LoginViewModel {
 
     /**
      * Allows a user to login through firebase
+     *
      * @param la the loginActivity instance
      * @param mAuth the firebase authentication
      * @param username the user's username/email
@@ -76,6 +81,14 @@ public class LoginViewModel {
         }
     }
 
+    /**
+     * Allows a user to create a new account and stores it in user database
+     *
+     * @param aca the AccountCreateActivity context so that Invalid Input can be displayed
+     * @param mAuth the firebase authorization
+     * @param username the user's new username
+     * @param password the user's new password
+     */
     public void createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
         if (checkUserInput(username, password)) {
             mAuth.createUserWithEmailAndPassword(username, password)
@@ -100,6 +113,13 @@ public class LoginViewModel {
             Toast.makeText(aca, "Invalid Input",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Creates a new user node into the user database
+     */
+    public void writeNewUser() {
+        mDatabase.child("users").child(user.getUserId()).setValue(user);
     }
 
     /**
@@ -134,43 +154,13 @@ public class LoginViewModel {
     }
 
     /**
-     *
-     * @return
-     */
-    public User getUser() {
-        if (this.user == null) {
-            throw new NullPointerException("User was not initialized in getUser()");
-        }
-        return this.user;
-    }
-
-    /**
      *Creates a new user object and loads database values into it
      *
-     * @param username
-     * @param password
+     * @param username the user's username
+     * @param password the user's password
      */
     private void assignUser(String username, String password) {
         user = new User(username, password);
-        this.initializeUserData();
-    }
-
-    /**
-     *
-     */
-    public void writeNewUser() {
-        mDatabase.child("users").child(user.getUserId()).setValue(user);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public DatabaseReference getmDatabase() {
-        return this.mDatabase;
-    }
-
-    private void initializeUserData() {
         //Loads previously inputted meals into user's arraylist
         mDatabase.child("meals").child(user.getUserId()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -195,7 +185,6 @@ public class LoginViewModel {
                 Log.d(TAG, "assignUser:Failure");
             }
         });
-
     }
 
     /**
@@ -205,4 +194,14 @@ public class LoginViewModel {
     public void setMealsFragment(MealsFragment mealsFragment) {
         this.mealsFragment = mealsFragment;
     }
+
+    /**
+     * Allows other classes to access the database
+     * @return a reference to the database containing both meals and users
+     */
+    public DatabaseReference getmDatabase() {
+        return this.mDatabase;
+    }
+
+
 }

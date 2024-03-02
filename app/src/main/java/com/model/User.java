@@ -133,6 +133,11 @@ public class User {
         return (int) Math.ceil(calories);
     }
 
+    /**
+     * Takes the first part of a user's email and generates a more human readable username
+     *
+     * @return a string representing the user
+     */
     private String generateUserId() {
         int indexOfAtSymbol = this.username.indexOf("@");
         String justTheName = this.username.substring(0, indexOfAtSymbol);

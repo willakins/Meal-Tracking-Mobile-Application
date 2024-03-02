@@ -1,11 +1,7 @@
 package com.views;
-
 import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.model.Meal;
 import com.viewmodels.LoginViewModel;
 import com.viewmodels.UserViewModel;
-
-import java.util.ArrayList;
 
 public class MealsFragment extends Fragment {
     private Button submitMealButton;
@@ -81,6 +70,7 @@ public class MealsFragment extends Fragment {
             userViewModel.addUserMeal(mealName, mealCalories);
             //Updates UI
             textCaloriesToday.setText("Today's Calories: " + userViewModel.getUser().getCaloriesToday());
+            //I just took care of database portion make sure to finish it up - Will
         });
 
         /**
