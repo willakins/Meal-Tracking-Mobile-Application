@@ -13,7 +13,7 @@ import com.views.databinding.ActivityInputMealBinding;
  */
 public class InputMealActivity extends AppCompatActivity {
     private ActivityInputMealBinding binding;
-
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,10 +47,12 @@ public class InputMealActivity extends AppCompatActivity {
      * Helper method that changes the fragment visual currently on screen
      * @param fragment the new screen fragment to be displayed
      */
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
+
 }
