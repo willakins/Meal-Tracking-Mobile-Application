@@ -1,4 +1,7 @@
 package com.model;
+
+import java.util.ArrayList;
+
 //user class
 public class User {
     private String username;
@@ -9,6 +12,7 @@ public class User {
     private int calorieGoal;
     private int caloriesToday;
     private String userId;
+    private ArrayList<Meal> meals = new ArrayList<>();
     //Height is measured in inches
     private static final int DEFAULT_HEIGHT = 64;
     //Weight is measured in pounds
@@ -32,6 +36,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.userId = generateUserId();
+        this.meals = new ArrayList<Meal>();
     }
 
 
@@ -89,6 +94,10 @@ public class User {
 
     public int getCalorieGoal() {
         return this.calorieGoal;
+    }
+
+    public ArrayList<Meal> getMeals() {
+        return this.meals;
     }
 
     public String getUserId() {

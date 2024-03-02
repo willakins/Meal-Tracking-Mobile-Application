@@ -1,9 +1,12 @@
 package com.views;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.model.Meal;
 import com.viewmodels.LoginViewModel;
+import com.viewmodels.UserViewModel;
+
+import java.util.ArrayList;
 
 public class MealsFragment extends Fragment {
     private Button submitMealButton;
@@ -24,7 +34,8 @@ public class MealsFragment extends Fragment {
     private TextView textGender;
     private TextView textCalorieGoal;
     private TextView textCaloriesToday;
-    private LoginViewModel loginViewModel;
+    private static LoginViewModel loginViewModel;
+    private static UserViewModel userViewModel;
 
     private View view;
 
@@ -54,6 +65,7 @@ public class MealsFragment extends Fragment {
         textGender = view.findViewById(R.id.textViewGender);
         textCalorieGoal = view.findViewById(R.id.textViewCalorieGoal);
         textCaloriesToday = view.findViewById(R.id.textViewCaloriesToday);
+        userViewModel = UserViewModel.getInstance();
 
         initializeDefaults();
 
@@ -62,7 +74,10 @@ public class MealsFragment extends Fragment {
          * TODO 1: Should also clear text fields and check for invalid input
          */
         submitMealButton.setOnClickListener(v -> {
-
+            //Saves meal into database
+            String mealName = editMealName.getText().toString();
+            String mealCalories = editMealCalories.getText().toString();
+            userViewModel.addUserMeal(mealName, mealCalories);
         });
 
         /**
@@ -110,5 +125,16 @@ public class MealsFragment extends Fragment {
                                 Integer.toString(loginViewModel.getUser().calculateCalorieGoal()));
         textCaloriesToday.setText("Today's Calories: " +
                                 Integer.toString(loginViewModel.getUser().getCaloriesToday()));
+    }
+
+    /**
+     * Helper method for dynamically updating calories UI
+     */
+    private void updateCalorieUI(ArrayList<Meal> meals) {
+        int calories = 0;
+        for (Meal meal : meals) {
+            calories += meal.getCalories();
+        }
+        textCaloriesToday.setText("Today's Calories: " + Integer.toString(calories));
     }
 }
