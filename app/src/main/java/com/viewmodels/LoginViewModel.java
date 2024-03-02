@@ -203,5 +203,14 @@ public class LoginViewModel {
         return this.mDatabase;
     }
 
-
+    /**
+     * Allows userViewModel to get an instance of the user
+     * Only userViewModel should use this method; other classes should access the user
+     * through the userViewModel.
+     *
+     * @return an instance of the current user
+     */
+    public User getUser() {
+        return this.user;
+    }
 }

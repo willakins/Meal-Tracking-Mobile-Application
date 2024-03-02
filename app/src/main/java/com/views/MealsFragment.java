@@ -1,5 +1,4 @@
 package com.views;
-import static android.content.ContentValues.TAG;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
@@ -56,6 +55,7 @@ public class MealsFragment extends Fragment {
         textCalorieGoal = view.findViewById(R.id.textViewCalorieGoal);
         textCaloriesToday = view.findViewById(R.id.textViewCaloriesToday);
 
+        //Updates the UI with either default values or values stored in database
         loginViewModel.setMealsFragment(MealsFragment.this);
         updateUI();
 
@@ -105,23 +105,20 @@ public class MealsFragment extends Fragment {
      * Helper method to abstract the process of initializing the text views before user input
      */
     public void updateUI() {
-        Log.d(TAG, "Setting Calories Text now 1");
-        synchronized (loginViewModel.getUser()) {
-            Log.d(TAG, "calories is " + userViewModel.getUser().getCaloriesToday());
-            Log.d(TAG, "Setting Calories Text now 2");
+        synchronized (userViewModel.getUser()) {
             textHeight.setText("Height: " +
-                    Integer.toString(loginViewModel.getUser().getHeight()));
+                    Integer.toString(userViewModel.getUser().getHeight()));
             textWeight.setText("Weight: " +
-                    Integer.toString(loginViewModel.getUser().getWeight()));
+                    Integer.toString(userViewModel.getUser().getWeight()));
             if (loginViewModel.getUser().getIsMale()) {
                 textGender.setText("Male");
             } else {
                 textGender.setText("Female");
             }
             textCalorieGoal.setText("Calorie Goal: " +
-                    Integer.toString(loginViewModel.getUser().calculateCalorieGoal()));
+                    Integer.toString(userViewModel.getUser().calculateCalorieGoal()));
             textCaloriesToday.setText("Today's Calories: " +
-                    Integer.toString(loginViewModel.getUser().getCaloriesToday()));
+                    Integer.toString(userViewModel.getUser().getCaloriesToday()));
         }
     }
 }

@@ -1,8 +1,4 @@
 package com.views;
-
-import static androidx.core.content.ContextCompat.getSystemService;
-import android.view.inputmethod.InputMethodManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
