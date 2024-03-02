@@ -116,12 +116,10 @@ public class User {
         return (int) Math.ceil(calories);
     }
 
-    /**
-     * Helper method that generates a userId which will be used for databases
-     * @return an int representing a hopefully unique userId in string format
-     */
     private String generateUserId() {
-        return Integer.toString(this.username.hashCode() + this.password.hashCode());
+        int indexOfAtSymbol = this.username.indexOf("@");
+        String justTheName = this.username.substring(0, indexOfAtSymbol);
+        return justTheName;
     }
 
 }

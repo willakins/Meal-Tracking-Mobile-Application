@@ -25,6 +25,7 @@ public class UserViewModel {
     }
 
     public void setUserHeight(String height) {
+        user.setHeight(Integer.parseInt(height));
         mDatabase.child("users").child(user.getUserId()).child("height").setValue(height);
     }
 
@@ -40,4 +41,7 @@ public class UserViewModel {
         return 0;
     }
 
+    public User getUser() {
+        return user;
+    }
 }
