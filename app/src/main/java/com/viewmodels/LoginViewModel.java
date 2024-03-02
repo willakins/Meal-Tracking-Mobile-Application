@@ -24,7 +24,6 @@ import java.util.Objects;
 
 public class LoginViewModel {
     private static LoginViewModel instance;
-    private boolean success = false;
     private static User currentUser;
     private static FirebaseDatabase database;
     private static DatabaseReference mDatabase;
@@ -154,6 +153,10 @@ public class LoginViewModel {
         mDatabase.child("users").child(currentUser.getUserId()).setValue(currentUser);
     }
 
+    /**
+     *
+     * @return
+     */
     public DatabaseReference getmDatabase() {
         return this.mDatabase;
     }

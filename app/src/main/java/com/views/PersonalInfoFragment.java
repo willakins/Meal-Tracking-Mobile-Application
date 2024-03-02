@@ -11,6 +11,7 @@ import android.widget.Switch;
 import androidx.fragment.app.Fragment;
 
 import com.viewmodels.LoginViewModel;
+import com.viewmodels.UserViewModel;
 
 public class PersonalInfoFragment extends Fragment {
 
@@ -19,7 +20,7 @@ public class PersonalInfoFragment extends Fragment {
     private EditText editWeight;
     private Switch switchGender;
     private Button saveInfoButton;
-    private LoginViewModel loginViewModel;
+    private UserViewModel userViewModel;
 
     public PersonalInfoFragment() {
         // Required empty public constructor
@@ -38,6 +39,7 @@ public class PersonalInfoFragment extends Fragment {
         editWeight = view.findViewById(R.id.editTextWeight);
         switchGender = view.findViewById(R.id.switchGender);
         saveInfoButton = view.findViewById(R.id.buttonSaveInfo);
+        userViewModel = UserViewModel.getInstance();
         /**
          * TODO 3: Should save data from 2 edit texts and switch and send it to database
          * TODO 3: Should set this data in other tabs like input meals screen
@@ -46,6 +48,7 @@ public class PersonalInfoFragment extends Fragment {
         saveInfoButton.setOnClickListener(v -> {
             //...
             //textHeight.setText(newHeight);
+            userViewModel.setUserHeight(editHeight.getText().toString());
         });
         return view;
     }
