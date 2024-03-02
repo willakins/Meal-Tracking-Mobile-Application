@@ -13,18 +13,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.model.Meal;
 import com.model.User;
 import com.views.AccountCreateActivity;
 import com.views.InputMealActivity;
 import com.views.LoginActivity;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class LoginViewModel {
     private static LoginViewModel instance;
-    private static User currentUser;
+    private static User user;
     private static FirebaseDatabase database;
     private static DatabaseReference mDatabase;
 
@@ -131,26 +137,53 @@ public class LoginViewModel {
      * @return
      */
     public User getUser() {
-        if (this.currentUser == null) {
+        if (this.user == null) {
             throw new NullPointerException("User was not initialized in getUser()");
         }
-        return this.currentUser;
+        return this.user;
     }
 
     /**
+     *Creates a new user object and loads database values into it
      *
      * @param username
      * @param password
      */
     private void assignUser(String username, String password) {
-        currentUser = new User(username, password);
+        user = new User(username, password);
+        ArrayList<Meal> meals = new ArrayList<>();
+        //Loads previously inputted meals into user's arraylist
+        mDatabase.child("meals").child(user.getUserId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    String mealName = postSnapshot.child("name").getValue(String.class);
+                    Log.d(TAG, "meal name is " + mealName);
+                    String calories = String.valueOf(postSnapshot.child("calories").getValue(Long.class));
+                    Log.d(TAG, "calories is " + calories);
+                    meals.add(new Meal(mealName, Integer.parseInt(calories)));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "assignUser:Failure");
+            }
+        });
+        user.setMeals(meals);
+        int calories = 0;
+        for (Meal meal : meals) {
+            calories += meal.getCalories();
+        }
+        user.setCaloriesToday(calories);
     }
 
     /**
      *
      */
     public void writeNewUser() {
-        mDatabase.child("users").child(currentUser.getUserId()).setValue(currentUser);
+        mDatabase.child("users").child(user.getUserId()).setValue(user);
     }
 
     /**

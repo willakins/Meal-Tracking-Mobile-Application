@@ -78,6 +78,8 @@ public class MealsFragment extends Fragment {
             String mealName = editMealName.getText().toString();
             String mealCalories = editMealCalories.getText().toString();
             userViewModel.addUserMeal(mealName, mealCalories);
+            //Updates UI
+            textCaloriesToday.setText("Today's Calories: " + userViewModel.getUser().getCaloriesToday());
         });
 
         /**
@@ -125,16 +127,5 @@ public class MealsFragment extends Fragment {
                                 Integer.toString(loginViewModel.getUser().calculateCalorieGoal()));
         textCaloriesToday.setText("Today's Calories: " +
                                 Integer.toString(loginViewModel.getUser().getCaloriesToday()));
-    }
-
-    /**
-     * Helper method for dynamically updating calories UI
-     */
-    private void updateCalorieUI(ArrayList<Meal> meals) {
-        int calories = 0;
-        for (Meal meal : meals) {
-            calories += meal.getCalories();
-        }
-        textCaloriesToday.setText("Today's Calories: " + Integer.toString(calories));
     }
 }

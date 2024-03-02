@@ -64,8 +64,16 @@ public class User {
         this.caloriesToday = calories;
     }
 
+    public void addCalories(int calories) {
+        this.caloriesToday += calories;
+    }
+
     public void setCalorieGoal(int calories) {
         this.calorieGoal = calories;
+    }
+
+    public void setMeals(ArrayList<Meal> meals) {
+        this.meals = meals;
     }
 
     public String getUsername() {
