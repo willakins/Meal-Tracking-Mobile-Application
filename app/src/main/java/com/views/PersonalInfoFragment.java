@@ -1,5 +1,8 @@
 package com.views;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
-
 import androidx.fragment.app.Fragment;
-
-import com.viewmodels.LoginViewModel;
 import com.viewmodels.UserViewModel;
 
 public class PersonalInfoFragment extends Fragment {
@@ -46,9 +46,10 @@ public class PersonalInfoFragment extends Fragment {
          * TODO 3: Should check user input for null and invalid
          */
         saveInfoButton.setOnClickListener(v -> {
-            //...
-            //textHeight.setText(newHeight);
             userViewModel.setUserHeight(editHeight.getText().toString());
+            userViewModel.setUserWeight(editWeight.getText().toString());
+            userViewModel.setUserGender(switchGender.isChecked());
+            hideKeyboard();
         });
         return view;
     }
@@ -62,5 +63,14 @@ public class PersonalInfoFragment extends Fragment {
     public static PersonalInfoFragment newInstance() {
         PersonalInfoFragment fragment = new PersonalInfoFragment();
         return fragment;
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

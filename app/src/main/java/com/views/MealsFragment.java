@@ -54,6 +54,7 @@ public class MealsFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_meals, container, false);
         loginViewModel = LoginViewModel.getInstance();
+        userViewModel = UserViewModel.getInstance();
         //Components of Input Meals Page
         submitMealButton = view.findViewById(R.id.buttonSubmitMeal);
         dataVisual1Button = view.findViewById(R.id.buttonDataVisual1);
@@ -65,9 +66,9 @@ public class MealsFragment extends Fragment {
         textGender = view.findViewById(R.id.textViewGender);
         textCalorieGoal = view.findViewById(R.id.textViewCalorieGoal);
         textCaloriesToday = view.findViewById(R.id.textViewCaloriesToday);
-        userViewModel = UserViewModel.getInstance();
 
-        initializeDefaults();
+        loginViewModel.setMealsFragment(MealsFragment.this);
+        updateUI();
 
         /**
          * TODO 1: Should save data from mealName and mealCalories and send it to database
@@ -113,19 +114,24 @@ public class MealsFragment extends Fragment {
     /**
      * Helper method to abstract the process of initializing the text views before user input
      */
-    private void initializeDefaults() {
-        textHeight.setText("Height: " +
-                                Integer.toString(loginViewModel.getUser().getHeight()));
-        textWeight.setText("Weight: " +
-                                Integer.toString(loginViewModel.getUser().getWeight()));
-        if (loginViewModel.getUser().getIsMale()) {
-            textGender.setText("Male");
-        } else {
-            textGender.setText("Female");
+    public void updateUI() {
+        Log.d(TAG, "Setting Calories Text now 1");
+        synchronized (loginViewModel.getUser()) {
+            Log.d(TAG, "calories is " + userViewModel.getUser().getCaloriesToday());
+            Log.d(TAG, "Setting Calories Text now 2");
+            textHeight.setText("Height: " +
+                    Integer.toString(loginViewModel.getUser().getHeight()));
+            textWeight.setText("Weight: " +
+                    Integer.toString(loginViewModel.getUser().getWeight()));
+            if (loginViewModel.getUser().getIsMale()) {
+                textGender.setText("Male");
+            } else {
+                textGender.setText("Female");
+            }
+            textCalorieGoal.setText("Calorie Goal: " +
+                    Integer.toString(loginViewModel.getUser().calculateCalorieGoal()));
+            textCaloriesToday.setText("Today's Calories: " +
+                    Integer.toString(loginViewModel.getUser().getCaloriesToday()));
         }
-        textCalorieGoal.setText("Calorie Goal: " +
-                                Integer.toString(loginViewModel.getUser().calculateCalorieGoal()));
-        textCaloriesToday.setText("Today's Calories: " +
-                                Integer.toString(loginViewModel.getUser().getCaloriesToday()));
     }
 }

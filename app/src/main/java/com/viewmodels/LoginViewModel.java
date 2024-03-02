@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +23,7 @@ import com.model.User;
 import com.views.AccountCreateActivity;
 import com.views.InputMealActivity;
 import com.views.LoginActivity;
+import com.views.MealsFragment;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -33,6 +33,7 @@ public class LoginViewModel {
     private static User user;
     private static FirebaseDatabase database;
     private static DatabaseReference mDatabase;
+    private MealsFragment mealsFragment;
 
     public static synchronized LoginViewModel getInstance() {
         if (instance == null) {
@@ -58,7 +59,7 @@ public class LoginViewModel {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                 assignUser(username, password);
                                 Intent intent = new Intent(la, InputMealActivity.class);
                                 la.startActivity(intent);
@@ -84,7 +85,7 @@ public class LoginViewModel {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                 assignUser(username, password);
                                 writeNewUser();
                                 Intent intent = new Intent(aca, InputMealActivity.class);
@@ -151,32 +152,7 @@ public class LoginViewModel {
      */
     private void assignUser(String username, String password) {
         user = new User(username, password);
-        ArrayList<Meal> meals = new ArrayList<>();
-        //Loads previously inputted meals into user's arraylist
-        mDatabase.child("meals").child(user.getUserId()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                    String mealName = postSnapshot.child("name").getValue(String.class);
-                    Log.d(TAG, "meal name is " + mealName);
-                    String calories = String.valueOf(postSnapshot.child("calories").getValue(Long.class));
-                    Log.d(TAG, "calories is " + calories);
-                    meals.add(new Meal(mealName, Integer.parseInt(calories)));
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "assignUser:Failure");
-            }
-        });
-        user.setMeals(meals);
-        int calories = 0;
-        for (Meal meal : meals) {
-            calories += meal.getCalories();
-        }
-        user.setCaloriesToday(calories);
+        this.initializeUserData();
     }
 
     /**
@@ -192,5 +168,41 @@ public class LoginViewModel {
      */
     public DatabaseReference getmDatabase() {
         return this.mDatabase;
+    }
+
+    private void initializeUserData() {
+        //Loads previously inputted meals into user's arraylist
+        mDatabase.child("meals").child(user.getUserId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                ArrayList<Meal> meals = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String mealName = postSnapshot.child("name").getValue(String.class);
+                    String calories = String.valueOf(postSnapshot.child("calories").getValue(Long.class));
+                    meals.add(new Meal(mealName, Integer.parseInt(calories)));
+                }
+                user.setMeals(meals);
+                int calories = 0;
+                for (Meal meal : user.getMeals()) {
+                    calories += meal.getCalories();
+                    Log.d(TAG, "Meal:" + meal.getCalories());
+                }
+                user.setCaloriesToday(calories);
+                mealsFragment.updateUI();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "assignUser:Failure");
+            }
+        });
+
+    }
+
+    /**
+     * Sets the current instance of the meals view so that we can dynamically
+     * update the ui on data changes
+     */
+    public void setMealsFragment(MealsFragment mealsFragment) {
+        this.mealsFragment = mealsFragment;
     }
 }

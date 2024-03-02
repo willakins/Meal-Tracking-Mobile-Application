@@ -2,7 +2,6 @@ package com.viewmodels;
 import com.google.firebase.database.DatabaseReference;
 import com.model.Meal;
 import com.model.User;
-import com.views.MealsFragment;
 
 
 public class UserViewModel {
@@ -31,10 +30,17 @@ public class UserViewModel {
     }
 
     public void setUserWeight(String weight) {
-
+        user.setWeight(Integer.parseInt(weight));
+        mDatabase.child("users").child(user.getUserId()).child("weight").setValue(weight);
     }
 
     public void setUserGender(boolean isMale) {
+        user.setIsMale(isMale);
+        if (isMale) {
+            mDatabase.child("users").child(user.getUserId()).child("height").setValue("Male");
+        } else {
+            mDatabase.child("users").child(user.getUserId()).child("height").setValue("Female");
+        }
 
     }
 
@@ -42,10 +48,6 @@ public class UserViewModel {
         user.addCalories(Integer.parseInt(calories));
         user.getMeals().add(new Meal(name, Integer.parseInt(calories)));
         mDatabase.child("meals").child(user.getUserId()).setValue(user.getMeals());
-    }
-
-    public int getUserCaloriesToday() {
-        return 0;
     }
 
     public User getUser() {
