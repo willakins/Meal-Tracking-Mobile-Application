@@ -5,7 +5,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.model.User;
 
 public class UserViewModel {
-    private User user;
+    private static User user;
     private static LoginViewModel loginViewModel;
     private static UserViewModel instance;
     private static DatabaseReference mDatabase;
@@ -15,6 +15,7 @@ public class UserViewModel {
             instance = new UserViewModel();
             loginViewModel = LoginViewModel.getInstance();
             mDatabase = loginViewModel.getmDatabase();
+            user = loginViewModel.getUser();
         }
         return instance;
     }
