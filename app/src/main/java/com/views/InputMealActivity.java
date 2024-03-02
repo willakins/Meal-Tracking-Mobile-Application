@@ -36,7 +36,9 @@ public class InputMealActivity extends AppCompatActivity {
                 replaceFragment(new ShoppingFragment());
                 return true;
             } else if (item.getItemId() == R.id.info) {
-                replaceFragment(new PersonalInfoFragment());
+                PersonalInfoFragment pf = new PersonalInfoFragment();
+                pf.setContext(InputMealActivity.this);
+                replaceFragment(pf);
                 return true;
             }
             return false;

@@ -21,6 +21,7 @@ public class PersonalInfoFragment extends Fragment {
     private Switch switchGender;
     private Button saveInfoButton;
     private UserViewModel userViewModel;
+    InputMealActivity currentContext;
 
     public PersonalInfoFragment() {
         // Required empty public constructor
@@ -46,10 +47,12 @@ public class PersonalInfoFragment extends Fragment {
          * TODO 3: Should check user input for null and invalid
          */
         saveInfoButton.setOnClickListener(v -> {
-            userViewModel.setUserHeight(editHeight.getText().toString());
-            userViewModel.setUserWeight(editWeight.getText().toString());
-            userViewModel.setUserGender(switchGender.isChecked());
-            hideKeyboard();
+            String height = editHeight.getText().toString();
+            String weight = editWeight.getText().toString();
+            boolean gender = switchGender.isChecked();
+            userViewModel.updateUserData(this.currentContext, height, weight, gender);
+            editHeight.setText("Enter Your Height (inches)");
+            editWeight.setText("Enter Your Weight (lbs)");
         });
         return view;
     }
@@ -65,12 +68,10 @@ public class PersonalInfoFragment extends Fragment {
         return fragment;
     }
 
-    private void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)
-                    getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+    /**
+     *
+     */
+    public void setContext(InputMealActivity context) {
+        this.currentContext = context;
     }
 }
