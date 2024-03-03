@@ -1,4 +1,5 @@
 package com.views;
+import com.model.Meal;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
@@ -8,8 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+
 import com.viewmodels.LoginViewModel;
 import com.viewmodels.UserViewModel;
+
+import java.util.List;
 
 public class MealsFragment extends Fragment {
     private Button submitMealButton;
@@ -67,6 +73,14 @@ public class MealsFragment extends Fragment {
             //Saves meal into database
             String mealName = editMealName.getText().toString();
             String mealCalories = editMealCalories.getText().toString();
+
+            // Check for empty fields
+            if (mealName.isEmpty() || mealCalories.isEmpty()) {
+                // Set an error message directly on a TextView
+                textCaloriesToday.setText("Please fill in all fields");
+                return;
+            }
+
             userViewModel.addUserMeal(mealName, mealCalories);
             //Updates UI
             textCaloriesToday.setText("Today's Calories: " + userViewModel.getUser().getCaloriesToday());
@@ -77,14 +91,14 @@ public class MealsFragment extends Fragment {
          * TODO 2: Should display calorie data using imported library of choosing
          */
         dataVisual1Button.setOnClickListener(v -> {
-
+            List<Meal> meals = userViewModel.getUser().getMeals();
         });
 
         /**
          * TODO 2: Should display calorie data using imported library of choosing
          */
         dataVisual2Button.setOnClickListener(v -> {
-
+            List<Meal> meals = userViewModel.getUser().getMeals();
         });
 
         return view;
