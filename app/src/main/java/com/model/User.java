@@ -1,4 +1,7 @@
 package com.model;
+
+import java.util.ArrayList;
+
 //user class
 public class User {
     private String username;
@@ -8,6 +11,8 @@ public class User {
     private boolean isMale;
     private int calorieGoal;
     private int caloriesToday;
+    private String userId;
+    private ArrayList<Meal> meals = new ArrayList<>();
     //Height is measured in inches
     private static final int DEFAULT_HEIGHT = 64;
     //Weight is measured in pounds
@@ -17,9 +22,11 @@ public class User {
     private static final int DEFAULT_CALORIE_GOAL = 2000;
     private static final int DEFAULT_CALORIES_TODAY = 0;
 
-    /**
-     * Constructor for no args case
-     */
+
+    public User() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
     public User(String username, String password) {
         this.height = DEFAULT_HEIGHT;
         this.weight = DEFAULT_WEIGHT;
@@ -28,6 +35,8 @@ public class User {
         this.caloriesToday = DEFAULT_CALORIES_TODAY;
         this.username = username;
         this.password = password;
+        this.userId = generateUserId();
+        this.meals = new ArrayList<Meal>();
     }
 
 
@@ -55,8 +64,16 @@ public class User {
         this.caloriesToday = calories;
     }
 
+    public void addCalories(int calories) {
+        this.caloriesToday += calories;
+    }
+
     public void setCalorieGoal(int calories) {
         this.calorieGoal = calories;
+    }
+
+    public void setMeals(ArrayList<Meal> meals) {
+        this.meals = meals;
     }
 
     public String getUsername() {
@@ -87,6 +104,14 @@ public class User {
         return this.calorieGoal;
     }
 
+    public ArrayList<Meal> getMeals() {
+        return this.meals;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
     /**
      * Helper method that calculates daily calorie goal for user
      * Mifflin-St Jeor Equation:
@@ -106,6 +131,17 @@ public class User {
         }
         this.calorieGoal = (int) Math.ceil(calories);
         return (int) Math.ceil(calories);
+    }
+
+    /**
+     * Takes the first part of a user's email and generates a more human readable username
+     *
+     * @return a string representing the user
+     */
+    private String generateUserId() {
+        int indexOfAtSymbol = this.username.indexOf("@");
+        String justTheName = this.username.substring(0, indexOfAtSymbol);
+        return justTheName;
     }
 
 }

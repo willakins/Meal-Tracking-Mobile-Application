@@ -1,5 +1,4 @@
 package com.views;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +6,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
-
 import androidx.fragment.app.Fragment;
-
-import com.viewmodels.LoginViewModel;
+import com.viewmodels.UserViewModel;
 
 public class PersonalInfoFragment extends Fragment {
 
@@ -19,7 +16,8 @@ public class PersonalInfoFragment extends Fragment {
     private EditText editWeight;
     private Switch switchGender;
     private Button saveInfoButton;
-    private LoginViewModel loginViewModel;
+    private UserViewModel userViewModel;
+    InputMealActivity currentContext;
 
     public PersonalInfoFragment() {
         // Required empty public constructor
@@ -38,14 +36,15 @@ public class PersonalInfoFragment extends Fragment {
         editWeight = view.findViewById(R.id.editTextWeight);
         switchGender = view.findViewById(R.id.switchGender);
         saveInfoButton = view.findViewById(R.id.buttonSaveInfo);
-        /**
-         * TODO 3: Should save data from 2 edit texts and switch and send it to database
-         * TODO 3: Should set this data in other tabs like input meals screen
-         * TODO 3: Should check user input for null and invalid
-         */
+        userViewModel = UserViewModel.getInstance();
+
         saveInfoButton.setOnClickListener(v -> {
-            //...
-            //textHeight.setText(newHeight);
+            String height = editHeight.getText().toString();
+            String weight = editWeight.getText().toString();
+            boolean gender = switchGender.isChecked();
+            userViewModel.updateUserData(this.currentContext, height, weight, gender);
+            editHeight.setText("Enter Your Height (inches)");
+            editWeight.setText("Enter Your Weight (lbs)");
         });
         return view;
     }
@@ -59,5 +58,14 @@ public class PersonalInfoFragment extends Fragment {
     public static PersonalInfoFragment newInstance() {
         PersonalInfoFragment fragment = new PersonalInfoFragment();
         return fragment;
+    }
+
+    /**
+     * Helper method that allows this view to output toast messages to the screen
+     *
+     * @param context the view page that is currently being displayed (InputMealActivity)
+     */
+    public void setContext(InputMealActivity context) {
+        this.currentContext = context;
     }
 }

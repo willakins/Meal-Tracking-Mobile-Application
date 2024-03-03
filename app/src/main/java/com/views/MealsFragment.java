@@ -1,17 +1,15 @@
 package com.views;
-
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.viewmodels.LoginViewModel;
+import com.viewmodels.UserViewModel;
 
 public class MealsFragment extends Fragment {
     private Button submitMealButton;
@@ -24,7 +22,8 @@ public class MealsFragment extends Fragment {
     private TextView textGender;
     private TextView textCalorieGoal;
     private TextView textCaloriesToday;
-    private LoginViewModel loginViewModel;
+    private static LoginViewModel loginViewModel;
+    private static UserViewModel userViewModel;
 
     private View view;
 
@@ -43,6 +42,7 @@ public class MealsFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_meals, container, false);
         loginViewModel = LoginViewModel.getInstance();
+        userViewModel = UserViewModel.getInstance();
         //Components of Input Meals Page
         submitMealButton = view.findViewById(R.id.buttonSubmitMeal);
         dataVisual1Button = view.findViewById(R.id.buttonDataVisual1);
@@ -55,14 +55,22 @@ public class MealsFragment extends Fragment {
         textCalorieGoal = view.findViewById(R.id.textViewCalorieGoal);
         textCaloriesToday = view.findViewById(R.id.textViewCaloriesToday);
 
-        initializeDefaults();
+        //Updates the UI with either default values or values stored in database
+        loginViewModel.setMealsFragment(MealsFragment.this);
+        updateUI();
 
         /**
          * TODO 1: Should save data from mealName and mealCalories and send it to database
          * TODO 1: Should also clear text fields and check for invalid input
          */
         submitMealButton.setOnClickListener(v -> {
-
+            //Saves meal into database
+            String mealName = editMealName.getText().toString();
+            String mealCalories = editMealCalories.getText().toString();
+            userViewModel.addUserMeal(mealName, mealCalories);
+            //Updates UI
+            textCaloriesToday.setText("Today's Calories: " + userViewModel.getUser().getCaloriesToday());
+            //I just took care of database portion make sure to finish it up - Will
         });
 
         /**
@@ -96,19 +104,21 @@ public class MealsFragment extends Fragment {
     /**
      * Helper method to abstract the process of initializing the text views before user input
      */
-    private void initializeDefaults() {
-        textHeight.setText("Height: " +
-                                Integer.toString(loginViewModel.getUser().getHeight()));
-        textWeight.setText("Weight: " +
-                                Integer.toString(loginViewModel.getUser().getWeight()));
-        if (loginViewModel.getUser().getIsMale()) {
-            textGender.setText("Male");
-        } else {
-            textGender.setText("Female");
+    public void updateUI() {
+        synchronized (userViewModel.getUser()) {
+            textHeight.setText("Height: " +
+                    Integer.toString(userViewModel.getUser().getHeight()));
+            textWeight.setText("Weight: " +
+                    Integer.toString(userViewModel.getUser().getWeight()));
+            if (loginViewModel.getUser().getIsMale()) {
+                textGender.setText("Male");
+            } else {
+                textGender.setText("Female");
+            }
+            textCalorieGoal.setText("Calorie Goal: " +
+                    Integer.toString(userViewModel.getUser().calculateCalorieGoal()));
+            textCaloriesToday.setText("Today's Calories: " +
+                    Integer.toString(userViewModel.getUser().getCaloriesToday()));
         }
-        textCalorieGoal.setText("Calorie Goal: " +
-                                Integer.toString(loginViewModel.getUser().calculateCalorieGoal()));
-        textCaloriesToday.setText("Today's Calories: " +
-                                Integer.toString(loginViewModel.getUser().getCaloriesToday()));
     }
 }

@@ -1,0 +1,105 @@
+package com.viewmodels;
+import android.content.Context;
+import android.widget.Toast;
+import com.google.firebase.database.DatabaseReference;
+import com.model.Meal;
+import com.model.User;
+import java.util.Objects;
+
+/**
+ * Singleton view model that abstracts the connection between the view, the database, and the model
+ *
+ * @author Will Akins
+ */
+public class UserViewModel {
+    private static User user;
+    private static LoginViewModel loginViewModel;
+    private static UserViewModel instance;
+    private static DatabaseReference mDatabase;
+
+    /**
+     * Singleton Constructor
+     * @return the userViewModel instance
+     */
+    public static synchronized UserViewModel getInstance() {
+        if (instance == null) {
+            instance = new UserViewModel();
+            loginViewModel = LoginViewModel.getInstance();
+            mDatabase = loginViewModel.getmDatabase();
+            user = loginViewModel.getUser();
+        }
+        return instance;
+    }
+
+    /**
+     * Abstracts the process of updating the user's data after the button click
+     *
+     * @param personalInfo the context so that invalid input message can be displayed
+     * @param height the user's new height
+     * @param weight the user's new weight
+     * @param isMale true if the user is male; false otherwise
+     */
+    public void updateUserData(Context personalInfo, String height, String weight, boolean isMale) {
+        if (checkUserInput(height, weight)) {
+            user.setHeight(Integer.parseInt(height));
+            user.setWeight(Integer.parseInt(weight));
+            user.setIsMale(isMale);
+            mDatabase.child("users").child(user.getUserId()).child("height").setValue(height);
+            mDatabase.child("users").child(user.getUserId()).child("weight").setValue(weight);
+            if (isMale) {
+                mDatabase.child("users").child(user.getUserId()).child("height").setValue("Male");
+            } else {
+                mDatabase.child("users").child(user.getUserId()).child("height").setValue("Female");
+            }
+        } else {
+            Toast.makeText(personalInfo, "Invalid Input", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Abstracts the process of adding a meal to the database and to the user instance
+     *
+     * @param name the name of the meal
+     * @param calories the calories of the meal
+     */
+    public void addUserMeal(String name, String calories) {
+        user.addCalories(Integer.parseInt(calories));
+        user.getMeals().add(new Meal(name, Integer.parseInt(calories)));
+        mDatabase.child("meals").child(user.getUserId()).setValue(user.getMeals());
+    }
+
+    /**
+     * Helper method that checks user text input for
+     * null values or whitespace
+     * @param height the first input to be checked
+     * @param weight the second input to be checked
+     * @return true if the input is valid, false otherwise
+     */
+    private boolean checkUserInput(String height, String weight) {
+        //Each for loop checks one of the inputs for any whitespace
+        for (int i = 0; i < height.length(); i++) {
+            if (Character.isWhitespace(height.charAt(i))) {
+                return false;
+            } else if (Objects.equals(height.charAt(i), ' ')) {
+                return false;
+            }
+        }
+        for (int i = 0; i < weight.length(); i++) {
+            if (Character.isWhitespace(weight.charAt(i))) {
+                return false;
+            } else if (Objects.equals(weight.charAt(i), ' ')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Allows other classes to access the user
+     *
+     * @return the current logged in user
+     */
+    public User getUser() {
+        return user;
+    }
+}

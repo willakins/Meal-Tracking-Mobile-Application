@@ -1,39 +1,56 @@
 package com.viewmodels;
-
 import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.model.Meal;
 import com.model.User;
 import com.views.AccountCreateActivity;
 import com.views.InputMealActivity;
 import com.views.LoginActivity;
-
+import com.views.MealsFragment;
+import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Singleton view model that abstracts the connection between the view, the user database, and the model
+ *
+ * @author Will Akins
+ */
 public class LoginViewModel {
     private static LoginViewModel instance;
-    private boolean success = false;
-    private User currentUser;
+    private static User user;
+    private static FirebaseDatabase database;
+    private static DatabaseReference mDatabase;
+    private MealsFragment mealsFragment;
 
+    /**
+     * Singleton Constructor
+     * @return the instance of the viewModel
+     */
     public static synchronized LoginViewModel getInstance() {
         if (instance == null) {
             instance = new LoginViewModel();
+            database = FirebaseDatabase.getInstance();
+            mDatabase = database.getReference();
         }
         return instance;
     }
 
     /**
      * Allows a user to login through firebase
+     *
      * @param la the loginActivity instance
      * @param mAuth the firebase authentication
      * @param username the user's username/email
@@ -47,7 +64,7 @@ public class LoginViewModel {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                 assignUser(username, password);
                                 Intent intent = new Intent(la, InputMealActivity.class);
                                 la.startActivity(intent);
@@ -64,6 +81,14 @@ public class LoginViewModel {
         }
     }
 
+    /**
+     * Allows a user to create a new account and stores it in user database
+     *
+     * @param aca the AccountCreateActivity context so that Invalid Input can be displayed
+     * @param mAuth the firebase authorization
+     * @param username the user's new username
+     * @param password the user's new password
+     */
     public void createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
         if (checkUserInput(username, password)) {
             mAuth.createUserWithEmailAndPassword(username, password)
@@ -73,8 +98,9 @@ public class LoginViewModel {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                 assignUser(username, password);
+                                writeNewUser();
                                 Intent intent = new Intent(aca, InputMealActivity.class);
                                 aca.startActivity(intent);
                             } else {
@@ -87,6 +113,13 @@ public class LoginViewModel {
             Toast.makeText(aca, "Invalid Input",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Creates a new user node into the user database
+     */
+    public void writeNewUser() {
+        mDatabase.child("users").child(user.getUserId()).setValue(user);
     }
 
     /**
@@ -121,22 +154,63 @@ public class LoginViewModel {
     }
 
     /**
+     *Creates a new user object and loads database values into it
      *
-     * @return
+     * @param username the user's username
+     * @param password the user's password
      */
-    public User getUser() {
-        if (this.currentUser == null) {
-            throw new NullPointerException("User was not initialized in getUser()");
-        }
-        return this.currentUser;
+    private void assignUser(String username, String password) {
+        user = new User(username, password);
+        //Loads previously inputted meals into user's arraylist
+        mDatabase.child("meals").child(user.getUserId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                ArrayList<Meal> meals = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String mealName = postSnapshot.child("name").getValue(String.class);
+                    String calories = String.valueOf(postSnapshot.child("calories").getValue(Long.class));
+                    meals.add(new Meal(mealName, Integer.parseInt(calories)));
+                }
+                user.setMeals(meals);
+                int calories = 0;
+                for (Meal meal : user.getMeals()) {
+                    calories += meal.getCalories();
+                    Log.d(TAG, "Meal:" + meal.getCalories());
+                }
+                user.setCaloriesToday(calories);
+                mealsFragment.updateUI();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "assignUser:Failure");
+            }
+        });
     }
 
     /**
-     *
-     * @param username
-     * @param password
+     * Sets the current instance of the meals view so that we can dynamically
+     * update the ui on data changes
      */
-    private void assignUser(String username, String password) {
-        currentUser = new User(username, password);
+    public void setMealsFragment(MealsFragment mealsFragment) {
+        this.mealsFragment = mealsFragment;
+    }
+
+    /**
+     * Allows other classes to access the database
+     * @return a reference to the database containing both meals and users
+     */
+    public DatabaseReference getmDatabase() {
+        return this.mDatabase;
+    }
+
+    /**
+     * Allows userViewModel to get an instance of the user
+     * Only userViewModel should use this method; other classes should access the user
+     * through the userViewModel.
+     *
+     * @return an instance of the current user
+     */
+    public User getUser() {
+        return this.user;
     }
 }
