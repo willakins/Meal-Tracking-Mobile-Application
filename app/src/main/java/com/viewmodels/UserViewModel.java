@@ -68,7 +68,6 @@ public class UserViewModel {
         mDatabase.child("meals").child(user.getUserId()).setValue(user.getMeals());
     }
 
-
     /**
      * Helper method that checks user text input for
      * null values or whitespace
