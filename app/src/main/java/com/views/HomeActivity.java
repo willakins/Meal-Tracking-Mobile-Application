@@ -5,21 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.views.databinding.ActivityInputMealBinding;
+import com.views.databinding.ActivityHomeBinding;
 /**
  * Center feature screen; contains navbar and has all aspects of fragments
  */
 public class HomeActivity extends AppCompatActivity {
-    private ActivityInputMealBinding binding;
+    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        binding = ActivityInputMealBinding.inflate(getLayoutInflater());
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new MealsFragment());
-        setContentView(R.layout.fragment_home);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.meals) {
@@ -36,12 +34,9 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             } else if (item.getItemId() == R.id.info) {
                 PersonalInfoFragment pf = new PersonalInfoFragment();
-                pf.setContext(HomeActivity.this);
+                //pf.setContext(HomeActivity.this);
                 replaceFragment(pf);
                 return true;
-            } else if (item.getItemId() == R.id.home) {
-                HomeFragment hf = new HomeFragment();
-                replaceFragment(hf);
             }
             return false;
         });
