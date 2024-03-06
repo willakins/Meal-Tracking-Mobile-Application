@@ -17,9 +17,9 @@ public class HomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         binding = ActivityInputMealBinding.inflate(getLayoutInflater());
-        //setContentView(binding.getRoot());
-        //replaceFragment(new MealsFragment());
-        setContentView(R.layout.home_screen);
+        setContentView(binding.getRoot());
+        replaceFragment(new MealsFragment());
+        setContentView(R.layout.fragment_home);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.meals) {
@@ -39,6 +39,9 @@ public class HomeActivity extends AppCompatActivity {
                 pf.setContext(HomeActivity.this);
                 replaceFragment(pf);
                 return true;
+            } else if (item.getItemId() == R.id.home) {
+                HomeFragment hf = new HomeFragment();
+                replaceFragment(hf);
             }
             return false;
         });
