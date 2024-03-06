@@ -20,6 +20,6 @@
 
     <item
         android:title="Personal Info"
-        android:icon="@drawable/shopping"
+        android:icon="@drawable/person"
         android:id="@+id/info"/>
 </menu>
