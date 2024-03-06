@@ -65,7 +65,7 @@ public class PersonalInfoFragment extends Fragment {
      *
      * @param context the view page that is currently being displayed (InputMealActivity)
      */
-    public void setContext(InputMealActivity context) {
+    public void setContext(HomeActivity context) {
         this.currentContext = context;
     }
 }
