@@ -1,7 +1,15 @@
 package com.views;
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
 import com.model.Meal;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +23,7 @@ import android.widget.Toast;
 import com.viewmodels.LoginViewModel;
 import com.viewmodels.UserViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MealsFragment extends Fragment {
@@ -91,7 +100,21 @@ public class MealsFragment extends Fragment {
          * TODO 2: Should display calorie data using imported library of choosing
          */
         dataVisual1Button.setOnClickListener(v -> {
-            List<Meal> meals = userViewModel.getUser().getMeals();
+
+            Pie pie = AnyChart.pie();
+
+            List<DataEntry> data = new ArrayList<>();
+            data.add(new ValueDataEntry("John", 10000));
+            data.add(new ValueDataEntry("Jake", 12000));
+            data.add(new ValueDataEntry("Peter", 18000));
+
+            pie.data(data);
+
+            AnyChartView anyChartView = (AnyChartView) view.findViewById(R.id.any_chart_view);
+            anyChartView.setChart(pie);
+            pie.draw(true);
+
+
         });
 
         /**
@@ -135,4 +158,7 @@ public class MealsFragment extends Fragment {
                     Integer.toString(userViewModel.getUser().getCaloriesToday()));
         }
     }
+
+
+
 }
