@@ -17,8 +17,9 @@ public class HomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         binding = ActivityInputMealBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        replaceFragment(new MealsFragment());
+        //setContentView(binding.getRoot());
+        //replaceFragment(new MealsFragment());
+        setContentView(R.layout.home_screen);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.meals) {

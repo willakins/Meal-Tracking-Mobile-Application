@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.model.Meal;
 import com.model.User;
 import com.views.AccountCreateActivity;
-import com.views.InputMealActivity;
+import com.views.HomeActivity;
 import com.views.LoginActivity;
 import com.views.MealsFragment;
 import java.util.ArrayList;
@@ -178,7 +178,6 @@ public class LoginViewModel {
                     Log.d(TAG, "Meal:" + meal.getCalories());
                 }
                 user.setCaloriesToday(calories);
-                mealsFragment.updateUI();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

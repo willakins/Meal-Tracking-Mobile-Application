@@ -29,32 +29,12 @@
         </activity>
 
         <activity
-            android:name=".InputMealActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".InputMealActivity"
+            android:name=".HomeActivity"
             android:exported="true">
         </activity>
 
         <activity
             android:name=".AccountCreateActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".ShoppingActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".RecipeActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".IngredientActivity"
             android:exported="true">
         </activity>
 
