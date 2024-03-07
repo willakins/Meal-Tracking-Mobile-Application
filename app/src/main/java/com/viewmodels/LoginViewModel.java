@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.model.Meal;
 import com.model.User;
 import com.views.AccountCreateActivity;
-import com.views.InputMealActivity;
+import com.views.HomeActivity;
 import com.views.LoginActivity;
 import com.views.MealsFragment;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class LoginViewModel {
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                 assignUser(username, password);
-                                Intent intent = new Intent(la, InputMealActivity.class);
+                                Intent intent = new Intent(la, HomeActivity.class);
                                 la.startActivity(intent);
                             } else {
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -101,7 +101,7 @@ public class LoginViewModel {
                                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                 assignUser(username, password);
                                 writeNewUser();
-                                Intent intent = new Intent(aca, InputMealActivity.class);
+                                Intent intent = new Intent(aca, HomeActivity.class);
                                 aca.startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -178,7 +178,6 @@ public class LoginViewModel {
                     Log.d(TAG, "Meal:" + meal.getCalories());
                 }
                 user.setCaloriesToday(calories);
-                mealsFragment.updateUI();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

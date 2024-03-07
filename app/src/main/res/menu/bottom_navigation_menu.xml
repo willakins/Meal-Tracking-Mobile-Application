@@ -9,6 +9,7 @@
         android:title="Recipes"
         android:icon="@drawable/recipe"
         android:id="@+id/recipes"/>
+
     <item
         android:title="Ingredients"
         android:icon="@drawable/ingredients"
