@@ -7,6 +7,7 @@
     android:background="#FFFF"
     tools:context=".MealsFragment">
 
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -37,8 +38,8 @@
                 android:layout_marginBottom="607dp"
                 android:ems="10"
                 android:hint="Meal Name"
-                android:textColor="@color/white"
                 android:inputType="text"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,10 +58,10 @@
                 android:layout_marginBottom="540dp"
                 android:ems="10"
                 android:hint="Number of Calories"
+                android:inputType="number"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textStyle="bold"
-                android:textColor="@color/white"
-                android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -160,8 +161,8 @@
                 android:layout_marginTop="352dp"
                 android:layout_marginEnd="132dp"
                 android:layout_marginBottom="491dp"
-                android:text="Submit Meal"
                 android:backgroundTint="@color/black"
+                android:text="Submit Meal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -176,11 +177,11 @@
                 android:layout_marginTop="400dp"
                 android:layout_marginEnd="208dp"
                 android:layout_marginBottom="443dp"
-                android:text="Visualize Data 1"
                 android:backgroundTint="@color/black"
+                android:text="Calories by Meal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.777"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -192,13 +193,27 @@
                 android:layout_marginTop="400dp"
                 android:layout_marginEnd="22dp"
                 android:layout_marginBottom="443dp"
-                android:text="Visualize Data 2"
                 android:backgroundTint="@color/black"
+                android:text="Calories Needed"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.anychart.AnyChartView
+                android:id="@+id/any_chart_view"
+                android:layout_width="342dp"
+                android:layout_height="283dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="49dp"
+                android:layout_marginBottom="26dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonSubmitMeal"
+                app:layout_constraintVertical_bias="0.921" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 

@@ -1,8 +1,13 @@
 package com.views;
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
 import com.model.Meal;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.model.User;
 import com.viewmodels.LoginViewModel;
 import com.viewmodels.UserViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MealsFragment extends Fragment {
@@ -30,8 +37,13 @@ public class MealsFragment extends Fragment {
     private TextView textCaloriesToday;
     private static LoginViewModel loginViewModel;
     private static UserViewModel userViewModel;
+    private AnyChartView myChart;
+
+    private Pie pie;
 
     private View view;
+
+
 
     public MealsFragment() {
         // Required empty public constructor
@@ -60,6 +72,11 @@ public class MealsFragment extends Fragment {
         textGender = view.findViewById(R.id.textViewGender);
         textCalorieGoal = view.findViewById(R.id.textViewCalorieGoal);
         textCaloriesToday = view.findViewById(R.id.textViewCaloriesToday);
+        myChart = (AnyChartView) view.findViewById(R.id.any_chart_view);
+        pie = AnyChart.pie();
+        myChart.setChart(pie);
+
+
 
         //Updates the UI with either default values or values stored in database
         loginViewModel.setMealsFragment(MealsFragment.this);
@@ -91,14 +108,42 @@ public class MealsFragment extends Fragment {
          * TODO 2: Should display calorie data using imported library of choosing
          */
         dataVisual1Button.setOnClickListener(v -> {
-            List<Meal> meals = userViewModel.getUser().getMeals();
+
+            User user = userViewModel.getUser();
+            if (user.getMeals().size() == 0) {
+
+                Toast.makeText(MealsFragment.newInstance().getContext(), "No Meals Today",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+
+                ArrayList<Meal> meals = user.getMeals();
+
+                List<DataEntry> data = new ArrayList<>();
+                for (int i = 0; i < meals.size(); i++) {
+                    data.add(new ValueDataEntry(meals.get(i).getName(), meals.get(i).getCalories()));
+                }
+
+                pie.data(data);
+            }
+
+
+
+
         });
 
         /**
          * TODO 2: Should display calorie data using imported library of choosing
          */
         dataVisual2Button.setOnClickListener(v -> {
-            List<Meal> meals = userViewModel.getUser().getMeals();
+            User user = userViewModel.getUser();
+
+            List<DataEntry> data = new ArrayList<>();
+            data.add(new ValueDataEntry("Caloric intake", user.getCaloriesToday()));
+            data.add(new ValueDataEntry("Calories needed", user.calculateCalorieGoal() - user.getCaloriesToday()));
+
+
+            pie.data(data);
+
         });
 
         return view;
@@ -135,4 +180,7 @@ public class MealsFragment extends Fragment {
                     Integer.toString(userViewModel.getUser().getCaloriesToday()));
         }
     }
+
+
+
 }
