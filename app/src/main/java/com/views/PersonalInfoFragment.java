@@ -17,7 +17,7 @@ public class PersonalInfoFragment extends Fragment {
     private Switch switchGender;
     private Button saveInfoButton;
     private UserViewModel userViewModel;
-    InputMealActivity currentContext;
+    HomeActivity currentContext;
 
     public PersonalInfoFragment() {
         // Required empty public constructor
@@ -65,7 +65,7 @@ public class PersonalInfoFragment extends Fragment {
      *
      * @param context the view page that is currently being displayed (InputMealActivity)
      */
-    public void setContext(InputMealActivity context) {
+    public void setContext(HomeActivity context) {
         this.currentContext = context;
     }
 }
