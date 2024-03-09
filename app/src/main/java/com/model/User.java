@@ -144,4 +144,8 @@ public class User {
         return justTheName;
     }
 
+    public int getCaloricDeficit() {
+        return this.calorieGoal - this.caloriesToday;
+    }
+
 }

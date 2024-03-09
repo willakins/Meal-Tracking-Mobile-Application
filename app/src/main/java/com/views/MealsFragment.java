@@ -139,8 +139,7 @@ public class MealsFragment extends Fragment {
 
             List<DataEntry> data = new ArrayList<>();
             data.add(new ValueDataEntry("CALORIC INTAKE", user.getCaloriesToday()));
-            data.add(new ValueDataEntry("CALORIES NEEDED", user.calculateCalorieGoal()
-                    - user.getCaloriesToday()));
+            data.add(new ValueDataEntry("CALORIES NEEDED", user.getCaloricDeficit()));
 
 
             pie.data(data);
