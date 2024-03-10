@@ -14,7 +14,10 @@ import org.junit.Test;
  * @author Jace Walden
  */
 public class UnitTestEight {
-    //this test is to check if the personal info updates correctly
+    /* This test is to check if the personal info (specifically height
+    and weight) updates correctly when modified in the Personal Info
+    page.
+     */
     @Test
     public void testHeightAndWeightUpdate() {
         int testHeight = 72;
