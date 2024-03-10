@@ -87,21 +87,26 @@ public class MealsFragment extends Fragment {
          * TODO 1: Should also clear text fields and check for invalid input
          */
         submitMealButton.setOnClickListener(v -> {
-            //Saves meal into database
+            // Saves meal into the database
             String mealName = editMealName.getText().toString();
             String mealCalories = editMealCalories.getText().toString();
 
             // Check for empty fields
             if (mealName.isEmpty() || mealCalories.isEmpty()) {
-                // Set an error message directly on a TextView
-                textCaloriesToday.setText("Please fill in all fields");
-                return;
+                // Display a toast message for empty fields
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            } else {
+                // Check for invalid input (non-numeric calories)
+                if (mealCalories.matches("\\d+")) {
+                    // If input is valid, proceed to add meal
+                    userViewModel.addUserMeal(mealName, mealCalories);
+                    // Updates UI
+                    textCaloriesToday.setText("Today's Calories: " + userViewModel.getUser().getCaloriesToday());
+                } else {
+                    // Display a toast message for invalid input
+                    Toast.makeText(getContext(), "Invalid calories input", Toast.LENGTH_SHORT).show();
+                }
             }
-
-            userViewModel.addUserMeal(mealName, mealCalories);
-            //Updates UI
-            textCaloriesToday.setText("Today's Calories: " + userViewModel.getUser().getCaloriesToday());
-            //I just took care of database portion make sure to finish it up - Will
         });
 
         /**

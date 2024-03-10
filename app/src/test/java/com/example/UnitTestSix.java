@@ -14,7 +14,6 @@ import org.junit.Test;
  * @author Jessica Kalloor
  */
 public class UnitTestSix {
-
     @Test(expected = IllegalArgumentException.class)
     public void testMealConstructor_NegativeCalories() {
         Meal meal = new Meal("Snack", -100);
