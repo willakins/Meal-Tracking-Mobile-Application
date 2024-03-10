@@ -41,19 +41,15 @@ public class UserViewModel {
      */
     public void updateUserData(Context personalInfo, String height, String weight, boolean isMale) {
         if (checkUserInput(height, weight)) {
-            if (!height.equals("")) {
-                user.setHeight(Integer.parseInt(height));
-            }
-            if (!weight.equals("")) {
-                user.setWeight(Integer.parseInt(weight));
-            }
+            user.setHeight(Integer.parseInt(height));
+            user.setWeight(Integer.parseInt(weight));
             user.setIsMale(isMale);
             mDatabase.child("users").child(user.getUserId()).child("height").setValue(height);
             mDatabase.child("users").child(user.getUserId()).child("weight").setValue(weight);
             if (isMale) {
-                mDatabase.child("users").child(user.getUserId()).child("height").setValue("Male");
+                mDatabase.child("users").child(user.getUserId()).child("isMale").setValue(true);
             } else {
-                mDatabase.child("users").child(user.getUserId()).child("height").setValue("Female");
+                mDatabase.child("users").child(user.getUserId()).child("height").setValue(false);
             }
         } else {
             Toast.makeText(personalInfo, "Invalid Input", Toast.LENGTH_SHORT).show();
@@ -75,11 +71,16 @@ public class UserViewModel {
     /**
      * Helper method that checks user text input for
      * null values or whitespace
-     * @param height the first input to be checked
-     * @param weight the second input to be checked
+     * @param height the first string to be checked
+     * @param weight the second string to be checked
      * @return true if the input is valid, false otherwise
      */
     private boolean checkUserInput(String height, String weight) {
+        //Checks if the input is empty
+        //Log.d("The password is: " + password, password);
+        if (height.equals("") || weight.equals("")) {
+            return false;
+        }
         //Each for loop checks one of the inputs for any whitespace
         for (int i = 0; i < height.length(); i++) {
             if (Character.isWhitespace(height.charAt(i))) {
@@ -94,6 +95,12 @@ public class UserViewModel {
             } else if (Objects.equals(weight.charAt(i), ' ')) {
                 return false;
             }
+        }
+        try {
+            int h = Integer.parseInt(height);
+            int w = Integer.parseInt(weight);
+        } catch (Exception e) {
+            return false;
         }
         return true;
     }
