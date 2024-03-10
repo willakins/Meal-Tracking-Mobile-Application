@@ -19,7 +19,6 @@ public class UnitTestSix {
     public void testMealConstructor_NegativeCalories() {
         Meal meal = new Meal("Snack", -100);
     }
-
     @Test(expected = IllegalArgumentException.class)
     public void testMealConstructor_EmptyName() {
         Meal meal = new Meal("", 200);
