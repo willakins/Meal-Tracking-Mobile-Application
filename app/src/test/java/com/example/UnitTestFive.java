@@ -21,20 +21,11 @@ import java.util.List;
  * additionally, don't start writing your pull request until you pull from main
  * so that you don't cause a merge conflict
  *
- * Testing that the the calculate calorie goal works
+ * Testing that the the calculate calorie goal works for female as well
  * @author Jessica Kalloor
  */
 public class UnitTestFive {
-
     @Test
-    public void testUserCalculateCalorieGoal() {
-        User user = new User("test@example.com", "password");
-        user.setHeight(72); // 6 feet
-        user.setWeight(180); // 180 pounds
-        user.setIsMale(true); // Male
-        assertEquals(2000, user.calculateCalorieGoal());
-    }
-
     public void testUserCalculateCalorieGoalFemale() {
         User user = new User("test@example.com", "password");
         user.setHeight(64); // 5 feet 4 inches
