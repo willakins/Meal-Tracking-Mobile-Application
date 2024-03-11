@@ -41,8 +41,12 @@ public class UserViewModel {
      */
     public void updateUserData(Context personalInfo, String height, String weight, boolean isMale) {
         if (checkUserInput(height, weight)) {
-            user.setHeight(Integer.parseInt(height));
-            user.setWeight(Integer.parseInt(weight));
+            if (!height.equals("")) {
+                user.setHeight(Integer.parseInt(height));
+            }
+            if (!weight.equals("")) {
+                user.setWeight(Integer.parseInt(weight));
+            }
             user.setIsMale(isMale);
             mDatabase.child("users").child(user.getUserId()).child("height").setValue(height);
             mDatabase.child("users").child(user.getUserId()).child("weight").setValue(weight);

@@ -9,6 +9,7 @@
         android:title="Recipes"
         android:icon="@drawable/recipe"
         android:id="@+id/recipes"/>
+
     <item
         android:title="Ingredients"
         android:icon="@drawable/ingredients"
@@ -20,6 +21,6 @@
 
     <item
         android:title="Personal Info"
-        android:icon="@drawable/shopping"
+        android:icon="@drawable/person"
         android:id="@+id/info"/>
 </menu>
