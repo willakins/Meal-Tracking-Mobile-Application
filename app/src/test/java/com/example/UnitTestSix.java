@@ -1,5 +1,7 @@
 package com.example;
 
+import com.model.Meal;
+
 import org.junit.Test;
 
 /**
@@ -7,12 +9,18 @@ import org.junit.Test;
  * do not start writing the test until you change author name and do a pull request.
  * additionally, don't start writing your pull request until you pull from main
  * so that you don't cause a merge conflict
- * @author
+ *
+ * testing illegal arguments
+ * @author Jessica Kalloor
  */
 public class UnitTestSix {
+    @Test(expected = IllegalArgumentException.class)
+    public void testMealConstructor_NegativeCalories() {
+        Meal meal = new Meal("Snack", -100);
+    }
 
-    @Test
-    public void testInsertNameHere() {
-        
+    @Test(expected = IllegalArgumentException.class)
+    public void testMealConstructor_EmptyName() {
+        Meal meal = new Meal("", 200);
     }
 }
