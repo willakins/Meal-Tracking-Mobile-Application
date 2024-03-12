@@ -94,25 +94,24 @@ public class MealsFragment extends Fragment {
             // Check for empty fields
             if (mealName.isEmpty() || mealCalories.isEmpty()) {
                 // Display a toast message for empty fields
-                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please fill in all fields",
+                                Toast.LENGTH_SHORT).show();
             } else {
                 // Check for invalid input (non-numeric calories)
                 if (mealCalories.matches("\\d+")) {
                     // If input is valid, proceed to add meal
                     userViewModel.addUserMeal(mealName, mealCalories);
                     // Updates UI
-                    textCaloriesToday.setText("Today's Calories: " + userViewModel.getUser().getCaloriesToday());
+                    textCaloriesToday.setText("Today's Calories: "
+                                                + userViewModel.getUser().getCaloriesToday());
                 } else {
                     // Display a toast message for invalid input
-                    Toast.makeText(getContext(), "Invalid calories input", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Invalid calories input",
+                                    Toast.LENGTH_SHORT).show();
                 }
+                editMealName.setText("");
+                editMealCalories.setText("");
             }
-            userViewModel.addUserMeal(mealName, mealCalories);
-            //Updates UI
-            textCaloriesToday.setText("Today's Calories: " + userViewModel.getUser().getCaloriesToday());
-            editMealName.setText("");
-            editMealCalories.setText("");
-            //I just took care of database portion make sure to finish it up - Will
         });
 
         /**
@@ -131,7 +130,8 @@ public class MealsFragment extends Fragment {
 
                 List<DataEntry> data = new ArrayList<>();
                 for (int i = 0; i < meals.size(); i++) {
-                    data.add(new ValueDataEntry(meals.get(i).getName(), meals.get(i).getCalories()));
+                    data.add(new ValueDataEntry(meals.get(i).getName(),
+                                meals.get(i).getCalories()));
                 }
 
                 pie.data(data);
@@ -176,19 +176,19 @@ public class MealsFragment extends Fragment {
      */
     public void updateUI() {
         synchronized (userViewModel.getUser()) {
-            textHeight.setText("Height: " +
-                    Integer.toString(userViewModel.getUser().getHeight()));
-            textWeight.setText("Weight: " +
-                    Integer.toString(userViewModel.getUser().getWeight()));
+            textHeight.setText("Height: "
+                    + Integer.toString(userViewModel.getUser().getHeight()));
+            textWeight.setText("Weight: "
+                    + Integer.toString(userViewModel.getUser().getWeight()));
             if (loginViewModel.getUser().getIsMale()) {
                 textGender.setText("Male");
             } else {
                 textGender.setText("Female");
             }
-            textCalorieGoal.setText("Calorie Goal: " +
-                    Integer.toString(userViewModel.getUser().calculateCalorieGoal()));
-            textCaloriesToday.setText("Today's Calories: " +
-                    Integer.toString(userViewModel.getUser().getCaloriesToday()));
+            textCalorieGoal.setText("Calorie Goal: "
+                    + Integer.toString(userViewModel.getUser().calculateCalorieGoal()));
+            textCaloriesToday.setText("Today's Calories: "
+                    + Integer.toString(userViewModel.getUser().getCaloriesToday()));
         }
     }
 
