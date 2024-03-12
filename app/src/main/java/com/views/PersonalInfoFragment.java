@@ -68,4 +68,9 @@ public class PersonalInfoFragment extends Fragment {
     public void setContext(HomeActivity context) {
         this.currentContext = context;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

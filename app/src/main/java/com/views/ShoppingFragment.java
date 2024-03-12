@@ -36,4 +36,9 @@ public class ShoppingFragment extends Fragment {
         ShoppingFragment fragment = new ShoppingFragment();
         return fragment;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }
