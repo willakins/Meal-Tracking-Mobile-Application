@@ -107,6 +107,12 @@ public class MealsFragment extends Fragment {
                     Toast.makeText(getContext(), "Invalid calories input", Toast.LENGTH_SHORT).show();
                 }
             }
+            userViewModel.addUserMeal(mealName, mealCalories);
+            //Updates UI
+            textCaloriesToday.setText("Today's Calories: " + userViewModel.getUser().getCaloriesToday());
+            editMealName.setText("");
+            editMealCalories.setText("");
+            //I just took care of database portion make sure to finish it up - Will
         });
 
         /**
