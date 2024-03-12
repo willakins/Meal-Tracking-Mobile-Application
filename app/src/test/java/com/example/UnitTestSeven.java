@@ -1,5 +1,6 @@
 package com.example;
-
+import static org.junit.Assert.assertEquals;
+import com.model.User;
 import org.junit.Test;
 
 /**
@@ -10,9 +11,10 @@ import org.junit.Test;
  * @author Nidhi Tarpara
  */
 public class UnitTestSeven {
-
     @Test
-    public void testInsertNameHere() {
-        
+    public void testAddCalories() {
+        User user = new User("testUser@example.com", "password");
+        user.addCalories(500);
+        assertEquals(500, user.getCaloriesToday());
     }
 }
