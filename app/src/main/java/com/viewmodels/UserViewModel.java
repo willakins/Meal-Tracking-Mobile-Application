@@ -41,8 +41,8 @@ public class UserViewModel {
      */
     public void updateUserData(Context personalInfo, String height, String weight, boolean isMale) {
         if (checkUserInput(height, weight)) {
-            user.setHeight(Integer.parseInt(height));
-            user.setWeight(Integer.parseInt(weight));
+            user.setHeight(height);
+            user.setWeight(weight);
             user.setIsMale(isMale);
             mDatabase.child("users").child(user.getUserId()).child("height").setValue(height);
             mDatabase.child("users").child(user.getUserId()).child("weight").setValue(weight);
@@ -66,6 +66,8 @@ public class UserViewModel {
         user.addCalories(Integer.parseInt(calories));
         user.getMeals().add(new Meal(name, Integer.parseInt(calories)));
         mDatabase.child("meals").child(user.getUserId()).setValue(user.getMeals());
+        mDatabase.child("users").child(user.getUserId())
+                    .child("caloriesToday").setValue(user.getCaloriesToday());
     }
 
     /**
