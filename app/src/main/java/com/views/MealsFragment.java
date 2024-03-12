@@ -109,23 +109,18 @@ public class MealsFragment extends Fragment {
         dataVisual1Button.setOnClickListener(v -> {
 
             User user = userViewModel.getUser();
-            if (user.getMeals().size() == 0) {
+            if (user.getMeals() == null || user.getMeals().size() == 0) {
 
                 Toast.makeText(MealsFragment.newInstance().getContext(), "No Meals Today",
                         Toast.LENGTH_SHORT).show();
             } else {
                 ArrayList<Meal> meals = user.getMeals();
-                if (!meals.isEmpty()) {
-                    List<DataEntry> data = new ArrayList<>();
-                    for (int i = 0; i < meals.size(); i++) {
-                        data.add(new ValueDataEntry(meals.get(i).getName(),
-                                meals.get(i).getCalories()));
-                    }
-                    pie.data(data);
-                } else {
-                    Toast.makeText(MealsFragment.newInstance().getContext(), "No Meals Today",
-                            Toast.LENGTH_SHORT).show();
+                List<DataEntry> data = new ArrayList<>();
+                for (int i = 0; i < meals.size(); i++) {
+                    data.add(new ValueDataEntry(meals.get(i).getName(),
+                            meals.get(i).getCalories()));
                 }
+                pie.data(data);
             }
 
 
