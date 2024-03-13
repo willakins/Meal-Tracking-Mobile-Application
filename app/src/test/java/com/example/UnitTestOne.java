@@ -19,10 +19,9 @@ public class UnitTestOne {
     public void testCalorieCalculate() {
         String testUsername = "willhakins@gmail.com";
         String testPassword = "william";
-        String testHeight = "73";
-        String testWeight = "165";
-        int expectedCalories = (int) Math.ceil((10 * Integer.parseInt(testWeight))
-                                + (6.25 * Integer.parseInt(testHeight)) - 55);
+        int testHeight = 73;
+        int testWeight = 165;
+        int expectedCalories = (int) Math.ceil((10 * testWeight) + (6.25 * testHeight) - 95);
         User testUser = new User(testUsername, testPassword);
         testUser.setHeight(testHeight);
         testUser.setWeight(testWeight);
