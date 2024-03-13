@@ -22,7 +22,7 @@ public class UnitTestOne {
         String testHeight = "73";
         String testWeight = "165";
         int expectedCalories = (int) Math.ceil((10 * Integer.parseInt(testWeight))
-                                + (6.25 * Integer.parseInt(testHeight)) - 55);
+                                + (6.25 * Integer.parseInt(testHeight)) - 95);
         User testUser = new User(testUsername, testPassword);
         testUser.setHeight(testHeight);
         testUser.setWeight(testWeight);
