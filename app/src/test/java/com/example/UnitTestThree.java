@@ -14,11 +14,12 @@ import static org.junit.Assert.*;
  */
 public class UnitTestThree {
 
+    //test
     @Test
     public void testCaloricDeficit() {
         User testUser = new User();
-        int testHeight = 71;
-        int testWeight = 175;
+        String testHeight = "71";
+        String testWeight = "175";
         testUser.setHeight(testHeight);
         testUser.setWeight(testWeight);
         testUser.setIsMale(true);

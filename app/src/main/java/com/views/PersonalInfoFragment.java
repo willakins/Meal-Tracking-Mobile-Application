@@ -43,8 +43,8 @@ public class PersonalInfoFragment extends Fragment {
             String weight = editWeight.getText().toString();
             boolean gender = switchGender.isChecked();
             userViewModel.updateUserData(this.currentContext, height, weight, gender);
-            editHeight.setText("Enter Your Height (inches)");
-            editWeight.setText("Enter Your Weight (lbs)");
+            editHeight.setText("");
+            editWeight.setText("");
         });
         return view;
     }
@@ -67,5 +67,10 @@ public class PersonalInfoFragment extends Fragment {
      */
     public void setContext(HomeActivity context) {
         this.currentContext = context;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

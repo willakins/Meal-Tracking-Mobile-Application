@@ -35,4 +35,9 @@ public class RecipeFragment extends Fragment {
         RecipeFragment fragment = new RecipeFragment();
         return fragment;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

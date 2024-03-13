@@ -146,7 +146,7 @@ public class LoginViewModel {
         for (int i = 0; i < password.length(); i++) {
             if (Character.isWhitespace(password.charAt(i))) {
                 return false;
-            } else if (Objects.equals(username.charAt(i), ' ')) {
+            } else if (Objects.equals(password.charAt(i), ' ')) {
                 return false;
             }
         }
@@ -172,12 +172,20 @@ public class LoginViewModel {
                     meals.add(new Meal(mealName, Integer.parseInt(calories)));
                 }
                 user.setMeals(meals);
-                int calories = 0;
-                for (Meal meal : user.getMeals()) {
-                    calories += meal.getCalories();
-                    Log.d(TAG, "Meal:" + meal.getCalories());
-                }
-                user.setCaloriesToday(calories);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "assignUser:Failure");
+            }
+        });
+        mDatabase.child("users").child(user.getUserId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                user.setCalorieGoal(dataSnapshot.child("calorieGoal").getValue(Long.class).intValue());
+                user.setCaloriesToday(dataSnapshot.child("caloriesToday").getValue(Long.class).intValue());
+                user.setIsMale(dataSnapshot.child("isMale").getValue(Boolean.class));
+                user.setHeight(dataSnapshot.child("height").getValue(String.class));
+                user.setWeight(dataSnapshot.child("weight").getValue(String.class));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
