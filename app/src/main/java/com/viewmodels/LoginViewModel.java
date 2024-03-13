@@ -172,12 +172,6 @@ public class LoginViewModel {
                     meals.add(new Meal(mealName, Integer.parseInt(calories)));
                 }
                 user.setMeals(meals);
-                int calories = 0;
-                for (Meal meal : user.getMeals()) {
-                    calories += meal.getCalories();
-                    Log.d(TAG, "Meal:" + meal.getCalories());
-                }
-                user.setCaloriesToday(calories);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -187,11 +181,11 @@ public class LoginViewModel {
         mDatabase.child("users").child(user.getUserId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
-                user.setCalorieGoal(dataSnapshot.child("caloriesToday").getValue(Long.class).intValue());
+                user.setCalorieGoal(dataSnapshot.child("calorieGoal").getValue(Long.class).intValue());
                 user.setCaloriesToday(dataSnapshot.child("caloriesToday").getValue(Long.class).intValue());
                 user.setIsMale(dataSnapshot.child("isMale").getValue(Boolean.class));
-                user.setHeight(Integer.parseInt(dataSnapshot.child("height").getValue(String.class)));
-                user.setWeight(Integer.parseInt(dataSnapshot.child("weight").getValue(String.class)));
+                user.setHeight(dataSnapshot.child("height").getValue(String.class));
+                user.setWeight(dataSnapshot.child("weight").getValue(String.class));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

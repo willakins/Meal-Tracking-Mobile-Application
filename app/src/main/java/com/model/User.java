@@ -6,17 +6,17 @@ import java.util.ArrayList;
 public class User {
     private String username;
     private String password;
-    private int height;
-    private int weight;
+    private String height;
+    private String weight;
     private boolean isMale;
     private int calorieGoal;
     private int caloriesToday;
     private String userId;
     private ArrayList<Meal> meals = new ArrayList<>();
     //Height is measured in inches
-    private static final int DEFAULT_HEIGHT = 64;
+    private static final String DEFAULT_HEIGHT = "64";
     //Weight is measured in pounds
-    private static final int DEFAULT_WEIGHT = 130;
+    private static final String DEFAULT_WEIGHT = "130";
     //I support women
     private static final boolean DEFAULT_IS_MALE = false;
     private static final int DEFAULT_CALORIE_GOAL = 2000;
@@ -48,11 +48,11 @@ public class User {
         this.password = password;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -84,11 +84,11 @@ public class User {
         return this.password;
     }
 
-    public int getHeight() {
+    public String getHeight() {
         return this.height;
     }
 
-    public int getWeight() {
+    public String getWeight() {
         return this.weight;
     }
 
@@ -128,6 +128,7 @@ public class User {
             calories = (10 * this.weight) + (6.25 * this.height) - 95;
         } else {
             calories = (10 * this.weight) + (6.25 * this.height) - 261;
+
         }
         this.calorieGoal = (int) Math.ceil(calories);
         return (int) Math.ceil(calories);

@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             } else if (item.getItemId() == R.id.info) {
                 PersonalInfoFragment pf = new PersonalInfoFragment();
-                //pf.setContext(HomeActivity.this);
+                pf.setContext(HomeActivity.this);
                 replaceFragment(pf);
                 return true;
             }
