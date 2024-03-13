@@ -15,8 +15,8 @@ public class UnitTestEleven {
     @Test
     public void testInsertNameHere() {
         User user = new User("testUser@example.com", "password");
-        user.setHeight(65);
-        user.setWeight(140);
+        user.setHeight("65");
+        user.setWeight("140");
         user.setIsMale(false);
 
         assertEquals(1586, user.calculateCalorieGoal());
