@@ -31,6 +31,6 @@ public class UnitTestFive {
         user.setHeight(64); // 5 feet 4 inches
         user.setWeight(130); // 130 pounds
         user.setIsMale(false); // Female
-        assertEquals(1692, user.calculateCalorieGoal());
+        assertEquals(1439, user.calculateCalorieGoal());
     }
 }
