@@ -24,7 +24,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Singleton view model that abstracts the connection between the view, the user database, and the model
+ * Singleton view model that abstracts the connection between the view,
+ * the user database, and the model
  *
  * @author Will Akins
  */
@@ -89,7 +90,8 @@ public class LoginViewModel {
      * @param username the user's new username
      * @param password the user's new password
      */
-    public void createAccount(AccountCreateActivity aca, FirebaseAuth mAuth, String username, String password) {
+    public void createAccount(AccountCreateActivity aca, FirebaseAuth mAuth,
+                              String username, String password) {
         if (checkUserInput(username, password)) {
             mAuth.createUserWithEmailAndPassword(username, password)
                     .addOnCompleteListener(aca, new OnCompleteListener<AuthResult>() {
@@ -162,41 +164,48 @@ public class LoginViewModel {
     private void assignUser(String username, String password) {
         user = new User(username, password);
         //Loads previously inputted meals into user's arraylist
-        mDatabase.child("meals").child(user.getUserId()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                ArrayList<Meal> meals = new ArrayList<>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String mealName = postSnapshot.child("name").getValue(String.class);
-                    String calories = String.valueOf(postSnapshot.child("calories").getValue(Long.class));
-                    meals.add(new Meal(mealName, Integer.parseInt(calories)));
-                }
-                user.setMeals(meals);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "assignUser:Failure");
-            }
-        });
-        mDatabase.child("users").child(user.getUserId()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                user.setCalorieGoal(dataSnapshot.child("calorieGoal").getValue(Long.class).intValue());
-                user.setCaloriesToday(dataSnapshot.child("caloriesToday").getValue(Long.class).intValue());
-                user.setIsMale(dataSnapshot.child("isMale").getValue(Boolean.class));
-                user.setHeight(dataSnapshot.child("height").getValue(String.class));
-                user.setWeight(dataSnapshot.child("weight").getValue(String.class));
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "assignUser:Failure");
-            }
-        });
+        mDatabase.child("meals").child(user.getUserId())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        ArrayList<Meal> meals = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String mealName = postSnapshot.child("name").getValue(String.class);
+                            String calories = String.valueOf(postSnapshot.child("calories")
+                                                .getValue(Long.class));
+                            meals.add(new Meal(mealName, Integer.parseInt(calories)));
+                        }
+                        user.setMeals(meals);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "assignUser:Failure");
+                    }
+                });
+        mDatabase.child("users").child(user.getUserId())
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(final DataSnapshot dataSnapshot) {
+                            user.setCalorieGoal(dataSnapshot.child("calorieGoal")
+                                    .getValue(Long.class).intValue());
+                            user.setCaloriesToday(dataSnapshot.child("caloriesToday")
+                                    .getValue(Long.class).intValue());
+                            user.setIsMale(dataSnapshot.child("isMale").getValue(Boolean.class));
+                            user.setHeight(dataSnapshot.child("height").getValue(String.class));
+                            user.setWeight(dataSnapshot.child("weight").getValue(String.class));
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.d(TAG, "assignUser:Failure");
+                        }
+                    });
     }
 
     /**
      * Sets the current instance of the meals view so that we can dynamically
      * update the ui on data changes
+     *
+     * @param mealsFragment the Context used for toast messages
      */
     public void setMealsFragment(MealsFragment mealsFragment) {
         this.mealsFragment = mealsFragment;
