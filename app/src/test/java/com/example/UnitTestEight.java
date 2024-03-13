@@ -20,8 +20,8 @@ public class UnitTestEight {
      */
     @Test
     public void testHeightAndWeightUpdate() {
-        int testHeight = 72;
-        int testWeight = 220;
+        String testHeight = "72";
+        String testWeight = "220";
         User testUser = new User();
         testUser.setHeight(testHeight);
         testUser.setWeight(testWeight);

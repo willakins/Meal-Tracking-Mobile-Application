@@ -28,8 +28,8 @@ public class UnitTestFive {
     @Test
     public void testUserCalculateCalorieGoalFemale() {
         User user = new User("test@example.com", "password");
-        user.setHeight(64); // 5 feet 4 inches
-        user.setWeight(130); // 130 pounds
+        user.setHeight("64"); // 5 feet 4 inches
+        user.setWeight("130"); // 130 pounds
         user.setIsMale(false); // Female
         assertEquals(1692, user.calculateCalorieGoal());
     }
