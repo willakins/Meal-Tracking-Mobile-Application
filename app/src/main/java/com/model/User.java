@@ -125,9 +125,11 @@ public class User {
     public int calculateCalorieGoal() {
         double calories = 0.0;
         if (this.isMale) {
-            calories = (10 * this.weight) + (6.25 * this.height) - 95;
+            calories = (10 * Integer.parseInt(this.weight))
+                            + (6.25 * Integer.parseInt(this.height)) - 95;
         } else {
-            calories = (10 * this.weight) + (6.25 * this.height) - 261;
+            calories = (10 * Integer.parseInt(this.weight))
+                            + (6.25 * Integer.parseInt(this.height)) - 261;
 
         }
         this.calorieGoal = (int) Math.ceil(calories);
