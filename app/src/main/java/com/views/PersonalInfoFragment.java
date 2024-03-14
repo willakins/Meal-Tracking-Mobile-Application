@@ -17,7 +17,7 @@ public class PersonalInfoFragment extends Fragment {
     private Switch switchGender;
     private Button saveInfoButton;
     private UserViewModel userViewModel;
-    HomeActivity currentContext;
+    private HomeActivity currentContext;
 
     public PersonalInfoFragment() {
         // Required empty public constructor
