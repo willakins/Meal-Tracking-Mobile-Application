@@ -33,6 +33,7 @@ public class IngredientFormFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_ingredient_form, container, false);
+        //Components of Ingredient Fragment
         loginViewModel = LoginViewModel.getInstance();
         userViewModel = UserViewModel.getInstance();
         goBackButton = view.findViewById(R.id.goBack);
@@ -41,7 +42,7 @@ public class IngredientFormFragment extends Fragment {
             currentContext.goToIngredients();
         });
 
-        //Components of Ingredient Fragment
+
         return view;
     }
 
