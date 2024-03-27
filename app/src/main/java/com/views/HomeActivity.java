@@ -1,5 +1,6 @@
 package com.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,9 @@ public class HomeActivity extends AppCompatActivity {
                 replaceFragment(new RecipeFragment());
                 return true;
             } else if (item.getItemId() == R.id.ingredients) {
-                replaceFragment(new IngredientsFragment());
+                IngredientsFragment ingFragment = new IngredientsFragment();
+                ingFragment.setHomeInstance(HomeActivity.this);
+                replaceFragment(ingFragment);
                 return true;
             } else if (item.getItemId() == R.id.shopping) {
                 replaceFragment(new ShoppingFragment());
@@ -51,6 +54,10 @@ public class HomeActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void goToIngredientForm() {
+        replaceFragment(new IngredientFormFragment());
     }
 
 }

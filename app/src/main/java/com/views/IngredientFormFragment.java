@@ -1,32 +1,22 @@
 package com.views;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.viewmodels.LoginViewModel;
 import com.viewmodels.UserViewModel;
 
-public class IngredientsFragment extends Fragment {
-    private HomeActivity homeInstance;
-    private LoginViewModel loginViewModel;
-    private UserViewModel userViewModel;
-    private Button goToIngredientForm;
+public class IngredientFormFragment extends Fragment {
+    private static LoginViewModel loginViewModel;
+    private static UserViewModel userViewModel;
     private View view;
 
-
-
-
-
-
-
-    public IngredientsFragment() {
+    public IngredientFormFragment() {
         // Required empty public constructor
     }
 
@@ -39,18 +29,10 @@ public class IngredientsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_ingredients, container, false);
+        view = inflater.inflate(R.layout.fragment_ingredient_form, container, false);
         loginViewModel = LoginViewModel.getInstance();
         userViewModel = UserViewModel.getInstance();
         //Components of Ingredient Fragment
-        goToIngredientForm = view.findViewById(R.id.goToIngredientForm);
-        /**
-         * TODO: Bind the scrollable list of ingredients here
-         */
-
-        goToIngredientForm.setOnClickListener(v -> {
-            homeInstance.goToIngredientForm();
-        });
         return view;
     }
 
@@ -60,12 +42,8 @@ public class IngredientsFragment extends Fragment {
      *
      * @return A new instance of fragment MealsFragment.
      */
-    public static IngredientsFragment newInstance() {
-        IngredientsFragment fragment = new IngredientsFragment();
-        return fragment;
-    }
-
-    public void setHomeInstance(HomeActivity homeInstance) {
-        this.homeInstance = homeInstance;
+    public static IngredientFormFragment newInstance() {
+        IngredientFormFragment formFragment = new IngredientFormFragment();
+        return formFragment;
     }
 }
