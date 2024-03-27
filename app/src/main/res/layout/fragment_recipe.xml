@@ -1,17 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C8BD96"
+    android:background="#FFFF"
     tools:context=".RecipeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Recipes"
-        android:textSize="26dp"
-        android:layout_gravity="center"/>
+    <FrameLayout
+        android:layout_width="450dp"
+        android:layout_height="900dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="475dp"
+                android:layout_height="1246dp"
+                android:src="@drawable/recipe"
+                tools:layout_editor_absoluteX="-41dp"
+                tools:layout_editor_absoluteY="-265dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="97dp"
+                android:layout_marginEnd="69dp"
+                android:layout_marginBottom="763dp"
+                android:text="Enter A Recipe"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+
+            <EditText
+                android:id="@+id/editTextHeight"
+                android:layout_width="232dp"
+                android:layout_height="58dp"
+                android:layout_marginStart="108dp"
+                android:layout_marginTop="172dp"
+                android:layout_marginEnd="110dp"
+                android:layout_marginBottom="667dp"
+                android:ems="10"
+                android:hint="Enter Your Height (inches)"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/editTextWeight"
+                android:layout_width="216dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="116dp"
+                android:layout_marginTop="244dp"
+                android:layout_marginEnd="118dp"
+                android:layout_marginBottom="594dp"
+                android:ems="10"
+                android:hint="Enter Your Weight (lbs)"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Switch
+                android:id="@+id/switchGender"
+                android:layout_width="122dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="174dp"
+                android:layout_marginTop="315dp"
+                android:layout_marginEnd="174dp"
+                android:layout_marginBottom="541dp"
+                android:text="Male"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.55"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/buttonSaveInfo"
+                android:layout_width="120dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="165dp"
+                android:layout_marginTop="396dp"
+                android:layout_marginEnd="165dp"
+                android:layout_marginBottom="438dp"
+                android:backgroundTint="@color/black"
+                android:text="Save Info"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
 </FrameLayout>

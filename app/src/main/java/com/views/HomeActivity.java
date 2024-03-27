@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             } else if (item.getItemId() == R.id.ingredients) {
                 IngredientsFragment ingFragment = new IngredientsFragment();
-                ingFragment.setHomeInstance(HomeActivity.this);
+                ingFragment.setContext(HomeActivity.this);
                 replaceFragment(ingFragment);
                 return true;
             } else if (item.getItemId() == R.id.shopping) {
@@ -57,7 +57,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void goToIngredientForm() {
-        replaceFragment(new IngredientFormFragment());
+        IngredientFormFragment formFrag = new IngredientFormFragment();
+        formFrag.setContext(HomeActivity.this);
+        replaceFragment(formFrag);
+    }
+
+    public void goToIngredients() {
+        IngredientsFragment ingFrag = new IngredientsFragment();
+        ingFrag.setContext(HomeActivity.this);
+        replaceFragment(ingFrag);
     }
 
 }

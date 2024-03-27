@@ -14,7 +14,7 @@ import com.viewmodels.LoginViewModel;
 import com.viewmodels.UserViewModel;
 
 public class IngredientsFragment extends Fragment {
-    private HomeActivity homeInstance;
+    private HomeActivity currentContext;
     private LoginViewModel loginViewModel;
     private UserViewModel userViewModel;
     private Button goToIngredientForm;
@@ -49,7 +49,7 @@ public class IngredientsFragment extends Fragment {
          */
 
         goToIngredientForm.setOnClickListener(v -> {
-            homeInstance.goToIngredientForm();
+            currentContext.goToIngredientForm();
         });
         return view;
     }
@@ -65,7 +65,7 @@ public class IngredientsFragment extends Fragment {
         return fragment;
     }
 
-    public void setHomeInstance(HomeActivity homeInstance) {
-        this.homeInstance = homeInstance;
+    public void setContext(HomeActivity context) {
+        this.currentContext = context;
     }
 }

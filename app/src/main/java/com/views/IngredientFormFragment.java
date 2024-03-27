@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,8 @@ import com.viewmodels.UserViewModel;
 public class IngredientFormFragment extends Fragment {
     private static LoginViewModel loginViewModel;
     private static UserViewModel userViewModel;
+    private HomeActivity currentContext;
+    private Button goBackButton;
     private View view;
 
     public IngredientFormFragment() {
@@ -32,6 +35,12 @@ public class IngredientFormFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_ingredient_form, container, false);
         loginViewModel = LoginViewModel.getInstance();
         userViewModel = UserViewModel.getInstance();
+        goBackButton = view.findViewById(R.id.goBack);
+
+        goBackButton.setOnClickListener(v -> {
+            currentContext.goToIngredients();
+        });
+
         //Components of Ingredient Fragment
         return view;
     }
@@ -45,5 +54,9 @@ public class IngredientFormFragment extends Fragment {
     public static IngredientFormFragment newInstance() {
         IngredientFormFragment formFragment = new IngredientFormFragment();
         return formFragment;
+    }
+
+    public void setContext(HomeActivity context) {
+        this.currentContext = context;
     }
 }
