@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.model.User;
 import com.viewmodels.CookBookViewModel;
 import com.viewmodels.LoginViewModel;
 import com.viewmodels.PantryViewModel;

@@ -13,6 +13,10 @@ public class User {
     private int caloriesToday;
     private String userId;
     private ArrayList<Meal> meals = new ArrayList<>();
+    private ArrayList<Recipe> cookBook = new ArrayList<>();
+    /**
+     * TODO 2: add default 2 recipes to every user's cookBook here
+     */
     //Height is measured in inches
     private static final String DEFAULT_HEIGHT = "64";
     //Weight is measured in pounds

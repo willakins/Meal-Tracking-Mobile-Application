@@ -1,6 +1,5 @@
 package com.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -45,7 +44,7 @@ public class IngredientsFragment extends Fragment {
         //Components of Ingredient Fragment
         goToIngredientForm = view.findViewById(R.id.goToIngredientForm);
         /**
-         * TODO: Bind the scrollable list of ingredients here
+         * TODO 1: Bind the scrollable list of ingredients here
          */
 
         goToIngredientForm.setOnClickListener(v -> {

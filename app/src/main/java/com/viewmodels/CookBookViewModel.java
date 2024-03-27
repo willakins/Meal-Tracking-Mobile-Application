@@ -26,8 +26,11 @@ public class CookBookViewModel {
     }
 
     /**
-     * TODO: Implement method and store the recipe in database.
-     * Maybe need to consider how the scrollable list is updated at the end of this function call
+     * TODO 2: Implement method and store the recipe in database.
+     * Maybe need to consider how the scrollable list is updated at the end of this function call.
+     * Check the user input for things like negative quantities.
+     * Don't forget to update LoginViewModel' assignUser function
+     * so that recipes persist between logins.
      *
      * @param name the name of the recipe still in EditText format
      * @param ingredients the list of ingredients still in EditText format
