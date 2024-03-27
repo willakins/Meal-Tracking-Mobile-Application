@@ -8,15 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.model.User;
+import com.viewmodels.CookBookViewModel;
 import com.viewmodels.LoginViewModel;
+import com.viewmodels.PantryViewModel;
 import com.viewmodels.UserViewModel;
 
 public class RecipeFragment extends Fragment {
     private static LoginViewModel loginViewModel;
     private static UserViewModel userViewModel;
+    private static CookBookViewModel cookBook;
+    private static PantryViewModel pantry;
     private Button submitRecipeButton;
+    private EditText editTextRecipeName;
+    private EditText editTextIngredients;
     private View view;
 
     public RecipeFragment() {
@@ -34,7 +41,23 @@ public class RecipeFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_recipe, container, false);
         //Components of Recipe page
+        cookBook = CookBookViewModel.getInstance();
+        pantry = PantryViewModel.getInstance();
         submitRecipeButton = view.findViewById(R.id.buttonSaveRecipe);
+        editTextRecipeName = view.findViewById(R.id.editTextRecipeName);
+        editTextIngredients = view.findViewById(R.id.editTextIngredients);
+        /**
+         * TODO 1: Bind the scrollable list of recipes here
+         */
+
+        /**
+         * TODO 2: Implement addRecipe function in CookBookViewModel to parse the data
+         * and add it to the database
+         */
+        submitRecipeButton.setOnClickListener(v -> {
+            cookBook.addRecipe(editTextRecipeName, editTextIngredients);
+        });
+
         return view;
     }
 
