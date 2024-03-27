@@ -7,7 +7,7 @@
         android:id="@+id/meals"/>
     <item
         android:title="Recipes"
-        android:icon="@drawable/recipe_icon"
+        android:icon="@drawable/recipe"
         android:id="@+id/recipes"/>
 
     <item
