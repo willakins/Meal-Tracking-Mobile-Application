@@ -41,6 +41,8 @@ public class RecipeFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_recipe, container, false);
         //Components of Recipe page
+        loginViewModel = LoginViewModel.getInstance();
+        userViewModel = UserViewModel.getInstance();
         cookBook = CookBookViewModel.getInstance();
         pantry = PantryViewModel.getInstance();
         submitRecipeButton = view.findViewById(R.id.buttonSaveRecipe);
@@ -56,7 +58,9 @@ public class RecipeFragment extends Fragment {
          * and add it to the database
          */
         submitRecipeButton.setOnClickListener(v -> {
-            cookBook.addRecipe(currentContext, editTextRecipeName, editTextIngredients);
+            cookBook.addRecipe(getContext(), editTextRecipeName, editTextIngredients);
+            editTextRecipeName.setText("");
+            editTextIngredients.setText("");
         });
 
         return view;
