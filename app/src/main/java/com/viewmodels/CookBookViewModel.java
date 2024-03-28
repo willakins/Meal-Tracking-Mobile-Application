@@ -2,6 +2,7 @@ package com.viewmodels;
 
 import android.content.Context;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.model.Ingredient;
@@ -9,6 +10,8 @@ import com.model.Recipe;
 import com.model.User;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.StringTokenizer;
 
 public class CookBookViewModel {
     private static User user;
@@ -44,10 +47,12 @@ public class CookBookViewModel {
      */
     public void addRecipe(Context context, EditText editTextName,
                           EditText editTextIngredients) {
+
         String name = editTextName.getText().toString();
         String ingredients = editTextIngredients.getText().toString();
-        ArrayList<Ingredient> parsedIngredients = parseInput(editTextIngredients);
+
         if (checkUserInput(context, name, ingredients)) {
+            ArrayList<Ingredient> parsedIngredients = parseInput(ingredients);
             //Updates cookbook database
             mDatabase.child("cookbook").child(name).child("author")
                     .setValue(user.getUserId());
@@ -59,8 +64,9 @@ public class CookBookViewModel {
                 mDatabase.child("cookbook").child(name).child(ingredient.getName())
                         .child("Expiration").setValue(ingredient.getExpiration());
             }
+            user.getCookBook().add(new Recipe(name, parsedIngredients));
         }
-        user.getCookBook().add(new Recipe(name, parsedIngredients));
+
     }
 
     /**
@@ -73,7 +79,16 @@ public class CookBookViewModel {
      * @return true if the input is valid; false otherwise
      */
     private boolean checkUserInput(Context context, String name, String ingredients) {
-        return false;
+        if (!checkWhiteSpace(name) || name.equals("")) {
+            Toast.makeText(context, "Invalid name input",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (ingredients.equals("")) {
+            Toast.makeText(context, "Invalid ingredients input",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -83,8 +98,33 @@ public class CookBookViewModel {
      * @param ingredients the EditText containing the user input
      * @return an array list of Ingredients
      */
-    private ArrayList<Ingredient> parseInput(EditText ingredients) {
-        return new ArrayList<Ingredient>();
+    private ArrayList<Ingredient> parseInput(String ingredients) {
+        ArrayList<Ingredient> parsedIngredients = new ArrayList<Ingredient>();
+        StringTokenizer st = new StringTokenizer(ingredients, ", ", false);
+        while (st.hasMoreTokens()) {
+            String name = st.nextToken();
+            String quantity = st.nextToken();
+            parsedIngredients.add(new Ingredient(name, quantity, "100"));
+        }
+        return parsedIngredients;
+    }
+
+    /**
+     * Helper method for abstracting the process of checking a
+     * string for whitespace
+     *
+     * @param input the string being checked for whitespace
+     * @return false if the string contains whitespace; true otherwise
+     */
+    public boolean checkWhiteSpace(String input) {
+        for (int i = 0; i < input.length(); i++) {
+            if (Character.isWhitespace(input.charAt(i))) {
+                return false;
+            } else if (Objects.equals(input.charAt(i), ' ')) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
