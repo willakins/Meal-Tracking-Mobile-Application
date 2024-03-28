@@ -51,6 +51,7 @@ public class PantryViewModel {
                     .child("Calories").setValue(calories);
             mDatabase.child("pantry").child(user.getUserId()).child(name)
                     .child("Expiration").setValue(expiration);
+            user.getPantry().add(new Ingredient(name, quantity, calories, expiration));
         }
     }
 
@@ -69,7 +70,7 @@ public class PantryViewModel {
     private boolean checkUserInput(Context context, String name, String quantity,
                                         String calories, String expiration) {
         int valid = 0;
-        if (name.equals("") || checkWhiteSpace(name)) {
+        if (name.equals("") || !checkWhiteSpace(name)) {
             Toast.makeText(context, "Invalid name input",
                     Toast.LENGTH_SHORT).show();
         } else if (quantity.equals("") || !quantity.matches("\\d+")) {

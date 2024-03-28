@@ -5,7 +5,7 @@ public class Ingredient {
     private String quantity;
     private String calories;
     private String expiration;
-    private static final String defaultExpiration = "-1";
+    private static final String DEFAULT_EXPIRATION = "-1";
 
     public Ingredient(String name, String quantity, String calories,
                         String expiration) {
@@ -16,6 +16,22 @@ public class Ingredient {
     }
 
     public Ingredient(String name, String quantity, String calories) {
-        this(name, quantity, calories, defaultExpiration);
+        this(name, quantity, calories, DEFAULT_EXPIRATION);
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getQuantity() {
+        return this.quantity;
+    }
+
+    public String getCalories() {
+        return this.calories;
+    }
+
+    public String getExpiration() {
+        return this.expiration;
     }
 }

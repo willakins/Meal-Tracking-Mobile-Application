@@ -24,7 +24,9 @@ public class HomeActivity extends AppCompatActivity {
                 replaceFragment(new MealsFragment());
                 return true;
             } else if (item.getItemId() == R.id.recipes) {
-                replaceFragment(new RecipeFragment());
+                RecipeFragment recFrag = new RecipeFragment();
+                recFrag.setContext(HomeActivity.this);
+                replaceFragment(recFrag);
                 return true;
             } else if (item.getItemId() == R.id.ingredients) {
                 IngredientsFragment ingFragment = new IngredientsFragment();

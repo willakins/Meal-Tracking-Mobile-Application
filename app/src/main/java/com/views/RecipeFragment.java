@@ -23,6 +23,7 @@ public class RecipeFragment extends Fragment {
     private Button submitRecipeButton;
     private EditText editTextRecipeName;
     private EditText editTextIngredients;
+    private HomeActivity currentContext;
     private View view;
 
     public RecipeFragment() {
@@ -54,7 +55,7 @@ public class RecipeFragment extends Fragment {
          * and add it to the database
          */
         submitRecipeButton.setOnClickListener(v -> {
-            cookBook.addRecipe(editTextRecipeName, editTextIngredients);
+            cookBook.addRecipe(currentContext, editTextRecipeName, editTextIngredients);
         });
 
         return view;
@@ -74,5 +75,9 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    public void setContext(HomeActivity context) {
+        this.currentContext = context;
     }
 }
