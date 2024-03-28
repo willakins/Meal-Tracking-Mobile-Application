@@ -163,6 +163,9 @@ public class LoginViewModel {
      */
     private void assignUser(String username, String password) {
         user = new User(username, password);
+        /**
+         * TODO 2: load previously inputted meals into the user's arraylist
+         */
         //Loads previously inputted meals into user's arraylist
         mDatabase.child("meals").child(user.getUserId())
                 .addValueEventListener(new ValueEventListener() {
