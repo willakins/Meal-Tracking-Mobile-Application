@@ -14,6 +14,7 @@ public class User {
     private String userId;
     private ArrayList<Meal> meals = new ArrayList<>();
     private ArrayList<Recipe> cookBook = new ArrayList<>();
+    private ArrayList<Ingredient> pantry = new ArrayList<>();
     /**
      * TODO 2: add default 2 recipes to every user's cookBook here
      */
@@ -114,6 +115,14 @@ public class User {
 
     public String getUserId() {
         return this.userId;
+    }
+
+    public ArrayList<Recipe> getCookBook() {
+        return this.cookBook;
+    }
+
+    public ArrayList<Ingredient> getPantry() {
+        return this.pantry;
     }
 
     /**
