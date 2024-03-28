@@ -48,6 +48,7 @@ public class RecipeFragment extends Fragment {
         editTextIngredients = view.findViewById(R.id.editTextIngredients);
         /**
          * TODO 1: Bind the scrollable list of recipes here
+         * Then actually create the scrollable list somewhere else
          */
 
         /**
