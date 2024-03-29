@@ -54,19 +54,42 @@ public class CookBookViewModel {
         if (checkUserInput(context, name, ingredients)) {
             ArrayList<Ingredient> parsedIngredients = parseInput(ingredients);
             //Updates cookbook database
-            mDatabase.child("cookbook").child(name).child("author")
-                    .setValue(user.getUserId());
-            for (Ingredient ingredient: parsedIngredients) {
-                mDatabase.child("cookbook").child(name).child(ingredient.getName())
-                        .child("Quantity").setValue(ingredient.getQuantity());
-                mDatabase.child("cookbook").child(name).child(ingredient.getName())
-                        .child("Calories").setValue(ingredient.getCalories());
-                mDatabase.child("cookbook").child(name).child(ingredient.getName())
-                        .child("Expiration").setValue(ingredient.getExpiration());
+            if (checkIngredientQuantities(context, parsedIngredients)) {
+                mDatabase.child("cookbook").child(name).child("author")
+                        .setValue(user.getUserId());
+                for (Ingredient ingredient : parsedIngredients) {
+                    mDatabase.child("cookbook").child(name).child(ingredient.getName())
+                            .child("Quantity").setValue(ingredient.getQuantity());
+                    mDatabase.child("cookbook").child(name).child(ingredient.getName())
+                            .child("Calories").setValue(ingredient.getCalories());
+                    mDatabase.child("cookbook").child(name).child(ingredient.getName())
+                            .child("Expiration").setValue(ingredient.getExpiration());
+                }
+                user.getCookBook().add(new Recipe(name, parsedIngredients));
             }
-            user.getCookBook().add(new Recipe(name, parsedIngredients));
+
         }
 
+    }
+
+    /**
+     * Helper method for checking whether the user inputted
+     * values correctly
+     *
+     * @param context the current screen context
+     * @param parsedIngredients arrayList of ingredients
+     * @return true if the input is valid; false otherwise
+     */
+    private boolean checkIngredientQuantities(Context context,
+                                            ArrayList<Ingredient> parsedIngredients) {
+        for (Ingredient ingredient : parsedIngredients) {
+            if (Integer.parseInt(ingredient.getQuantity()) <= 0) {
+                Toast.makeText(context, "Invalid quantity input",
+                        Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -79,7 +102,7 @@ public class CookBookViewModel {
      * @return true if the input is valid; false otherwise
      */
     private boolean checkUserInput(Context context, String name, String ingredients) {
-        if (!checkWhiteSpace(name) || name.equals("")) {
+        if (name.equals("")) {
             Toast.makeText(context, "Invalid name input",
                     Toast.LENGTH_SHORT).show();
             return false;
@@ -100,11 +123,14 @@ public class CookBookViewModel {
      */
     private ArrayList<Ingredient> parseInput(String ingredients) {
         ArrayList<Ingredient> parsedIngredients = new ArrayList<Ingredient>();
-        StringTokenizer st = new StringTokenizer(ingredients, ", ", false);
+        StringTokenizer st = new StringTokenizer(ingredients, "(), ", false);
         while (st.hasMoreTokens()) {
-            String name = st.nextToken();
-            String quantity = st.nextToken();
-            parsedIngredients.add(new Ingredient(name, quantity, "100"));
+            String nextToken = st.nextToken();
+            if (!nextToken.equals(" ")) {
+                String name = nextToken;
+                String quantity = st.nextToken();
+                parsedIngredients.add(new Ingredient(name, quantity, "100"));
+            }
         }
         return parsedIngredients;
     }
@@ -126,5 +152,7 @@ public class CookBookViewModel {
         }
         return true;
     }
+
+
 
 }
