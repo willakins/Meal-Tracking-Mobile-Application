@@ -14,12 +14,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.model.Ingredient;
 import com.model.Meal;
+import com.model.Recipe;
 import com.model.User;
 import com.views.AccountCreateActivity;
 import com.views.HomeActivity;
 import com.views.LoginActivity;
 import com.views.MealsFragment;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -202,6 +206,54 @@ public class LoginViewModel {
                             Log.d(TAG, "assignUser:Failure");
                         }
                     });
+        mDatabase.child("cookbook").child(user.getUserId())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        ArrayList<Recipe> cookbook = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String recipeName = postSnapshot.getValue(String.class);
+                            ArrayList<Ingredient> ingredients = new ArrayList<>();
+                            for (DataSnapshot ds : postSnapshot.getChildren()) {
+                                String name = ds.getValue(String.class);
+                                String quantity = ds.child("Quantity").getValue(String.class);
+                                String calories = ds.child("Calories").getValue(String.class);
+                                String expiration = ds.child("Expiration")
+                                        .getValue(String.class);
+                                ingredients.add(new Ingredient(name, quantity, calories,
+                                        expiration));
+                            }
+                            cookbook.add(new Recipe(recipeName, ingredients));
+                        }
+                        user.setCookbook(cookbook);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "assignUser:Failure");
+                    }
+                });
+        mDatabase.child("pantry").child(user.getUserId())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        ArrayList<Ingredient> pantry = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String name = postSnapshot.getValue(String.class);
+                            String quantity = postSnapshot.child("Quantity")
+                                    .getValue(String.class);
+                            String calories = postSnapshot.child("Calories")
+                                    .getValue(String.class);
+                            String expiration = postSnapshot.child("Expiration")
+                                    .getValue(String.class);
+                            pantry.add(new Ingredient(name, quantity, calories, expiration));
+                        }
+                        user.setPantry(pantry);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "assignUser:Failure");
+                    }
+                });
     }
 
     /**
