@@ -24,10 +24,14 @@ public class HomeActivity extends AppCompatActivity {
                 replaceFragment(new MealsFragment());
                 return true;
             } else if (item.getItemId() == R.id.recipes) {
-                replaceFragment(new RecipeFragment());
+                RecipeFragment recFrag = new RecipeFragment();
+                recFrag.setContext(HomeActivity.this);
+                replaceFragment(recFrag);
                 return true;
             } else if (item.getItemId() == R.id.ingredients) {
-                replaceFragment(new IngredientsFragment());
+                IngredientsFragment ingFragment = new IngredientsFragment();
+                ingFragment.setContext(HomeActivity.this);
+                replaceFragment(ingFragment);
                 return true;
             } else if (item.getItemId() == R.id.shopping) {
                 replaceFragment(new ShoppingFragment());
@@ -51,6 +55,18 @@ public class HomeActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void goToIngredientForm() {
+        IngredientFormFragment formFrag = new IngredientFormFragment();
+        formFrag.setContext(HomeActivity.this);
+        replaceFragment(formFrag);
+    }
+
+    public void goToIngredients() {
+        IngredientsFragment ingFrag = new IngredientsFragment();
+        ingFrag.setContext(HomeActivity.this);
+        replaceFragment(ingFrag);
     }
 
 }
