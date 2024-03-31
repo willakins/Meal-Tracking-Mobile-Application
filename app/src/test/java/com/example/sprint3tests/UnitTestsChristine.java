@@ -8,7 +8,7 @@ import org.junit.Test;
  * additionally, don't start writing your pull request until you pull from main
  * so that you don't cause a merge conflict
  *
- * @author
+ * @Christine Lee
  */
 public class UnitTestsChristine {
     @Test
