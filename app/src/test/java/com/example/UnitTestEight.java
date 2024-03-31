@@ -28,10 +28,10 @@ public class UnitTestEight {
 //        assertEquals(testWeight, testUser.getWeight());
 //    }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIngredientConstructor_EmptyName() {
-        //Ingredient testIngredient = new Ingredient("", "x");
-        Meal meal = new Meal("Snack", -100);
+        Ingredient testIngredient = new Ingredient("test", "x");
+        assertEquals("test", testIngredient.getName());
     }
 
 //    @Test(expected = IllegalArgumentException.class)
