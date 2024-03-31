@@ -32,26 +32,28 @@ public class PantryViewModel {
      * @param quantity EditText containing ingredient quantity
      * @param calories EditText containing ingredient calories per quantity
      * @param expiration EditText containing days till expiration
-     * @param testing 1 if doing a unit test, 0 otherwise
      * @return an int that is 4 if the input was valid and 0 through 5 otherwise
      */
     public int addIngredient(String name, String quantity, String calories,
-                             String expiration, int testing) {
+                             String expiration) {
         int validInput = checkUserInput(name, quantity, calories, expiration);
+        if (expiration.equals("")) {
+            expiration = "-1";
+        }
         //4 means valid input but hasn't been checked for duplicates
         if (validInput == 4) {
             Ingredient newIngredient = new Ingredient(name, quantity, calories, expiration);
-            if (user.getPantry().contains(newIngredient)) {
+            if (user.findIngredient(newIngredient)) {
                 return 5;
             }
-            if (testing != 1) {
-                mDatabase.child("pantry").child(user.getUserId()).child(name)
-                        .child("Quantity").setValue(quantity);
-                mDatabase.child("pantry").child(user.getUserId()).child(name)
-                        .child("Calories").setValue(calories);
-                mDatabase.child("pantry").child(user.getUserId()).child(name)
-                        .child("Expiration").setValue(expiration);
-            }
+            mDatabase.child("pantry").child(user.getUserId()).child(name)
+                            .child("Name").setValue(name);
+            mDatabase.child("pantry").child(user.getUserId()).child(name)
+                    .child("Quantity").setValue(quantity);
+            mDatabase.child("pantry").child(user.getUserId()).child(name)
+                    .child("Calories").setValue(calories);
+            mDatabase.child("pantry").child(user.getUserId()).child(name)
+                    .child("Expiration").setValue(expiration);
             user.getPantry().add(newIngredient);
         }
         return validInput;

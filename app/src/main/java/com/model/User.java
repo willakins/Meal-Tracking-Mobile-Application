@@ -172,4 +172,19 @@ public class User {
         return this.calorieGoal - this.caloriesToday;
     }
 
+    /**
+     * helper method for determining if a user's pantry contains an ingredient
+     *
+     * @param target the ingredient that the pantry is being searched for
+     * @return true if the ingredient is in the pantry; false otherwise
+     */
+    public boolean findIngredient(Ingredient target) {
+        for (Ingredient ingredient : this.pantry) {
+            if (ingredient.getName().toUpperCase().equals(
+                    target.getName().toUpperCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -62,7 +62,7 @@ public class IngredientFormFragment extends Fragment {
             String calories = editTextCalories.getText().toString();
             String expiration = editTextExpiration.getText().toString();
             int validInput = pantry.addIngredient(name, quantity,
-                                    calories, expiration, 0);
+                                    calories, expiration);
             if (validInput == 0) {
                 Toast.makeText(currentContext, "Invalid name input",
                         Toast.LENGTH_SHORT).show();
