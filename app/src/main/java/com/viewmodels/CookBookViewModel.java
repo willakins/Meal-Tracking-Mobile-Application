@@ -4,22 +4,21 @@ import android.content.Context;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.model.Ingredient;
 import com.model.Recipe;
 import com.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringTokenizer;
 
 
-import java.util.List;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import android.util.Log;
-import static android.content.ContentValues.TAG;
 
 public class CookBookViewModel {
     private static User user;
@@ -161,28 +160,23 @@ public class CookBookViewModel {
         return true;
     }
 
-    //setting up for task
-    public interface RecipesCallback {
-        void onCallback(List<Recipe> recipeList);
-    }
-    public void getAllRecipes(RecipesCallback callback) {
-        DatabaseReference recipesRef = mDatabase.child("cookbook");
-        recipesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Recipe> recipes = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Recipe recipe = snapshot.getValue(Recipe.class);
-                    recipes.add(recipe);
-                }
-                callback.onCallback(recipes);
-            }
+    public List<Recipe> getUserRecipes() {
+        final List<Recipe> userRecipes = new ArrayList<>();
+        mDatabase.child("cookbook").child(user.getUserId())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Recipe recipe = snapshot.getValue(Recipe.class);
+                            userRecipes.add(recipe);
+                        }
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
-        });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        System.out.println("The read failed: " + databaseError.getCode());
+                    }
+                });
+        return userRecipes;
     }
-
 }
