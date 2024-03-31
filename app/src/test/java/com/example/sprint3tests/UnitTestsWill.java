@@ -1,5 +1,13 @@
 package com.example.sprint3tests;
 
+import static junit.framework.TestCase.assertEquals;
+
+import android.content.Context;
+
+import com.model.User;
+import com.viewmodels.PantryViewModel;
+import com.views.HomeActivity;
+
 import org.junit.Test;
 
 /**
@@ -13,8 +21,22 @@ import org.junit.Test;
  * @author Will Akins
  */
 public class UnitTestsWill {
+    PantryViewModel pantry = PantryViewModel.getInstance();
+    User testUser = new User();
+    pantry.setUser(testUser);
+    Context context = new HomeActivity();
     @Test
-    public void testInsertNameHere() {
+    public void testPantryInputChecks() {
 
+    }
+
+    @Test
+    public void testPantryInputReceivedByUser() {
+        String testName = "Cheese";
+        String testQuantity = "2";
+        String testCalories = "130";
+        String testExpiration = "4";
+        pantry.addIngredient(context, testName, testQuantity, testCalories, testExpiration);
+        assertEquals("Cheese", )
     }
 }

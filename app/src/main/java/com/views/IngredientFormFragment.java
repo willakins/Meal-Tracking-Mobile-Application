@@ -56,8 +56,12 @@ public class IngredientFormFragment extends Fragment {
         });
 
         submitIngredientButton.setOnClickListener(v -> {
-            pantry.addIngredient(getContext(), editTextName, editTextQuantity,
-                                    editTextCalories, editTextExpiration);
+            String name = editTextName.getText().toString();
+            String quantity = editTextQuantity.getText().toString();
+            String calories = editTextCalories.getText().toString();
+            String expiration = editTextExpiration.getText().toString();
+            pantry.addIngredient(getContext(), name, quantity,
+                                    calories, expiration);
             editTextName.setText("");
             editTextQuantity.setText("");
             editTextCalories.setText("");

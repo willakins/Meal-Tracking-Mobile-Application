@@ -33,17 +33,13 @@ public class PantryViewModel {
     /**
      *
      * @param context the currently displayed context for invalid input purposes
-     * @param editTextName EditText containing the ingredient name
-     * @param editTextQuantity EditText containing ingredient quantity
-     * @param editTextCalories EditText containing ingredient calories per quantity
-     * @param editTextExpiration EditText containing days till expiration
+     * @param name EditText containing the ingredient name
+     * @param quantity EditText containing ingredient quantity
+     * @param calories EditText containing ingredient calories per quantity
+     * @param expiration EditText containing days till expiration
      */
-    public void addIngredient(Context context, EditText editTextName, EditText editTextQuantity,
-                              EditText editTextCalories, EditText editTextExpiration) {
-        String name = editTextName.getText().toString();
-        String quantity = editTextQuantity.getText().toString();
-        String calories = editTextCalories.getText().toString();
-        String expiration = editTextExpiration.getText().toString();
+    public void addIngredient(Context context, String name, String quantity,
+                              String calories, String expiration) {
         if (checkUserInput(context, name, quantity, calories, expiration)) {
             mDatabase.child("pantry").child(user.getUserId()).child(name)
                         .child("Quantity").setValue(quantity);
@@ -118,5 +114,9 @@ public class PantryViewModel {
             }
         }
         return true;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
