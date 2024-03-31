@@ -13,6 +13,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.StringTokenizer;
 
+
+import java.util.List;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import android.util.Log;
+import static android.content.ContentValues.TAG;
+
 public class CookBookViewModel {
     private static User user;
     private static LoginViewModel loginViewModel;
@@ -153,6 +161,28 @@ public class CookBookViewModel {
         return true;
     }
 
+    //setting up for task
+    public interface RecipesCallback {
+        void onCallback(List<Recipe> recipeList);
+    }
+    public void getAllRecipes(RecipesCallback callback) {
+        DatabaseReference recipesRef = mDatabase.child("cookbook");
+        recipesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Recipe> recipes = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Recipe recipe = snapshot.getValue(Recipe.class);
+                    recipes.add(recipe);
+                }
+                callback.onCallback(recipes);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+    }
 
 }
