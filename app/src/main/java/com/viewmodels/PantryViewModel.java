@@ -1,9 +1,5 @@
 package com.viewmodels;
 
-import android.content.Context;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import com.google.firebase.database.DatabaseReference;
 import com.model.Ingredient;
 import com.model.User;
@@ -37,6 +33,7 @@ public class PantryViewModel {
      * @param calories EditText containing ingredient calories per quantity
      * @param expiration EditText containing days till expiration
      * @param testing 1 if doing a unit test, 0 otherwise
+     * @return an int that is 4 if the input was valid and 0 through 5 otherwise
      */
     public int addIngredient(String name, String quantity, String calories,
                              String expiration, int testing) {
