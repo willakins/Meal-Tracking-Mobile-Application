@@ -237,7 +237,8 @@ public class LoginViewModel {
                     public void onDataChange(final DataSnapshot dataSnapshot) {
                         ArrayList<Ingredient> pantry = new ArrayList<>();
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            String name = postSnapshot.getValue(String.class);
+                            String name = postSnapshot.child("Name")
+                                    .getValue(String.class);
                             String quantity = postSnapshot.child("Quantity")
                                     .getValue(String.class);
                             String calories = postSnapshot.child("Calories")

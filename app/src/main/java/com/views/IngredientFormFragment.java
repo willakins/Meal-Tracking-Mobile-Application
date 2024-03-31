@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -56,8 +57,28 @@ public class IngredientFormFragment extends Fragment {
         });
 
         submitIngredientButton.setOnClickListener(v -> {
-            pantry.addIngredient(getContext(), editTextName, editTextQuantity,
-                                    editTextCalories, editTextExpiration);
+            String name = editTextName.getText().toString();
+            String quantity = editTextQuantity.getText().toString();
+            String calories = editTextCalories.getText().toString();
+            String expiration = editTextExpiration.getText().toString();
+            int validInput = pantry.addIngredient(name, quantity,
+                                    calories, expiration);
+            if (validInput == 0) {
+                Toast.makeText(currentContext, "Invalid name input",
+                        Toast.LENGTH_SHORT).show();
+            } else if (validInput == 1) {
+                Toast.makeText(currentContext, "Invalid quantity input",
+                        Toast.LENGTH_SHORT).show();
+            } else if (validInput == 2) {
+                Toast.makeText(currentContext, "Invalid calories input",
+                        Toast.LENGTH_SHORT).show();
+            } else if (validInput == 3) {
+                Toast.makeText(currentContext, "Invalid expiration input",
+                        Toast.LENGTH_SHORT).show();
+            } else if (validInput == 5) {
+                Toast.makeText(currentContext, "Cannot add ingredients already in pantry",
+                        Toast.LENGTH_SHORT).show();
+            }
             editTextName.setText("");
             editTextQuantity.setText("");
             editTextCalories.setText("");
