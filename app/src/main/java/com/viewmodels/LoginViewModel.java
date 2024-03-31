@@ -23,7 +23,6 @@ import com.views.HomeActivity;
 import com.views.LoginActivity;
 import com.views.MealsFragment;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
