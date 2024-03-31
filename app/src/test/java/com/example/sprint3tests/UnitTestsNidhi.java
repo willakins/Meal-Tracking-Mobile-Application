@@ -8,11 +8,9 @@ import org.junit.Test;
  * additionally, don't start writing your pull request until you pull from main
  * so that you don't cause a merge conflict
  *
- * Tests if the PantryViewModel does correct null and whitespace checks for data
- *
- * @author Will Akins
+ * @author
  */
-public class UnitTest1 {
+public class UnitTestsNidhi {
     @Test
     public void testInsertNameHere() {
 
