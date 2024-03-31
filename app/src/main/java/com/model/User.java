@@ -81,6 +81,14 @@ public class User {
         this.meals = meals;
     }
 
+    public void setCookbook(ArrayList<Recipe> cookbook) {
+        this.cookBook = cookbook;
+    }
+
+    public void setPantry(ArrayList<Ingredient> pantry) {
+        this.pantry = pantry;
+    }
+
     public String getUsername() {
         return this.username;
     }

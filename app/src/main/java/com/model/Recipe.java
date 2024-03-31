@@ -15,6 +15,14 @@ public class Recipe {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public ArrayList<Ingredient> getIngredients() {
         return this.ingredients;
     }
