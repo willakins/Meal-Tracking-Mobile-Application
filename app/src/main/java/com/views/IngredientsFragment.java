@@ -19,12 +19,6 @@ public class IngredientsFragment extends Fragment {
     private Button goToIngredientForm;
     private View view;
 
-
-
-
-
-
-
     public IngredientsFragment() {
         // Required empty public constructor
     }
@@ -46,6 +40,7 @@ public class IngredientsFragment extends Fragment {
         /**
          * TODO 1: Bind the scrollable list of ingredients here
          */
+        goToIngredientForm = view.findViewById(R.id.goToIngredientForm);
 
         goToIngredientForm.setOnClickListener(v -> {
             currentContext.goToIngredientForm();
