@@ -1,5 +1,4 @@
-package com.example;
-
+package com.example.sprint2tests;
 import static org.junit.Assert.assertEquals;
 import com.model.User;
 import org.junit.Test;
@@ -9,19 +8,18 @@ import org.junit.Test;
  * do not start writing the test until you change author name and do a pull request.
  * additionally, don't start writing your pull request until you pull from main
  * so that you don't cause a merge conflict
- *
- * Test that User Model generates the correct userId
- * @author Will Akins
+ * @author Nidhi Tarpara
  */
-public class UnitTestTwo {
+public class UnitTestEleven {
 
     @Test
     public void testInsertNameHere() {
-        String testUsername = "willhakins@gmail.com";
-        String testPassword = "william";
-        String expectedUserId = "willhakins";
-        User testUser = new User(testUsername, testPassword);
+        User user = new User("testUser@example.com", "password");
+        user.setHeight("65");
+        user.setWeight("140");
+        user.setIsMale(false);
 
-        assertEquals(expectedUserId, testUser.getUserId());
+        assertEquals(1586, user.calculateCalorieGoal());
+        assertEquals(1586, user.getCalorieGoal());
     }
 }

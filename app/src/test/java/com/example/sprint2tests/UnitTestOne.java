@@ -1,4 +1,4 @@
-package com.example;
+package com.example.sprint2tests;
 
 import com.model.User;
 import org.junit.Test;

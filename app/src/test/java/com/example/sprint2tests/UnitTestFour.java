@@ -1,4 +1,4 @@
-package com.example;
+package com.example.sprint2tests;
 
 import com.model.Meal;
 import com.model.User;

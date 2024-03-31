@@ -1,4 +1,4 @@
-package com.example;
+package com.example.sprint2tests;
 
 import static org.junit.Assert.assertEquals;
 
