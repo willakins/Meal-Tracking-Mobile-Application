@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DatabaseReference;
 import com.model.Ingredient;
 import com.model.User;
+import com.viewmodels.PantryViewModel;
 import com.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
@@ -23,17 +24,21 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter
     private Context context;
     private Button addButton;
     private Button subtractButton;
-    private UserViewModel userViewModel;
+    private PantryViewModel pantryViewModel;
+    private IngredientsFragment ingredientsFragment;
     private IngredientAdapter.OnIngredientClickListener listener;
     private User user;
 
     public IngredientAdapter(ArrayList<Ingredient> pantry, Context context,
                              IngredientAdapter.OnIngredientClickListener listener,
-                             UserViewModel userViewModel) {
+                             PantryViewModel pantryViewModel,
+                             IngredientsFragment ingFragment) {
         this.pantry = pantry;
         this.context = context;
-        this.userViewModel = userViewModel;
-        this.user = userViewModel.getUser();
+        this.pantry = pantry;
+        this.user = pantryViewModel.getUser();
+        this.ingredientsFragment = ingFragment;
+        this.pantryViewModel = pantryViewModel;
     }
 
     @NonNull
@@ -50,7 +55,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter
         holder.ingredientNameTxt.setText(ingredient.getName() + " : "
                 + ingredient.getQuantity());
         holder.addButton.setOnClickListener(v -> {
-            DatabaseReference mDatabase = userViewModel.getDatabase();
+            DatabaseReference mDatabase = pantryViewModel.getDatabase();
             int pantryIndex = user.locateIngredient(ingredient);
             if (pantryIndex != -1) {
                 String newQuantity = Integer.toString(Integer.parseInt(user.getPantry()
@@ -58,14 +63,16 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter
                 user.getPantry().get(pantryIndex).setQuantity(newQuantity);
                 mDatabase.child("pantry").child(user.getUserId()).child(ingredient.getName())
                         .child("Quantity").setValue(newQuantity);
+                holder.ingredientNameTxt.setText(ingredient.getName() + " : "
+                        + ingredient.getQuantity());
+                ingredientsFragment.generateNewAdapter();
             }
-            holder.ingredientNameTxt.setText(ingredient.getName() + " : "
-                    + ingredient.getQuantity());
+
 
         });
 
         holder.subtractButton.setOnClickListener(v -> {
-            DatabaseReference mDatabase = userViewModel.getDatabase();
+            DatabaseReference mDatabase = pantryViewModel.getDatabase();
             int pantryIndex = user.locateIngredient(ingredient);
             if (pantryIndex != -1) {
                 String newQuantity = Integer.toString(Integer.parseInt(user.getPantry()
@@ -73,9 +80,13 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter
                 user.getPantry().get(pantryIndex).setQuantity(newQuantity);
                 mDatabase.child("pantry").child(user.getUserId()).child(ingredient.getName())
                         .child("Quantity").setValue(newQuantity);
+                holder.ingredientNameTxt.setText(ingredient.getName() + " : "
+                        + ingredient.getQuantity());
+                ingredientsFragment.generateNewAdapter();
+                if (Integer.parseInt(newQuantity) == 0) {
+                    pantryViewModel.removeIngredient(ingredient);
+                }
             }
-            holder.ingredientNameTxt.setText(ingredient.getName() + " : "
-                    + ingredient.getQuantity());
         });
     }
 

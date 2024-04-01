@@ -166,9 +166,6 @@ public class LoginViewModel {
      */
     private void assignUser(String username, String password) {
         user = new User(username, password);
-        /**
-         * TODO 2: load previously inputted meals into the user's arraylist
-         */
         //Loads previously inputted meals into user's arraylist
         mDatabase.child("meals").child(user.getUserId())
                 .addValueEventListener(new ValueEventListener() {
@@ -213,17 +210,21 @@ public class LoginViewModel {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String recipeName = postSnapshot.child("Name").getValue(String.class);
                             ArrayList<Ingredient> ingredients = new ArrayList<>();
-                            for (DataSnapshot ds : postSnapshot.child("Ingredients")
-                                    .getChildren()) {
-                                String name = ds.child("Name").getValue(String.class);
-                                String quantity = ds.child("Quantity").getValue(String.class);
-                                String calories = ds.child("Calories").getValue(String.class);
-                                String expiration = ds.child("Expiration")
+                            Recipe newRecipe = new Recipe(recipeName, ingredients);
+                            DataSnapshot ingList = postSnapshot.child("Ingredients");
+                            for (DataSnapshot ds : ingList.getChildren()) {
+                                String name = ds.child("name").getValue(String.class);
+                                String quantity = ds.child("quantity").getValue(String.class);
+                                String calories = ds.child("calories").getValue(String.class);
+                                String expiration = ds.child("expiration")
                                         .getValue(String.class);
-                                ingredients.add(new Ingredient(name, quantity, calories,
-                                        expiration));
+                                Ingredient newIng = new Ingredient(name, quantity, calories,
+                                        expiration);
+                                ingredients.add(newIng);
                             }
-                            cookbook.add(new Recipe(recipeName, ingredients));
+
+                            newRecipe.setIngredients(ingredients);
+                            cookbook.add(newRecipe);
                         }
                         user.setCookbook(cookbook);
                     }

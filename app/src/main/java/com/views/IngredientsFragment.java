@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.model.Ingredient;
 import com.model.Recipe;
 import com.viewmodels.LoginViewModel;
+import com.viewmodels.PantryViewModel;
 import com.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class IngredientsFragment extends Fragment {
     private HomeActivity currentContext;
     private LoginViewModel loginViewModel;
     private UserViewModel userViewModel;
+    private PantryViewModel pantryViewModel;
     private Button goToIngredientForm;
     private View view;
     private RecyclerView ingredientsRecyclerView;
@@ -44,13 +46,14 @@ public class IngredientsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_ingredients, container, false);
         loginViewModel = LoginViewModel.getInstance();
         userViewModel = UserViewModel.getInstance();
+        pantryViewModel = PantryViewModel.getInstance();
         //Components of Ingredient Fragment
         goToIngredientForm = view.findViewById(R.id.goToIngredientForm);
         ArrayList<Recipe> recipes = userViewModel.getUser().getCookBook();
         ingredientsRecyclerView = view.findViewById(R.id.ingredientsRecyclerView);
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ingredientAdapter = new IngredientAdapter(userViewModel.getUser().getPantry(), getContext(),
-                ingredient -> openRecipeDetails(ingredient), userViewModel);
+                ingredient -> openRecipeDetails(ingredient), pantryViewModel, this);
         ingredientsRecyclerView.setAdapter(ingredientAdapter);
         goToIngredientForm = view.findViewById(R.id.goToIngredientForm);
 
@@ -82,5 +85,11 @@ public class IngredientsFragment extends Fragment {
         builder.setPositiveButton("Close", (dialog, which) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void generateNewAdapter() {
+        ingredientAdapter = new IngredientAdapter(userViewModel.getUser().getPantry(), getContext(),
+                ingredient -> openRecipeDetails(ingredient), pantryViewModel, this);
+        ingredientsRecyclerView.setAdapter(ingredientAdapter);
     }
 }

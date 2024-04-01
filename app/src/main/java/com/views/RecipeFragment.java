@@ -37,6 +37,8 @@ public class RecipeFragment extends Fragment {
     private RecyclerView recipesRecyclerView;
     private RecipeAdapter recipeAdapter;
     private RecipeContext recipeContext = new RecipeContext((recipes, pantry) -> recipes);
+    private Button sortNameButton;
+    private Button sortIngredientsButton;
 
 
     public RecipeFragment() {
@@ -60,6 +62,8 @@ public class RecipeFragment extends Fragment {
         cookBook = CookBookViewModel.getInstance();
         pantry = PantryViewModel.getInstance();
         submitRecipeButton = view.findViewById(R.id.buttonSaveRecipe);
+        sortNameButton = view.findViewById(R.id.sortButton);
+        sortIngredientsButton = view.findViewById(R.id.filterButton);
         editTextRecipeName = view.findViewById(R.id.editTextRecipeName);
         editTextIngredients = view.findViewById(R.id.editTextIngredients);
 
@@ -69,7 +73,6 @@ public class RecipeFragment extends Fragment {
         recipeAdapter = new RecipeAdapter(recipes, userViewModel.getUser()
                 .getPantry(), getContext(), recipe -> openRecipeDetails(recipe));
         recipesRecyclerView.setAdapter(recipeAdapter);
-        setupSortAndFilterButtons(view);
 
         submitRecipeButton.setOnClickListener(v -> {
             cookBook.addRecipe(getContext(), editTextRecipeName, editTextIngredients);
@@ -81,6 +84,13 @@ public class RecipeFragment extends Fragment {
             recipesRecyclerView.setAdapter(recipeAdapter);
         });
 
+        sortNameButton.setOnClickListener(v -> {
+            applySortStrategy();
+        });
+
+        sortIngredientsButton.setOnClickListener(v -> {
+            applyFilterStrategy();
+        });
         return view;
     }
 
@@ -103,16 +113,6 @@ public class RecipeFragment extends Fragment {
 
     public void setContext(HomeActivity context) {
         this.currentContext = context;
-    }
-
-
-
-    private void setupSortAndFilterButtons(View view) {
-        Button sortButton = view.findViewById(R.id.sortButton);
-        Button filterButton = view.findViewById(R.id.filterButton);
-
-        sortButton.setOnClickListener(v -> applySortStrategy());
-        filterButton.setOnClickListener(v -> applyFilterStrategy());
     }
 
     private void applySortStrategy() {
@@ -148,13 +148,9 @@ public class RecipeFragment extends Fragment {
     }
 
     private void updateRecipeList(ArrayList<Recipe> recipes) {
-        if (recipeAdapter == null) {
-            recipeAdapter = new RecipeAdapter(recipes, userViewModel.getUser()
-                    .getPantry(), getContext(), this::openRecipeDetails);
-            recipesRecyclerView.setAdapter(recipeAdapter);
-        } else {
-            recipeAdapter.updateRecipes(recipes);
-        }
+        recipeAdapter = new RecipeAdapter(recipes, userViewModel.getUser()
+                .getPantry(), getContext(), recipe -> openRecipeDetails(recipe));
+        recipesRecyclerView.setAdapter(recipeAdapter);
     }
 
     private void openRecipeDetails(Recipe recipe) {

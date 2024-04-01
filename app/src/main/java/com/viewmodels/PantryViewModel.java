@@ -105,7 +105,20 @@ public class PantryViewModel {
         return true;
     }
 
+    public static void removeIngredient(Ingredient ingredient) {
+        mDatabase.child("pantry").child(user.getUserId())
+                .child(ingredient.getName()).removeValue();
+    }
+
     public static void setUser(User newUser) {
         user = newUser;
+    }
+
+    public static User getUser() {
+        return user;
+    }
+
+    public static DatabaseReference getDatabase() {
+        return mDatabase;
     }
 }
