@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.model.Ingredient;
 import com.model.User;
 import com.viewmodels.PantryViewModel;
-import com.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
 
