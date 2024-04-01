@@ -1,7 +1,6 @@
 package com.views;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,6 @@ import com.model.User;
 import com.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
@@ -28,29 +25,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private ArrayList<Ingredient> pantry;
     private Context context;
     private OnRecipeClickListener listener;
-    public interface OnRecipeClickListener {
-        void onRecipeClick(Recipe recipe);
-    }
 
-    public RecipeAdapter(ArrayList<Recipe> recipes, ArrayList<Ingredient> pantry, Context context, OnRecipeClickListener listener) {
+    public RecipeAdapter(ArrayList<Recipe> recipes, ArrayList<Ingredient> pantry,
+                         Context context, OnRecipeClickListener listener) {
         this.recipes = recipes;
         this.pantry = pantry;
         this.context = context;
         this.listener = listener;
         userViewModel = UserViewModel.getInstance();
     }
-
-    public class RecipeViewHolder extends RecyclerView.ViewHolder {
-        TextView recipeName;
-        ImageView indicator;
-
-        public RecipeViewHolder(View itemView) {
-            super(itemView);
-            recipeName = itemView.findViewById(R.id.recipeName);
-            indicator = itemView.findViewById(R.id.indicator);
-        }
-    }
-
 
     @NonNull
     @Override
@@ -65,7 +48,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.recipeName.setText(recipe.getName());
         //boolean hasAllIngredients = checkIngredients(recipe.getIngredients());
         boolean hasAllIngredients = true;
-                holder.indicator.setImageResource(hasAllIngredients ? R.drawable.ic_check : R.drawable.ic_close);
+        holder.indicator.setImageResource(hasAllIngredients ? R.drawable.ic_check
+                : R.drawable.ic_close);
         holder.itemView.setOnClickListener(v -> {
             // Open recipe details if user has enough ingredients
             if (hasAllIngredients) {
@@ -81,6 +65,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         return recipes.size();
     }
 
+
     private boolean checkIngredients(ArrayList<Ingredient> ingredients) {
         User user = userViewModel.getUser();
         for (Ingredient ingredient : ingredients) {
@@ -89,8 +74,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 if (pantryIndex != -1) {
                     if (Integer.parseInt(user.getPantry().get(pantryIndex).getQuantity())
                             < Integer.parseInt(ingredient.getQuantity())) {
-                        Log.d("Not enough of", "Has: " + user.getPantry().get(user.locateIngredient(ingredient))
-                                .getQuantity() + ingredient.getQuantity());
                         return false;
                     }
                 } else {
@@ -107,5 +90,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public void setPantryItems(ArrayList<Ingredient> pantryItems) {
         this.pantry = pantryItems;
+    }
+
+    public interface OnRecipeClickListener {
+        void onRecipeClick(Recipe recipe);
+    }
+
+    public class RecipeViewHolder extends RecyclerView.ViewHolder {
+        private TextView recipeName;
+        private ImageView indicator;
+
+        public RecipeViewHolder(View itemView) {
+            super(itemView);
+            recipeName = itemView.findViewById(R.id.recipeName);
+            indicator = itemView.findViewById(R.id.indicator);
+        }
     }
 }

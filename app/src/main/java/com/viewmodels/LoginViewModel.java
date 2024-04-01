@@ -213,7 +213,8 @@ public class LoginViewModel {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String recipeName = postSnapshot.child("Name").getValue(String.class);
                             ArrayList<Ingredient> ingredients = new ArrayList<>();
-                            for (DataSnapshot ds : postSnapshot.child("Ingredients").getChildren()) {
+                            for (DataSnapshot ds : postSnapshot.child("Ingredients")
+                                    .getChildren()) {
                                 String name = ds.child("Name").getValue(String.class);
                                 String quantity = ds.child("Quantity").getValue(String.class);
                                 String calories = ds.child("Calories").getValue(String.class);

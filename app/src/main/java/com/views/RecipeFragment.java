@@ -23,9 +23,6 @@ import com.viewmodels.PantryViewModel;
 import com.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class RecipeFragment extends Fragment {
     private static LoginViewModel loginViewModel;
@@ -69,8 +66,8 @@ public class RecipeFragment extends Fragment {
         ArrayList<Recipe> recipes = userViewModel.getUser().getCookBook();
         recipesRecyclerView = view.findViewById(R.id.recipesRecyclerView);
         recipesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recipeAdapter = new RecipeAdapter(recipes, userViewModel.getUser().getPantry(), getContext(),
-                recipe -> openRecipeDetails(recipe));
+        recipeAdapter = new RecipeAdapter(recipes, userViewModel.getUser()
+                .getPantry(), getContext(), recipe -> openRecipeDetails(recipe));
         recipesRecyclerView.setAdapter(recipeAdapter);
         setupSortAndFilterButtons(view);
 
@@ -78,6 +75,10 @@ public class RecipeFragment extends Fragment {
             cookBook.addRecipe(getContext(), editTextRecipeName, editTextIngredients);
             editTextRecipeName.setText("");
             editTextIngredients.setText("");
+            ArrayList<Recipe> newRecipes = userViewModel.getUser().getCookBook();
+            recipeAdapter = new RecipeAdapter(newRecipes, userViewModel.getUser()
+                    .getPantry(), getContext(), recipe -> openRecipeDetails(recipe));
+            recipesRecyclerView.setAdapter(recipeAdapter);
         });
 
         return view;
