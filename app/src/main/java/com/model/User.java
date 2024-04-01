@@ -180,11 +180,27 @@ public class User {
      */
     public boolean findIngredient(Ingredient target) {
         for (Ingredient ingredient : this.pantry) {
-            if (ingredient.getName().toUpperCase().equals(
-                    target.getName().toUpperCase())) {
+            if (target.getName() != null && ingredient.getName()
+                    .toUpperCase().equals(target.getName().toUpperCase())) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Helper method for finding the index of an ingredient in the pantry
+     *
+     * @param target The ingredient being searched for
+     * @return the index of the ingredient; -1 if not found
+     */
+    public int locateIngredient(Ingredient target) {
+        for (int i = 0; i < this.pantry.size(); i++) {
+            if (target.getName() != null && pantry.get(i).getName().toUpperCase()
+                    .equals(target.getName().toUpperCase())) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

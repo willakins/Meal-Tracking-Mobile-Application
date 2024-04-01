@@ -62,8 +62,13 @@ public class CookBookViewModel {
             ArrayList<Ingredient> parsedIngredients = parseInput(ingredients);
             //Updates cookbook database
             if (checkIngredientQuantities(context, parsedIngredients)) {
-                mDatabase.child("cookbook").child(name).child("author")
+                mDatabase.child("cookbook").child(name).child("Name")
+                        .setValue(name);
+                mDatabase.child("cookbook").child(name).child("Author")
                         .setValue(user.getUserId());
+                mDatabase.child("cookbook").child(name).child("Ingredients")
+                        .setValue(parsedIngredients);
+                /**
                 for (Ingredient ingredient : parsedIngredients) {
                     mDatabase.child("cookbook").child(name).child(ingredient.getName())
                             .child("Quantity").setValue(ingredient.getQuantity());
@@ -72,6 +77,7 @@ public class CookBookViewModel {
                     mDatabase.child("cookbook").child(name).child(ingredient.getName())
                             .child("Expiration").setValue(ingredient.getExpiration());
                 }
+                 */
                 user.getCookBook().add(new Recipe(name, parsedIngredients));
             }
 
