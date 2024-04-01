@@ -53,7 +53,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter
             DatabaseReference mDatabase = userViewModel.getDatabase();
             int pantryIndex = user.locateIngredient(ingredient);
             if (pantryIndex != -1) {
-                String newQuantity = Integer.toString(Integer.parseInt(user.getPantry().get(pantryIndex).getQuantity()) + 1);
+                String newQuantity = Integer.toString(Integer.parseInt(user.getPantry()
+                        .get(pantryIndex).getQuantity()) + 1);
                 user.getPantry().get(pantryIndex).setQuantity(newQuantity);
                 mDatabase.child("pantry").child(user.getUserId()).child(ingredient.getName())
                         .child("Quantity").setValue(newQuantity);
@@ -67,7 +68,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter
             DatabaseReference mDatabase = userViewModel.getDatabase();
             int pantryIndex = user.locateIngredient(ingredient);
             if (pantryIndex != -1) {
-                String newQuantity = Integer.toString(Integer.parseInt(user.getPantry().get(pantryIndex).getQuantity()) - 1);
+                String newQuantity = Integer.toString(Integer.parseInt(user.getPantry()
+                        .get(pantryIndex).getQuantity()) - 1);
                 user.getPantry().get(pantryIndex).setQuantity(newQuantity);
                 mDatabase.child("pantry").child(user.getUserId()).child(ingredient.getName())
                         .child("Quantity").setValue(newQuantity);
