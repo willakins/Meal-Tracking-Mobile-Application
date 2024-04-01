@@ -1,6 +1,7 @@
 package com.views;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +47,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public void onBindViewHolder(RecipeAdapter.RecipeViewHolder holder, int position) {
         Recipe recipe = recipes.get(position);
         holder.recipeName.setText(recipe.getName());
-        //boolean hasAllIngredients = checkIngredients(recipe.getIngredients());
-        boolean hasAllIngredients = true;
+        boolean hasAllIngredients = checkIngredients(recipe.getIngredients());
         holder.indicator.setImageResource(hasAllIngredients ? R.drawable.ic_check
                 : R.drawable.ic_close);
         holder.itemView.setOnClickListener(v -> {
