@@ -100,35 +100,44 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recipesRecyclerView"
-                android:layout_width="160dp"
-                android:layout_height="70dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonSaveRecipe"
-                app:layout_constraintVertical_bias="0.131" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recipesRecyclerView"
+                    android:layout_width="160dp"
+                    android:layout_height="70dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.46" />
 
             <Button
                 android:id="@+id/sortButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/black"
                 android:text="Sort by Name"
-                tools:layout_editor_absoluteX="69dp"
-                tools:layout_editor_absoluteY="312dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.23"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.369" />
 
             <Button
                 android:id="@+id/filterButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/black"
-                android:text="Filter Available"
-                tools:layout_editor_absoluteX="226dp"
-                tools:layout_editor_absoluteY="312dp" />
+                android:text="Filter by Ingredients"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.77"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.369" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
