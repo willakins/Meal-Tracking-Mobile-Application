@@ -115,4 +115,8 @@ public class UserViewModel {
     public User getUser() {
         return user;
     }
+
+    public DatabaseReference getDatabase() {
+        return this.mDatabase;
+    }
 }

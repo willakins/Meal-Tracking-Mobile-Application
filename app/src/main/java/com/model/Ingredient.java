@@ -43,4 +43,8 @@ public class Ingredient {
     public String getExpiration() {
         return this.expiration;
     }
+
+    public void setQuantity(String newQuantity) {
+        this.quantity = newQuantity;
+    }
 }
