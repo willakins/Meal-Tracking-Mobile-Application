@@ -28,7 +28,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         void onRecipeClick(Recipe recipe);
     }
 
-    public RecipeAdapter(List<Recipe> recipes, Map<String, Ingredient> pantry, Context context, OnRecipeClickListener listener) {
+    public RecipeAdapter(List<Recipe> recipes, Map<String, Ingredient> pantry, Context context,
+                         OnRecipeClickListener listener) {
         this.recipes = recipes;
         this.pantry = pantry;
         this.context = context;
@@ -48,7 +49,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         Recipe recipe = recipes.get(position);
         holder.recipeName.setText(recipe.getName());
         boolean hasAllIngredients = checkIngredients(recipe.getIngredients());
-        holder.indicator.setImageResource(hasAllIngredients ? R.drawable.ic_check : R.drawable.ic_close);
+        holder.indicator.setImageResource(hasAllIngredients ? R.drawable.ic_check
+                : R.drawable.ic_close);
         holder.itemView.setOnClickListener(v -> {
             // Open recipe details if user has enough ingredients
             if (hasAllIngredients) {
@@ -66,7 +68,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     private boolean checkIngredients(ArrayList<Ingredient> ingredients) {
         for (Ingredient ingredient : ingredients) {
-            if (!pantry.containsKey(ingredient.getName()) || Integer.parseInt(pantry.get(ingredient.getName()).getQuantity()) < Integer.parseInt(ingredient.getQuantity())) {
+            if (!pantry.containsKey(ingredient.getName())
+                    || Integer.parseInt(pantry.get(ingredient.getName()).getQuantity())
+                            < Integer.parseInt(ingredient.getQuantity())) {
                 return false;
             }
         }
@@ -74,8 +78,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     static class RecipeViewHolder extends RecyclerView.ViewHolder {
-        TextView recipeName;
-        ImageView indicator;
+        private TextView recipeName;
+        private ImageView indicator;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
