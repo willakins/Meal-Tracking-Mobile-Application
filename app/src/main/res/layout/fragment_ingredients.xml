@@ -7,6 +7,11 @@
     android:background="#FFFF"
     tools:context=".IngredientsFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ingredientRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="424dp"

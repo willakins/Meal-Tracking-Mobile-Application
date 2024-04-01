@@ -18,6 +18,20 @@ public class User {
     /**
      * TODO 2: add default 2 recipes to every user's cookBook here
      */
+    private String recipeOneName = "Tzatziki";
+    private String recipeTwoName = "Pizza";
+    private Ingredient greekYogurt = new Ingredient("Greek Yogurt", "1");
+    private Ingredient lemonJuice = new Ingredient("lemonJuice", "1");
+    private Ingredient dill = new Ingredient("Dill", "1");
+    private Ingredient cucumber = new Ingredient("Cucumber", "1");
+    private Ingredient dough = new Ingredient("Dough", "1");
+    private Ingredient pizzaSauce = new Ingredient("Pizza Sauce", "1");
+    private Ingredient mozzarella = new Ingredient("Mozarella", "1");
+    private ArrayList<Ingredient> recipeOneIngredients = new ArrayList<>();
+    private ArrayList<Ingredient> recipeTwoIngredients = new ArrayList<>();
+    private Recipe recipeOne = new Recipe(recipeOneName, recipeOneIngredients);
+    private Recipe recipeTwo = new Recipe(recipeTwoName, recipeTwoIngredients);
+
     //Height is measured in inches
     private static final String DEFAULT_HEIGHT = "64";
     //Weight is measured in pounds
@@ -42,6 +56,17 @@ public class User {
         this.password = password;
         this.userId = generateUserId();
         this.meals = new ArrayList<Meal>();
+        this.recipeOneIngredients.add(this.greekYogurt);
+        this.recipeOneIngredients.add(this.lemonJuice);
+        this.recipeOneIngredients.add(this.dill);
+        this.recipeOneIngredients.add(this.cucumber);
+        this.recipeOne.setIngredients(this.recipeOneIngredients);
+        this.cookBook.add(this.recipeOne);
+        this.recipeTwoIngredients.add(this.dough);
+        this.recipeTwoIngredients.add(this.pizzaSauce);
+        this.recipeTwoIngredients.add(this.mozzarella);
+        this.recipeTwo.setIngredients(this.recipeTwoIngredients);
+        this.cookBook.add(this.recipeTwo);
     }
 
 
@@ -82,7 +107,8 @@ public class User {
     }
 
     public void setCookbook(ArrayList<Recipe> cookbook) {
-        this.cookBook = cookbook;
+
+        this.cookBook.addAll(cookbook);
     }
 
     public void setPantry(ArrayList<Ingredient> pantry) {

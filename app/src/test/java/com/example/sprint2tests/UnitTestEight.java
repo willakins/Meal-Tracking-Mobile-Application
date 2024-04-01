@@ -16,27 +16,16 @@ import org.junit.Test;
  * @author Jace Walden
  */
 public class UnitTestEight {
-//    @Test
-//    public void testHeightAndWeightUpdate() {
-//        String testHeight = "72";
-//        String testWeight = "220";
-//        User testUser = new User();
-//        testUser.setHeight(testHeight);
-//        testUser.setWeight(testWeight);
-//
-//        assertEquals(testHeight, testUser.getHeight());
-//        assertEquals(testWeight, testUser.getWeight());
-//    }
-
     @Test
-    public void testIngredientConstructor_EmptyName() {
-        Ingredient testIngredient = new Ingredient("test", "x");
-        assertEquals("test", testIngredient.getName());
-    }
+    public void testHeightAndWeightUpdate() {
+        String testHeight = "72";
+        String testWeight = "220";
+        User testUser = new User();
+        testUser.setHeight(testHeight);
+        testUser.setWeight(testWeight);
 
-//    @Test(expected = IllegalArgumentException.class)
-//    public void testIngredientConstructor_EmptyName() {
-//        String testRecipeName = new String();
-//    }
+        assertEquals(testHeight, testUser.getHeight());
+        assertEquals(testWeight, testUser.getWeight());
+    }
 
 }
