@@ -1,0 +1,114 @@
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>buildscript {\r\n    dependencies {\r\n        classpath 'com.google.gms:google-services:4.4.1'\r\n    }\r\n}// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nplugins {\r\n    id 'com.android.application' version '8.3.1' apply false\r\n    id 'com.google.gms.google-services' version '4.4.1' apply false\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision 261442054d0ac239c3e2b20a3f4e95b0dbc0b6d8)
++++ b/build.gradle	(date 1711940582707)
+@@ -4,6 +4,6 @@
+     }
+ }// Top-level build file where you can add configuration options common to all sub-projects/modules.
+ plugins {
+-    id 'com.android.application' version '8.3.1' apply false
++    id 'com.android.application' version '8.2.2' apply false
+     id 'com.google.gms.google-services' version '4.4.1' apply false
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/views/IngredientAdapter.java
+===================================================================
+diff --git a/app/src/main/java/com/views/IngredientAdapter.java b/app/src/main/java/com/views/IngredientAdapter.java
+deleted file mode 100644
+--- a/app/src/main/java/com/views/IngredientAdapter.java	(revision 261442054d0ac239c3e2b20a3f4e95b0dbc0b6d8)
++++ /dev/null	(revision 261442054d0ac239c3e2b20a3f4e95b0dbc0b6d8)
+@@ -1,88 +0,0 @@
+-package com.views;
+-
+-import android.view.LayoutInflater;
+-import android.view.View;
+-import android.view.ViewGroup;
+-import android.widget.Button;
+-import android.widget.TextView;
+-import android.widget.TextView;
+-
+-import androidx.annotation.NonNull;
+-import androidx.recyclerview.widget.RecyclerView;
+-
+-import com.model.Ingredient;
+-
+-import java.util.ArrayList;
+-
+-public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
+-    private ArrayList<Ingredient> ingredientList;
+-
+-    public IngredientAdapter(ArrayList<Ingredient> ingredients) {
+-        this.ingredientList = ingredients;
+-    }
+-
+-    @NonNull
+-    @Override
+-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ingredient, parent, false);
+-        return new ViewHolder(view);
+-    }
+-
+-    @Override
+-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+-        Ingredient ingredient = ingredientList.get(position);
+-        holder.bind(ingredient);
+-    }
+-
+-    @Override
+-    public int getItemCount() {
+-        return ingredientList.size();
+-    }
+-
+-    public void increaseQuantity(int position) {
+-        Ingredient ingredient = ingredientList.get(position);
+-        int quantity = Integer.parseInt(ingredient.getQuantity());
+-        quantity++;
+-        ingredient.setQuantity(String.valueOf(quantity));
+-        notifyItemChanged(position);
+-    }
+-
+-    public void decreaseQuantity(int position) {
+-        Ingredient ingredient = ingredientList.get(position);
+-        int quantity = Integer.parseInt(ingredient.getQuantity());
+-        if (quantity > 0) {
+-            quantity--;
+-            ingredient.setQuantity(String.valueOf(quantity));
+-            notifyItemChanged(position);
+-        }
+-        // If quantity becomes zero, you may remove the ingredient here
+-    }
+-
+-    public class ViewHolder extends RecyclerView.ViewHolder {
+-        private TextView nameTextView;
+-        private TextView quantityTextView;
+-        private Button increaseButton;
+-        private Button decreaseButton;
+-
+-        public ViewHolder(@NonNull View itemView) {
+-            super(itemView);
+-            nameTextView = itemView.findViewById(R.id.ingredientName);
+-            quantityTextView = itemView.findViewById(R.id.ingredientQuantity);
+-            increaseButton = itemView.findViewById(R.id.increaseButton);
+-            decreaseButton = itemView.findViewById(R.id.decreaseButton);
+-        }
+-
+-        public void bind(Ingredient ingredient) {
+-            nameTextView.setText(ingredient.getName());
+-            quantityTextView.setText(ingredient.getQuantity());
+-
+-            increaseButton.setOnClickListener(v -> {
+-                increaseQuantity(getAdapterPosition());
+-            });
+-
+-            decreaseButton.setOnClickListener(v -> {
+-                decreaseQuantity(getAdapterPosition());
+-            });
+-        }
+-    }
+-}

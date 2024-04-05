@@ -39,6 +39,7 @@ public class RecipeFragment extends Fragment {
     private RecipeContext recipeContext = new RecipeContext((recipes, pantry) -> recipes);
     private Button sortNameButton;
     private Button sortIngredientsButton;
+    private Button cookRecipeButton;
 
 
     public RecipeFragment() {
@@ -66,6 +67,7 @@ public class RecipeFragment extends Fragment {
         sortIngredientsButton = view.findViewById(R.id.filterButton);
         editTextRecipeName = view.findViewById(R.id.editTextRecipeName);
         editTextIngredients = view.findViewById(R.id.editTextIngredients);
+//        cookRecipeButton = view.findViewById(R.id.cookRecipeButton);
 
         ArrayList<Recipe> recipes = userViewModel.getUser().getCookBook();
         recipesRecyclerView = view.findViewById(R.id.recipesRecyclerView);
@@ -158,6 +160,7 @@ public class RecipeFragment extends Fragment {
         builder.setTitle(recipe.getName());
         builder.setMessage("Total Calories: " + recipe.getCalories());
         builder.setPositiveButton("Close", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton("Cook", (dialog, which) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
     }
