@@ -13,8 +13,8 @@ public class FilterByAvailableIngredientsStrategy implements RecipeManipulationS
         return recipes.stream()
                 .filter(recipe -> recipe.getIngredients().stream()
                         .allMatch(ingredient -> pantry.containsKey(ingredient.getName())
-                                && Integer.parseInt(pantry.get(ingredient.getName()).getQuantity())
-                                >= Integer.parseInt(ingredient.getQuantity())))
+                                && Integer.parseInt(pantry.get(ingredient.getName())
+                                .getQuantity()) >= Integer.parseInt(ingredient.getQuantity())))
                 .collect(Collectors.toList());
     }
 }

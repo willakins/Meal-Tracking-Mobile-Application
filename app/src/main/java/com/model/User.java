@@ -15,22 +15,7 @@ public class User {
     private ArrayList<Meal> meals = new ArrayList<>();
     private ArrayList<Recipe> cookBook = new ArrayList<>();
     private ArrayList<Ingredient> pantry = new ArrayList<>();
-    /**
-     * TODO 2: add default 2 recipes to every user's cookBook here
-     */
-    private String recipeOneName = "Tzatziki";
-    private String recipeTwoName = "Pizza";
-    private Ingredient greekYogurt = new Ingredient("Greek Yogurt", "1");
-    private Ingredient lemonJuice = new Ingredient("lemonJuice", "1");
-    private Ingredient dill = new Ingredient("Dill", "1");
-    private Ingredient cucumber = new Ingredient("Cucumber", "1");
-    private Ingredient dough = new Ingredient("Dough", "1");
-    private Ingredient pizzaSauce = new Ingredient("Pizza Sauce", "1");
-    private Ingredient mozzarella = new Ingredient("Mozarella", "1");
-    private ArrayList<Ingredient> recipeOneIngredients = new ArrayList<>();
-    private ArrayList<Ingredient> recipeTwoIngredients = new ArrayList<>();
-    private Recipe recipeOne = new Recipe(recipeOneName, recipeOneIngredients);
-    private Recipe recipeTwo = new Recipe(recipeTwoName, recipeTwoIngredients);
+
 
     //Height is measured in inches
     private static final String DEFAULT_HEIGHT = "64";
@@ -55,18 +40,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.userId = generateUserId();
-        this.meals = new ArrayList<Meal>();
-        this.recipeOneIngredients.add(this.greekYogurt);
-        this.recipeOneIngredients.add(this.lemonJuice);
-        this.recipeOneIngredients.add(this.dill);
-        this.recipeOneIngredients.add(this.cucumber);
-        this.recipeOne.setIngredients(this.recipeOneIngredients);
-        this.cookBook.add(this.recipeOne);
-        this.recipeTwoIngredients.add(this.dough);
-        this.recipeTwoIngredients.add(this.pizzaSauce);
-        this.recipeTwoIngredients.add(this.mozzarella);
-        this.recipeTwo.setIngredients(this.recipeTwoIngredients);
-        this.cookBook.add(this.recipeTwo);
     }
 
 
@@ -108,7 +81,7 @@ public class User {
 
     public void setCookbook(ArrayList<Recipe> cookbook) {
 
-        this.cookBook.addAll(cookbook);
+        this.cookBook = cookbook;
     }
 
     public void setPantry(ArrayList<Ingredient> pantry) {
@@ -206,11 +179,27 @@ public class User {
      */
     public boolean findIngredient(Ingredient target) {
         for (Ingredient ingredient : this.pantry) {
-            if (ingredient.getName().toUpperCase().equals(
-                    target.getName().toUpperCase())) {
+            if (target.getName() != null && ingredient.getName()
+                    .toUpperCase().equals(target.getName().toUpperCase())) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Helper method for finding the index of an ingredient in the pantry
+     *
+     * @param target The ingredient being searched for
+     * @return the index of the ingredient; -1 if not found
+     */
+    public int locateIngredient(Ingredient target) {
+        for (int i = 0; i < this.pantry.size(); i++) {
+            if (target.getName() != null && pantry.get(i).getName().toUpperCase()
+                    .equals(target.getName().toUpperCase())) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
