@@ -1,4 +1,4 @@
 package com.model;
 //Shopping list class
-public class ShoppingList {
+public class ShoppingItem {
 }

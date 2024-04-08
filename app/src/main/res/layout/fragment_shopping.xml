@@ -8,63 +8,82 @@
     android:background="#FFFF"
     tools:context=".ShoppingFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout3"
-        android:layout_width="421dp"
-        android:layout_height="739dp"
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="426dp"
+        android:layout_height="837dp"
+        android:src="@drawable/shoppingpage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="426dp"
-            android:layout_height="837dp"
-            android:src="@drawable/shoppingpage"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/editTextShoppingQuantity"
+        android:layout_width="239dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="119dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="575dp"
+        android:ems="10"
+        android:hint="Quantity"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.256"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.162" />
 
-        <EditText
-            android:id="@+id/editTextShoppingQuantity"
-            android:layout_width="240dp"
-            android:layout_height="90dp"
-            android:layout_marginStart="101dp"
-            android:layout_marginTop="119dp"
-            android:layout_marginEnd="110dp"
-            android:layout_marginBottom="575dp"
-            android:ems="10"
-            android:hint="Quantity"
-            android:inputType="text"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.133"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.088" />
+    <EditText
+        android:id="@+id/editTextShoppingName"
+        android:layout_width="241dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="638dp"
+        android:ems="10"
+        android:hint="Ingredient Name"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editTextShoppingName"
-            android:layout_width="241dp"
-            android:layout_height="90dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="88dp"
-            android:layout_marginBottom="638dp"
-            android:ems="10"
-            android:hint="Ingredient Name"
-            android:inputType="text"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="221dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="462dp"
+        android:backgroundTint="@color/material_dynamic_primary40"
+        android:text="Add To List"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shoppingRecyclerView"
+        android:layout_width="356dp"
+        android:layout_height="332dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="344dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
