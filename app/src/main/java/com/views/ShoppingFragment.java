@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.model.Recipe;
 import com.viewmodels.LoginViewModel;
@@ -23,6 +25,10 @@ public class ShoppingFragment extends Fragment {
     private LoginViewModel loginViewModel;
     private UserViewModel userViewModel;
     private PantryViewModel pantryViewModel;
+    private EditText shoppingName;
+    private EditText shoppingQuantity;
+    private EditText shoppingCalories;
+    private Button addToList;
     private View view;
     private RecyclerView shoppingRecyclerView;
     private ShoppingAdapter shoppingAdapter;
@@ -51,6 +57,33 @@ public class ShoppingFragment extends Fragment {
         shoppingAdapter = new ShoppingAdapter(userViewModel.getUser().getPantry(), getContext(),
                                 pantryViewModel, this);
         shoppingRecyclerView.setAdapter(shoppingAdapter);
+        shoppingName = view.findViewById(R.id.editTextShoppingName);
+        shoppingQuantity = view.findViewById(R.id.editTextShoppingQuantity);
+        shoppingCalories = view.findViewById(R.id.editTextShoppingCalories);
+        addToList = view.findViewById(R.id.buttonAddToList);
+
+        addToList.setOnClickListener(v -> {
+            String itemName = shoppingName.getText().toString();
+            String quantity = shoppingQuantity.getText().toString();
+            String calories = shoppingCalories.getText().toString();
+            shoppingName.setText("");
+            shoppingQuantity.setText("");
+            shoppingCalories.setText("");
+            int validInput = userViewModel.addShoppingItem(itemName, quantity, calories);
+            if (validInput == 1) {
+                Toast.makeText(currentContext, "Invalid name input",
+                        Toast.LENGTH_SHORT).show();
+            } else if (validInput == 2) {
+                Toast.makeText(currentContext, "Invalid quantity input",
+                        Toast.LENGTH_SHORT).show();
+            } else if (validInput == 3) {
+                Toast.makeText(currentContext, "Invalid calories input",
+                        Toast.LENGTH_SHORT).show();
+            }
+            shoppingAdapter =  new ShoppingAdapter(userViewModel.getUser().getPantry(), getContext(),
+                    pantryViewModel, this);
+            shoppingRecyclerView.setAdapter(shoppingAdapter);
+        });
 
         return view;
     }
@@ -69,5 +102,9 @@ public class ShoppingFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    public void setContext(HomeActivity context) {
+        this.currentContext = context;
     }
 }

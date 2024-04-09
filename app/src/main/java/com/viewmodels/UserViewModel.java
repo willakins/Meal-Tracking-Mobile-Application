@@ -3,6 +3,7 @@ import android.content.Context;
 import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.model.Meal;
+import com.model.ShoppingItem;
 import com.model.User;
 import java.util.Objects;
 
@@ -103,6 +104,54 @@ public class UserViewModel {
             int w = Integer.parseInt(weight);
         } catch (Exception e) {
             return false;
+        }
+        return true;
+    }
+
+    public int addShoppingItem(String itemName, String quantity, String calories) {
+        int validInput = checkShoppingInput(itemName, quantity, calories);
+        if (validInput == 0) {
+            ShoppingItem item = new ShoppingItem(itemName, quantity, calories);
+            int index = user.findShoppingItem(item);
+            if (index == -1) {
+                user.getShoppingList().add(item);
+            } else {
+                ShoppingItem existingItem = user.getShoppingList().get(index);
+                existingItem.setQuantity(Integer.toString(Integer.parseInt(existingItem
+                        .getQuantity()) + Integer.parseInt(quantity)));
+            }
+            mDatabase.child("shoppingList").child(user.getUserId())
+                    .child("Items").setValue(user.getShoppingList());
+        }
+        return validInput;
+    }
+
+    public static int checkShoppingInput(String itemName, String quantity, String calories) {
+        int valid = 0;
+        if (itemName.equals("") || !checkWhiteSpace(itemName)) {
+            valid = 1;
+        } else if (quantity.equals("") || !quantity.matches("\\d+")) {
+            valid = 2;
+        } else if (calories.equals("") || !calories.matches("\\d+")) {
+            valid = 3;
+        }
+        return valid;
+    }
+
+    /**
+     * Helper method for abstracting the process of checking a
+     * string for whitespace
+     *
+     * @param input the string being checked for whitespace
+     * @return false if the string contains whitespace; true otherwise
+     */
+    private static boolean checkWhiteSpace(String input) {
+        for (int i = 0; i < input.length(); i++) {
+            if (Character.isWhitespace(input.charAt(i))) {
+                return false;
+            } else if (Objects.equals(input.charAt(i), ' ')) {
+                return false;
+            }
         }
         return true;
     }

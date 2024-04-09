@@ -54,14 +54,13 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter
     @Override
     public void onBindViewHolder(ShoppingAdapter.ShoppingViewHolder holder, int position) {
         ShoppingItem item = shoppingList.get(position);
-        holder.shoppingNameTxt.setText("PlaceHolder");
-        //holder.ingredientNameTxt.setText(item.getName() + " : "
-        //        + item.getQuantity());
+        holder.shoppingNameTxt.setText(item.getName() + " : "
+                + item.getQuantity());
     }
 
     @Override
     public int getItemCount() {
-        return pantry.size();
+        return shoppingList.size();
     }
 
     public class ShoppingViewHolder extends RecyclerView.ViewHolder {

@@ -211,4 +211,20 @@ public class User {
         }
         return -1;
     }
+
+    /**
+     * Helper method for locating duplicates in shopping list
+     *
+     * @param target the shopping Item being searched for
+     * @return -1 if not found, an int representing the index found at otherwise
+     */
+    public int findShoppingItem(ShoppingItem target) {
+        for (int i = 0; i < this.shoppingList.size(); i++) {
+            if (target.getName() != null && shoppingList.get(i).getName()
+                    .toUpperCase().equals(target.getName().toUpperCase())) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

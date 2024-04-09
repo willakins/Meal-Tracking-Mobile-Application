@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.model.Ingredient;
 import com.model.Meal;
 import com.model.Recipe;
+import com.model.ShoppingItem;
 import com.model.User;
 import com.views.AccountCreateActivity;
 import com.views.HomeActivity;
@@ -250,6 +251,27 @@ public class LoginViewModel {
                             pantry.add(new Ingredient(name, quantity, calories, expiration));
                         }
                         user.setPantry(pantry);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "assignUser:Failure");
+                    }
+                });
+        mDatabase.child("shoppingList").child(user.getUserId()).child("Items")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        ArrayList<ShoppingItem> shoppingList = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String name = postSnapshot.child("name")
+                                    .getValue(String.class);
+                            String quantity = postSnapshot.child("quantity")
+                                    .getValue(String.class);
+                            String calories = postSnapshot.child("calories")
+                                    .getValue(String.class);
+                            shoppingList.add(new ShoppingItem(name, quantity, calories));
+                        }
+                        user.setShoppingList(shoppingList);
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

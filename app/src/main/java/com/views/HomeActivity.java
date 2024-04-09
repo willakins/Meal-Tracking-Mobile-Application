@@ -34,7 +34,9 @@ public class HomeActivity extends AppCompatActivity {
                 replaceFragment(ingFragment);
                 return true;
             } else if (item.getItemId() == R.id.shopping) {
-                replaceFragment(new ShoppingFragment());
+                ShoppingFragment shopFrag = new ShoppingFragment();
+                shopFrag.setContext(HomeActivity.this);
+                replaceFragment(shopFrag);
                 return true;
             } else if (item.getItemId() == R.id.info) {
                 PersonalInfoFragment pf = new PersonalInfoFragment();
