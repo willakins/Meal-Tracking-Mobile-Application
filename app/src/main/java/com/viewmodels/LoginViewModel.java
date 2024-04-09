@@ -167,25 +167,6 @@ public class LoginViewModel {
      */
     private void assignUser(String username, String password) {
         user = new User(username, password);
-        //Loads previously inputted meals into user's arraylist
-        mDatabase.child("meals").child(user.getUserId())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(final DataSnapshot dataSnapshot) {
-                        ArrayList<Meal> meals = new ArrayList<>();
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            String mealName = postSnapshot.child("name").getValue(String.class);
-                            String calories = String.valueOf(postSnapshot.child("calories")
-                                                .getValue(Long.class));
-                            meals.add(new Meal(mealName, Integer.parseInt(calories)));
-                        }
-                        user.setMeals(meals);
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d(TAG, "assignUser:Failure");
-                    }
-                });
         mDatabase.child("users").child(user.getUserId())
                     .addValueEventListener(new ValueEventListener() {
                         @Override
@@ -203,6 +184,25 @@ public class LoginViewModel {
                             Log.d(TAG, "assignUser:Failure");
                         }
                     });
+        //Loads previously inputted meals into user's arraylist
+        mDatabase.child("meals").child(user.getUserId())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        ArrayList<Meal> meals = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String mealName = postSnapshot.child("name").getValue(String.class);
+                            String calories = String.valueOf(postSnapshot.child("calories")
+                                    .getValue(Long.class));
+                            meals.add(new Meal(mealName, Integer.parseInt(calories)));
+                        }
+                        user.setMeals(meals);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "assignUser:Failure");
+                    }
+                });
         mDatabase.child("cookbook")
                 .addValueEventListener(new ValueEventListener() {
                     @Override

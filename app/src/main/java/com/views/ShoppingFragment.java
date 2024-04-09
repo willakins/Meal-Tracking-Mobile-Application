@@ -87,8 +87,10 @@ public class ShoppingFragment extends Fragment {
 
         purchase.setOnClickListener(v -> {
             ArrayList<ShoppingItem> checkedItems = shoppingAdapter.getCheckedItems();
-            userViewModel.updateItems(checkedItems);
-            generateNewAdapter();
+            if (checkedItems.size() != 0) {
+                userViewModel.updateItems(checkedItems);
+                generateNewAdapter();
+            }
         });
 
         return view;

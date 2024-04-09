@@ -97,7 +97,8 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter
                 if (b) {
                     checkedItems.add(item);
                 } else {
-                    checkedItems.remove(item);
+                    int index = findChecked(item);
+                    checkedItems.remove(index);
                 }
             }
         });
@@ -121,6 +122,16 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter
             subtractButton = view.findViewById(R.id.removeButton);
             buyButton = view.findViewById(R.id.buyButton);
         }
+    }
+
+    private int findChecked(ShoppingItem target) {
+        for (int i = 0; i < checkedItems.size(); i++) {
+            if (checkedItems.get(i).getName().toUpperCase()
+                    .equals(target.getName().toUpperCase())) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public ArrayList<ShoppingItem> getCheckedItems() {

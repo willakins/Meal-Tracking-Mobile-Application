@@ -193,18 +193,31 @@ public class UserViewModel {
 
     public void updateItems(ArrayList<ShoppingItem> items) {
         for (ShoppingItem item : items) {
-            user.getShoppingList().remove(item);
+            int itemIndex = user.findShoppingItem(item);
+            user.getShoppingList().remove(itemIndex);
             Ingredient wrapper = new Ingredient(item.getName(), item.getQuantity(), item.getCalories());
             int index = user.locateIngredient(wrapper);
             if (index != -1) {
                 int newQuantity = Integer.parseInt(user.getPantry().get(index).getQuantity())
                         + Integer.parseInt(item.getQuantity());
                 user.getPantry().get(index).setQuantity(Integer.toString(newQuantity));
+                mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                        .child("Expiration").setValue(user.getPantry().get(index).getExpiration());
+                mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                        .child("Quantity").setValue(Integer.toString(newQuantity));
             } else {
                 user.getPantry().add(wrapper);
+                mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                        .child("Expiration").setValue("-1");
+                mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                        .child("Quantity").setValue(item.getQuantity());
             }
             mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
-                    .child("Quantity").setValue(item.getQuantity());
+                    .child("Name").setValue(item.getName());
+
+            mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                    .child("Calories").setValue(item.getCalories());
+
         }
         mDatabase.child("shoppingList").child(user.getUserId())
                 .child("Items").setValue(user.getShoppingList());
