@@ -37,11 +37,11 @@ public class ShoppingItem {
 
     @Override
     public boolean equals(Object objectItem) {
-        if (objectItem instanceof ShoppingItem) {
+        if (!(objectItem instanceof ShoppingItem)) {
             return false;
         }
         ShoppingItem item = (ShoppingItem) objectItem;
-        return item.getName().equals(this.name) && item.getQuantity().equals(this.quantity)
-                && item.getCalories().equals(this.calories);
+        return (item.getName().equalsIgnoreCase(this.name)
+                && item.getQuantity().equals(this.quantity));
     }
 }

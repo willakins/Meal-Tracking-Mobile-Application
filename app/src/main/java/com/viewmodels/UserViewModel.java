@@ -178,7 +178,8 @@ public class UserViewModel {
                                     .getValue(String.class);
                             String calories = postSnapshot.child("calories")
                                     .getValue(String.class);
-                            if (item.getName().equals(name) && item.getQuantity().equals(quantity) && item.getCalories().equals(calories)) {
+                            ShoppingItem lookingItem = new ShoppingItem(name, quantity, calories);
+                            if (item.equals(lookingItem)) {
                                 postSnapshot.getRef().removeValue();
                                 break;
                             }

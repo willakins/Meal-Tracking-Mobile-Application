@@ -1,10 +1,5 @@
 package com.example.sprint4tests;
 
-import static org.junit.Assert.assertEquals;
-
-import com.model.User;
-import com.viewmodels.PantryViewModel;
-
 import org.junit.Test;
 
 /**

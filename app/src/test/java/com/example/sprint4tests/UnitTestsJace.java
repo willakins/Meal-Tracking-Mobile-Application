@@ -1,13 +1,6 @@
 package com.example.sprint4tests;
 
-import static org.junit.Assert.assertEquals;
-
-import com.model.Ingredient;
-import com.model.Recipe;
-
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 /**
  * File placeholder for testing
