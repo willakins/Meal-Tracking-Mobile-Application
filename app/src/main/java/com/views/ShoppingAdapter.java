@@ -13,10 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
-import com.model.Ingredient;
 import com.model.ShoppingItem;
 import com.model.User;
-import com.viewmodels.PantryViewModel;
 import com.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
@@ -104,6 +102,20 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter
         });
     }
 
+    private int findChecked(ShoppingItem target) {
+        for (int i = 0; i < checkedItems.size(); i++) {
+            if (checkedItems.get(i).getName().toUpperCase()
+                    .equals(target.getName().toUpperCase())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public ArrayList<ShoppingItem> getCheckedItems() {
+        return this.checkedItems;
+    }
+
     @Override
     public int getItemCount() {
         return shoppingList.size();
@@ -122,19 +134,5 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter
             subtractButton = view.findViewById(R.id.removeButton);
             buyButton = view.findViewById(R.id.buyButton);
         }
-    }
-
-    private int findChecked(ShoppingItem target) {
-        for (int i = 0; i < checkedItems.size(); i++) {
-            if (checkedItems.get(i).getName().toUpperCase()
-                    .equals(target.getName().toUpperCase())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public ArrayList<ShoppingItem> getCheckedItems() {
-        return this.checkedItems;
     }
 }

@@ -196,7 +196,8 @@ public class UserViewModel {
         for (ShoppingItem item : items) {
             int itemIndex = user.findShoppingItem(item);
             user.getShoppingList().remove(itemIndex);
-            Ingredient wrapper = new Ingredient(item.getName(), item.getQuantity(), item.getCalories());
+            Ingredient wrapper = new Ingredient(item.getName(), item.getQuantity(),
+                    item.getCalories());
             int index = user.locateIngredient(wrapper);
             if (index != -1) {
                 int newQuantity = Integer.parseInt(user.getPantry().get(index).getQuantity())

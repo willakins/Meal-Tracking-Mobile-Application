@@ -117,7 +117,7 @@ public class ShoppingFragment extends Fragment {
     }
 
     public void generateNewAdapter() {
-        shoppingAdapter =  new ShoppingAdapter(getContext(),this);
+        shoppingAdapter =  new ShoppingAdapter(getContext(), this);
         shoppingRecyclerView.setAdapter(shoppingAdapter);
     }
 }
