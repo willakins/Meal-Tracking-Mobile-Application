@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.model.Recipe;
+import com.model.ShoppingItem;
 import com.viewmodels.LoginViewModel;
 import com.viewmodels.PantryViewModel;
 import com.viewmodels.UserViewModel;
@@ -29,6 +30,7 @@ public class ShoppingFragment extends Fragment {
     private EditText shoppingQuantity;
     private EditText shoppingCalories;
     private Button addToList;
+    private Button purchase;
     private View view;
     private RecyclerView shoppingRecyclerView;
     private ShoppingAdapter shoppingAdapter;
@@ -54,13 +56,13 @@ public class ShoppingFragment extends Fragment {
         ArrayList<Recipe> recipes = userViewModel.getUser().getCookBook();
         shoppingRecyclerView = view.findViewById(R.id.shoppingRecyclerView);
         shoppingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        shoppingAdapter = new ShoppingAdapter(userViewModel.getUser().getPantry(), getContext(),
-                                pantryViewModel, this);
+        shoppingAdapter = new ShoppingAdapter(getContext(), this);
         shoppingRecyclerView.setAdapter(shoppingAdapter);
         shoppingName = view.findViewById(R.id.editTextShoppingName);
         shoppingQuantity = view.findViewById(R.id.editTextShoppingQuantity);
         shoppingCalories = view.findViewById(R.id.editTextShoppingCalories);
         addToList = view.findViewById(R.id.buttonAddToList);
+        purchase = view.findViewById(R.id.buttonPurchase);
 
         addToList.setOnClickListener(v -> {
             String itemName = shoppingName.getText().toString();
@@ -80,9 +82,13 @@ public class ShoppingFragment extends Fragment {
                 Toast.makeText(currentContext, "Invalid calories input",
                         Toast.LENGTH_SHORT).show();
             }
-            shoppingAdapter =  new ShoppingAdapter(userViewModel.getUser().getPantry(), getContext(),
-                    pantryViewModel, this);
-            shoppingRecyclerView.setAdapter(shoppingAdapter);
+            generateNewAdapter();
+        });
+
+        purchase.setOnClickListener(v -> {
+            ArrayList<ShoppingItem> checkedItems = shoppingAdapter.getCheckedItems();
+            userViewModel.updateItems(checkedItems);
+            generateNewAdapter();
         });
 
         return view;
@@ -106,5 +112,10 @@ public class ShoppingFragment extends Fragment {
 
     public void setContext(HomeActivity context) {
         this.currentContext = context;
+    }
+
+    public void generateNewAdapter() {
+        shoppingAdapter =  new ShoppingAdapter(getContext(),this);
+        shoppingRecyclerView.setAdapter(shoppingAdapter);
     }
 }

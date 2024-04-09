@@ -51,8 +51,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter
     @Override
     public void onBindViewHolder(IngredientAdapter.IngredientViewHolder holder, int position) {
         Ingredient ingredient = pantry.get(position);
-        holder.ingredientNameTxt.setText(ingredient.getName() + " : "
-                + ingredient.getQuantity());
+        holder.ingredientNameTxt.setText(" " + ingredient.getName() + " : "
+                + ingredient.getQuantity() + " ");
         holder.addButton.setOnClickListener(v -> {
             DatabaseReference mDatabase = pantryViewModel.getDatabase();
             int pantryIndex = user.locateIngredient(ingredient);

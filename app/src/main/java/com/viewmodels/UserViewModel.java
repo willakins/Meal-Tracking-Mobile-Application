@@ -1,10 +1,20 @@
 package com.viewmodels;
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.model.Ingredient;
 import com.model.Meal;
 import com.model.ShoppingItem;
 import com.model.User;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -154,6 +164,50 @@ public class UserViewModel {
             }
         }
         return true;
+    }
+
+    public void removeShoppingItem(ShoppingItem item) {
+        mDatabase.child("shoppingList").child(user.getUserId()).child("Items")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String name = postSnapshot.child("name")
+                                    .getValue(String.class);
+                            String quantity = postSnapshot.child("quantity")
+                                    .getValue(String.class);
+                            String calories = postSnapshot.child("calories")
+                                    .getValue(String.class);
+                            if (item.getName().equals(name) && item.getQuantity().equals(quantity) && item.getCalories().equals(calories)) {
+                                postSnapshot.getRef().removeValue();
+                                break;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "assignUser:Failure");
+                    }
+                });
+    }
+
+    public void updateItems(ArrayList<ShoppingItem> items) {
+        for (ShoppingItem item : items) {
+            user.getShoppingList().remove(item);
+            Ingredient wrapper = new Ingredient(item.getName(), item.getQuantity(), item.getCalories());
+            int index = user.locateIngredient(wrapper);
+            if (index != -1) {
+                int newQuantity = Integer.parseInt(user.getPantry().get(index).getQuantity())
+                        + Integer.parseInt(item.getQuantity());
+                user.getPantry().get(index).setQuantity(Integer.toString(newQuantity));
+            } else {
+                user.getPantry().add(wrapper);
+            }
+            mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                    .child("Quantity").setValue(item.getQuantity());
+        }
+        mDatabase.child("shoppingList").child(user.getUserId())
+                .child("Items").setValue(user.getShoppingList());
     }
 
     /**
