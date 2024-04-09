@@ -8,18 +8,20 @@
 
     <Button
         android:id="@+id/addButton"
-        android:layout_width="43dp"
+        android:layout_width="49dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/material_dynamic_primary40"
         android:text="+" />
 
     <Button
         android:id="@+id/removeButton"
-        android:layout_width="42dp"
+        android:layout_width="49dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/material_dynamic_primary40"
         android:text="-" />
 
     <TextView
-        android:id="@+id/IngredientName"
+        android:id="@+id/ShoppingName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"/>
@@ -29,6 +31,10 @@
         android:layout_width="164dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="CheckBox" />
+        android:textColor="@color/white"
+        android:buttonTint="@color/white"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:text="Buy" />
 
 </LinearLayout>
