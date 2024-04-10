@@ -15,6 +15,7 @@ public class User {
     private ArrayList<Meal> meals = new ArrayList<>();
     private ArrayList<Recipe> cookBook = new ArrayList<>();
     private ArrayList<Ingredient> pantry = new ArrayList<>();
+    private ArrayList<ShoppingItem> shoppingList = new ArrayList<>();
 
 
     //Height is measured in inches
@@ -88,6 +89,10 @@ public class User {
         this.pantry = pantry;
     }
 
+    public void setShoppingList(ArrayList<ShoppingItem> newList) {
+        this.shoppingList = newList;
+    }
+
     public String getUsername() {
         return this.username;
     }
@@ -130,6 +135,10 @@ public class User {
 
     public ArrayList<Ingredient> getPantry() {
         return this.pantry;
+    }
+
+    public ArrayList<ShoppingItem> getShoppingList() {
+        return this.shoppingList;
     }
 
     /**
@@ -197,6 +206,22 @@ public class User {
         for (int i = 0; i < this.pantry.size(); i++) {
             if (target.getName() != null && pantry.get(i).getName().toUpperCase()
                     .equals(target.getName().toUpperCase())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Helper method for locating duplicates in shopping list
+     *
+     * @param target the shopping Item being searched for
+     * @return -1 if not found, an int representing the index found at otherwise
+     */
+    public int findShoppingItem(ShoppingItem target) {
+        for (int i = 0; i < this.shoppingList.size(); i++) {
+            if (target.getName() != null && shoppingList.get(i).getName()
+                    .toUpperCase().equals(target.getName().toUpperCase())) {
                 return i;
             }
         }

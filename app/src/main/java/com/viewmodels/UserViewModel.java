@@ -1,9 +1,20 @@
 package com.viewmodels;
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.model.Ingredient;
 import com.model.Meal;
+import com.model.ShoppingItem;
 import com.model.User;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -105,6 +116,113 @@ public class UserViewModel {
             return false;
         }
         return true;
+    }
+
+    public int addShoppingItem(String itemName, String quantity, String calories) {
+        int validInput = checkShoppingInput(itemName, quantity, calories);
+        if (validInput == 0) {
+            ShoppingItem item = new ShoppingItem(itemName, quantity, calories);
+            int index = user.findShoppingItem(item);
+            if (index == -1) {
+                user.getShoppingList().add(item);
+            } else {
+                ShoppingItem existingItem = user.getShoppingList().get(index);
+                existingItem.setQuantity(Integer.toString(Integer.parseInt(existingItem
+                        .getQuantity()) + Integer.parseInt(quantity)));
+            }
+            mDatabase.child("shoppingList").child(user.getUserId())
+                    .child("Items").setValue(user.getShoppingList());
+        }
+        return validInput;
+    }
+
+    public static int checkShoppingInput(String itemName, String quantity, String calories) {
+        int valid = 0;
+        if (itemName.equals("") || !checkWhiteSpace(itemName)) {
+            valid = 1;
+        } else if (quantity.equals("") || !quantity.matches("\\d+")) {
+            valid = 2;
+        } else if (calories.equals("") || !calories.matches("\\d+")) {
+            valid = 3;
+        }
+        return valid;
+    }
+
+    /**
+     * Helper method for abstracting the process of checking a
+     * string for whitespace
+     *
+     * @param input the string being checked for whitespace
+     * @return false if the string contains whitespace; true otherwise
+     */
+    private static boolean checkWhiteSpace(String input) {
+        for (int i = 0; i < input.length(); i++) {
+            if (Character.isWhitespace(input.charAt(i))) {
+                return false;
+            } else if (Objects.equals(input.charAt(i), ' ')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void removeShoppingItem(ShoppingItem item) {
+        mDatabase.child("shoppingList").child(user.getUserId()).child("Items")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String name = postSnapshot.child("name")
+                                    .getValue(String.class);
+                            String quantity = postSnapshot.child("quantity")
+                                    .getValue(String.class);
+                            String calories = postSnapshot.child("calories")
+                                    .getValue(String.class);
+                            ShoppingItem lookingItem = new ShoppingItem(name, quantity, calories);
+                            if (item.equals(lookingItem)) {
+                                postSnapshot.getRef().removeValue();
+                                break;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "assignUser:Failure");
+                    }
+                });
+    }
+
+    public void updateItems(ArrayList<ShoppingItem> items) {
+        for (ShoppingItem item : items) {
+            int itemIndex = user.findShoppingItem(item);
+            user.getShoppingList().remove(itemIndex);
+            Ingredient wrapper = new Ingredient(item.getName(), item.getQuantity(),
+                    item.getCalories());
+            int index = user.locateIngredient(wrapper);
+            if (index != -1) {
+                int newQuantity = Integer.parseInt(user.getPantry().get(index).getQuantity())
+                        + Integer.parseInt(item.getQuantity());
+                user.getPantry().get(index).setQuantity(Integer.toString(newQuantity));
+                mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                        .child("Expiration").setValue(user.getPantry().get(index).getExpiration());
+                mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                        .child("Quantity").setValue(Integer.toString(newQuantity));
+            } else {
+                user.getPantry().add(wrapper);
+                mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                        .child("Expiration").setValue("-1");
+                mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                        .child("Quantity").setValue(item.getQuantity());
+            }
+            mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                    .child("Name").setValue(item.getName());
+
+            mDatabase.child("pantry").child(user.getUserId()).child(item.getName())
+                    .child("Calories").setValue(item.getCalories());
+
+        }
+        mDatabase.child("shoppingList").child(user.getUserId())
+                .child("Items").setValue(user.getShoppingList());
     }
 
     /**
