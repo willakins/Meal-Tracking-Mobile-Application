@@ -28,6 +28,10 @@ public class User {
     private static final boolean DEFAULT_IS_MALE = false;
     private static final int DEFAULT_CALORIE_GOAL = 2000;
     private static final int DEFAULT_CALORIES_TODAY = 0;
+    private static final ArrayList<ShoppingItem> DEFAULT_SHOPPING_LIST = new ArrayList<>();
+    private static final ShoppingItem ITEM1 = new ShoppingItem("Bread", "1", "50");
+    private static final ShoppingItem ITEM2 = new ShoppingItem("Oil", "1", "250");
+
 
 
     public User() {
@@ -43,6 +47,9 @@ public class User {
         this.username = username;
         this.password = password;
         this.userId = generateUserId();
+        this.shoppingList = DEFAULT_SHOPPING_LIST;
+        DEFAULT_SHOPPING_LIST.add(ITEM1);
+        DEFAULT_SHOPPING_LIST.add(ITEM2);
     }
 
 
