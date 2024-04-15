@@ -1,7 +1,7 @@
 package com.model.Strategy;
 
 import com.model.Ingredient;
-import com.model.Recipe;
+import com.model.StrategySprint4.Recipe;
 
 import java.util.List;
 import java.util.Map;

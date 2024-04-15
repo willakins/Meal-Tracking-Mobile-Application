@@ -9,8 +9,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.model.StrategySprint4.CookableRecipe;
 import com.model.Ingredient;
-import com.model.Recipe;
+import com.model.StrategySprint4.Recipe;
 import com.model.User;
 
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class CookBookViewModel {
                             .child("Expiration").setValue(ingredient.getExpiration());
                 }
                  */
-                user.getCookBook().add(new Recipe(name, parsedIngredients));
+                user.getCookBook().add(new CookableRecipe(name, parsedIngredients));
             }
 
         }

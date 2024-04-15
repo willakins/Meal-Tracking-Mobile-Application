@@ -3,7 +3,7 @@ package com.example.sprint3tests;
 import static org.junit.Assert.assertEquals;
 
 import com.model.Ingredient;
-import com.model.Recipe;
+import com.model.StrategySprint4.Recipe;
 
 import org.junit.Test;
 

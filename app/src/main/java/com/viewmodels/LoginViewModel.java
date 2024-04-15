@@ -14,9 +14,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.model.StrategySprint4.CookableRecipe;
 import com.model.Ingredient;
 import com.model.Meal;
-import com.model.Recipe;
+import com.model.StrategySprint4.Recipe;
 import com.model.ShoppingItem;
 import com.model.User;
 import com.views.AccountCreateActivity;
@@ -211,7 +212,7 @@ public class LoginViewModel {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String recipeName = postSnapshot.child("Name").getValue(String.class);
                             ArrayList<Ingredient> ingredients = new ArrayList<>();
-                            Recipe newRecipe = new Recipe(recipeName, ingredients);
+                            Recipe newRecipe = new CookableRecipe(recipeName, ingredients);
                             DataSnapshot ingList = postSnapshot.child("Ingredients");
                             for (DataSnapshot ds : ingList.getChildren()) {
                                 String name = ds.child("name").getValue(String.class);
