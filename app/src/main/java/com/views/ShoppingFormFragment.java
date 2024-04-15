@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.viewmodels.LoginViewModel;
-import com.viewmodels.PantryViewModel;
 import com.viewmodels.UserViewModel;
 
 public class ShoppingFormFragment extends Fragment {
