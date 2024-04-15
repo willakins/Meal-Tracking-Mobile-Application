@@ -38,9 +38,7 @@ public class ShoppingFormFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_shopping_form, container, false);
-        loginViewModel = LoginViewModel.getInstance();
         userViewModel = UserViewModel.getInstance();
-        pantryViewModel = PantryViewModel.getInstance();
         shoppingName = view.findViewById(R.id.editTextShoppingName);
         shoppingQuantity = view.findViewById(R.id.editTextShoppingQuantity);
         shoppingCalories = view.findViewById(R.id.editTextShoppingCalories);
