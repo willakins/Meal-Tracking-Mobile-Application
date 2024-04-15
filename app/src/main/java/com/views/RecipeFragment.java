@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.model.Ingredient;
-import com.model.Recipe;
+import com.model.StrategySprint4.Recipe;
 import com.model.ShoppingItem;
 import com.model.Strategy.RecipeContext;
 import com.model.User;
@@ -126,7 +126,7 @@ public class RecipeFragment extends Fragment {
 
         });
 
-                    return view;
+        return view;
     }
 
 
@@ -218,7 +218,7 @@ public class RecipeFragment extends Fragment {
                 userViewModel.getUser().getPantry(), getContext(),
                 recipe -> openRecipeDetails(recipe));
         recipesRecyclerView.setAdapter(recipeAdapter);
-  
+    }
     private void cookRecipe(Recipe recipe) {
         ArrayList<Ingredient> usedIngredients = recipe.getIngredients();
         User user = userViewModel.getUser();
@@ -245,6 +245,6 @@ public class RecipeFragment extends Fragment {
                 }
             }
         }
-
     }
+
 }

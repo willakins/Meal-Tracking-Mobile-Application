@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.model.Recipe;
+import com.model.StrategySprint4.Recipe;
 import com.model.ShoppingItem;
 import com.viewmodels.LoginViewModel;
 import com.viewmodels.PantryViewModel;

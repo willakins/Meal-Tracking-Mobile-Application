@@ -1,5 +1,7 @@
 package com.model;
 
+import com.model.StrategySprint4.Recipe;
+
 import java.util.ArrayList;
 
 //user class
