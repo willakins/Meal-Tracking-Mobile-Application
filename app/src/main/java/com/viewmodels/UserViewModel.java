@@ -225,6 +225,11 @@ public class UserViewModel {
                 .child("Items").setValue(user.getShoppingList());
     }
 
+    public void updateCalories() {
+        mDatabase.child("users").child(user.getUserId())
+                .child("caloriesToday").setValue(user.getCaloriesToday());
+    }
+
     /**
      * Allows other classes to access the user
      *

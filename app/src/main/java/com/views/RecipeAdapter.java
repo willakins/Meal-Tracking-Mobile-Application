@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.model.Ingredient;
 import com.model.StrategySprint4.Recipe;
-import com.model.ShoppingItem;
 import com.model.User;
 import com.viewmodels.UserViewModel;
 
@@ -62,7 +61,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             }
         });
 
-        holder.addToShoppingButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.addBut.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
@@ -128,13 +127,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
         private TextView recipeName;
         private ImageView indicator;
-        private CheckBox addToShoppingButton;
+        private CheckBox addBut;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             recipeName = itemView.findViewById(R.id.recipeName);
             indicator = itemView.findViewById(R.id.indicator);
-            addToShoppingButton = itemView.findViewById(R.id.addToShoppingButton);
+            addBut = itemView.findViewById(R.id.addToShoppingButton);
         }
     }
 

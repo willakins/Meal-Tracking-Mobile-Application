@@ -15,13 +15,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.model.Ingredient;
+import com.model.StrategySprint4.CookableRecipe;
 import com.model.StrategySprint4.Recipe;
-import com.model.ShoppingItem;
 import com.model.Strategy.RecipeContext;
 import com.model.User;
 import com.viewmodels.CookBookViewModel;
 import com.viewmodels.LoginViewModel;
 import com.viewmodels.PantryViewModel;
+import com.viewmodels.StrategySprint4.HomeKitchen;
 import com.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class RecipeFragment extends Fragment {
     private RecipeContext recipeContext = new RecipeContext((recipes, pantry) -> recipes);
     private Button sortNameButton;
     private Button sortIngredientsButton;
-    private Button cookRecipeButton;
+    private HomeKitchen kitchen = new HomeKitchen();
 
 
     public RecipeFragment() {
@@ -70,13 +71,12 @@ public class RecipeFragment extends Fragment {
         sortIngredientsButton = view.findViewById(R.id.filterButton);
         editTextRecipeName = view.findViewById(R.id.editTextRecipeName);
         editTextIngredients = view.findViewById(R.id.editTextIngredients);
-//        cookRecipeButton = view.findViewById(R.id.cookRecipeButton);
 
         ArrayList<Recipe> recipes = userViewModel.getUser().getCookBook();
         recipesRecyclerView = view.findViewById(R.id.recipesRecyclerView);
         recipesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recipeAdapter = new RecipeAdapter(recipes, userViewModel.getUser()
-                .getPantry(), getContext(), recipe -> openRecipeDetails(recipe));
+                .getPantry(), getContext(), recipe -> openRecipeDetails((CookableRecipe) recipe));
         recipesRecyclerView.setAdapter(recipeAdapter);
         goShoppingButton = view.findViewById(R.id.buttonGoShopping);
 
@@ -86,7 +86,8 @@ public class RecipeFragment extends Fragment {
             editTextIngredients.setText("");
             ArrayList<Recipe> newRecipes = userViewModel.getUser().getCookBook();
             recipeAdapter = new RecipeAdapter(newRecipes, userViewModel.getUser()
-                    .getPantry(), getContext(), recipe -> openRecipeDetails(recipe));
+                    .getPantry(), getContext(),
+                    recipe -> openRecipeDetails((CookableRecipe) recipe));
             recipesRecyclerView.setAdapter(recipeAdapter);
         });
 
@@ -184,11 +185,11 @@ public class RecipeFragment extends Fragment {
 
     private void updateRecipeList(ArrayList<Recipe> recipes) {
         recipeAdapter = new RecipeAdapter(recipes, userViewModel.getUser()
-                .getPantry(), getContext(), recipe -> openRecipeDetails(recipe));
+                .getPantry(), getContext(), recipe -> openRecipeDetails((CookableRecipe) recipe));
         recipesRecyclerView.setAdapter(recipeAdapter);
     }
 
-    private void openRecipeDetails(Recipe recipe) {
+    private void openRecipeDetails(CookableRecipe recipe) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(recipe.getName());
         StringBuilder message = new StringBuilder("Total Calories: " + recipe.getCalories()
@@ -203,8 +204,8 @@ public class RecipeFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Call a function to remove ingredients from the user's account
-                cookRecipe(recipe);
-
+                kitchen.cookRecipe(recipe, userViewModel);
+                generateNewAdapter();
                 // Dismiss the dialog
                 dialog.dismiss();
             }
@@ -216,35 +217,9 @@ public class RecipeFragment extends Fragment {
     public void generateNewAdapter() {
         recipeAdapter = new RecipeAdapter(userViewModel.getUser().getCookBook(),
                 userViewModel.getUser().getPantry(), getContext(),
-                recipe -> openRecipeDetails(recipe));
+                recipe -> openRecipeDetails((CookableRecipe) recipe));
         recipesRecyclerView.setAdapter(recipeAdapter);
     }
-    private void cookRecipe(Recipe recipe) {
-        ArrayList<Ingredient> usedIngredients = recipe.getIngredients();
-        User user = userViewModel.getUser();
-        ArrayList<Ingredient> pantry = user.getPantry();
-        for (Ingredient recipeIngredient : usedIngredients) {
-            // Check if the recipe ingredient exists in the user's pantry
-            for (Ingredient pantryIngredient : pantry) {
-                if (pantryIngredient.getName().equals(recipeIngredient.getName())) {
-                    // Convert the quantity from String to int
-                    int pantryQuantity = Integer.parseInt(pantryIngredient.getQuantity());
-                    int recipeQuantity = Integer.parseInt(recipeIngredient.getQuantity());
 
-                    // Decrement the quantity of the ingredient in the pantry
-                    pantryQuantity -= recipeQuantity;
-
-                    // If the quantity becomes zero, remove the ingredient from the pantry
-                    if (pantryQuantity <= 0) {
-                        pantry.remove(pantryIngredient);
-                    } else {
-                        // Update the quantity in the pantryIngredient object
-                        pantryIngredient.setQuantity(String.valueOf(pantryQuantity));
-                    }
-                    break; // Exit the loop since the ingredient has been found and updated
-                }
-            }
-        }
-    }
 
 }
