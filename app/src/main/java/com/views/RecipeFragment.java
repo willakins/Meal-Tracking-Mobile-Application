@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.model.Ingredient;
 import com.model.Recipe;
+import com.model.ShoppingItem;
 import com.model.Strategy.RecipeContext;
 import com.model.User;
 import com.viewmodels.CookBookViewModel;
@@ -31,6 +32,7 @@ public class RecipeFragment extends Fragment {
     private static CookBookViewModel cookBook;
     private static PantryViewModel pantry;
     private Button submitRecipeButton;
+    private Button goShoppingButton;
     private EditText editTextRecipeName;
     private EditText editTextIngredients;
     private HomeActivity currentContext;
@@ -76,6 +78,7 @@ public class RecipeFragment extends Fragment {
         recipeAdapter = new RecipeAdapter(recipes, userViewModel.getUser()
                 .getPantry(), getContext(), recipe -> openRecipeDetails(recipe));
         recipesRecyclerView.setAdapter(recipeAdapter);
+        goShoppingButton = view.findViewById(R.id.buttonGoShopping);
 
         submitRecipeButton.setOnClickListener(v -> {
             cookBook.addRecipe(getContext(), editTextRecipeName, editTextIngredients);
@@ -94,7 +97,36 @@ public class RecipeFragment extends Fragment {
         sortIngredientsButton.setOnClickListener(v -> {
             applyFilterStrategy();
         });
-        return view;
+
+        goShoppingButton.setOnClickListener(v -> {
+            String quantityNeeded = "";
+            int currentQuantity = 0;
+            ArrayList<Recipe> checkedItems = recipeAdapter.getCheckedItems();
+            for (int i = 0; i < checkedItems.size(); i++) {
+                Recipe recipe = checkedItems.get(i);
+                for (int j = 0; j < recipe.getIngredients().size(); j++) {
+                    Ingredient ingredient = recipe.getIngredients().get(j);
+                    int pantryIndex = userViewModel.getUser().locateIngredient(ingredient);
+                    if (pantryIndex == -1) {
+                        currentQuantity = 0;
+                    } else {
+                        currentQuantity = Integer.parseInt(userViewModel.getUser().getPantry()
+                                .get(pantryIndex).getQuantity());
+                    }
+                    int quantityRequired = Integer.parseInt(ingredient.getQuantity());
+                    if (currentQuantity < quantityRequired) {
+                        quantityNeeded = Integer.toString(quantityRequired - currentQuantity);
+                    }
+                    userViewModel.addShoppingItem(ingredient.getName(),
+                            quantityNeeded, "100");
+                }
+            }
+            generateNewAdapter();
+
+
+        });
+
+                    return view;
     }
 
 
@@ -181,6 +213,12 @@ public class RecipeFragment extends Fragment {
         dialog.show();
     }
 
+    public void generateNewAdapter() {
+        recipeAdapter = new RecipeAdapter(userViewModel.getUser().getCookBook(),
+                userViewModel.getUser().getPantry(), getContext(),
+                recipe -> openRecipeDetails(recipe));
+        recipesRecyclerView.setAdapter(recipeAdapter);
+  
     private void cookRecipe(Recipe recipe) {
         ArrayList<Ingredient> usedIngredients = recipe.getIngredients();
         User user = userViewModel.getUser();

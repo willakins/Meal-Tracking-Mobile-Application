@@ -17,4 +17,15 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"/>
 
+    <CheckBox
+        android:id="@+id/addToShoppingButton"
+        android:layout_width="164dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:buttonTint="@color/white"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:text="Add" />
+
 </LinearLayout>
