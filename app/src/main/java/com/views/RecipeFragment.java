@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.model.Ingredient;
-import com.model.Recipe;
+import com.model.StrategySprint4.Recipe;
 import com.model.Strategy.RecipeContext;
 import com.model.User;
 import com.viewmodels.CookBookViewModel;
