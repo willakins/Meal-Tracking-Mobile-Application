@@ -13,12 +13,12 @@ import org.junit.Test;
 public class UnitTestsNidhi {
     @Test
     public void testOne() {
-
+        //test a method in shopping page to add items
     }
 
     @Test
     public void testTwo() {
-
+        //test a method to make sure recipes can be cooked
     }
 }
 
