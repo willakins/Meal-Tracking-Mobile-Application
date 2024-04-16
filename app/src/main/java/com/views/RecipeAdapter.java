@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.model.Ingredient;
-import com.model.Recipe;
+import com.model.StrategySprint4.Recipe;
 import com.model.User;
 import com.viewmodels.UserViewModel;
 
@@ -22,6 +24,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     private UserViewModel userViewModel;
     private ArrayList<Recipe> recipes;
+    private ArrayList<Recipe> checkedItems = new ArrayList<>();
     private ArrayList<Ingredient> pantry;
     private Context context;
     private OnRecipeClickListener listener;
@@ -57,6 +60,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 Toast.makeText(context, "Not enough ingredients", Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.addBut.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    checkedItems.add(recipe);
+                } else {
+                    int index = findChecked(recipe);
+                    checkedItems.remove(index);
+                }
+            }
+        });
     }
 
     @Override
@@ -83,6 +98,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         return true;
     }
 
+    private int findChecked(Recipe target) {
+        for (int i = 0; i < checkedItems.size(); i++) {
+            if (checkedItems.get(i).getName().toUpperCase()
+                    .equals(target.getName().toUpperCase())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public ArrayList<Recipe> getCheckedItems() {
+        return this.checkedItems;
+    }
+
     public void updateRecipes(ArrayList<Recipe> newRecipes) {
         this.recipes = newRecipes;
     }
@@ -98,11 +127,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
         private TextView recipeName;
         private ImageView indicator;
+        private CheckBox addBut;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             recipeName = itemView.findViewById(R.id.recipeName);
             indicator = itemView.findViewById(R.id.indicator);
+            addBut = itemView.findViewById(R.id.addToShoppingButton);
         }
     }
+
+
+
+
+
 }

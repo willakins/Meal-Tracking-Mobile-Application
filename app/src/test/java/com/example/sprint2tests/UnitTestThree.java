@@ -1,13 +1,9 @@
 package com.example.sprint2tests;
 
-import com.model.Ingredient;
-import com.model.Recipe;
 import com.model.User;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
 
 /**
  * File placeholder for testing

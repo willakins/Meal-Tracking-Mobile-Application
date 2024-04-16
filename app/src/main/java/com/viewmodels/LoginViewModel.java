@@ -14,9 +14,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.model.StrategySprint4.CookableRecipe;
 import com.model.Ingredient;
 import com.model.Meal;
-import com.model.Recipe;
+import com.model.StrategySprint4.Recipe;
+import com.model.ShoppingItem;
 import com.model.User;
 import com.views.AccountCreateActivity;
 import com.views.HomeActivity;
@@ -166,25 +168,6 @@ public class LoginViewModel {
      */
     private void assignUser(String username, String password) {
         user = new User(username, password);
-        //Loads previously inputted meals into user's arraylist
-        mDatabase.child("meals").child(user.getUserId())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(final DataSnapshot dataSnapshot) {
-                        ArrayList<Meal> meals = new ArrayList<>();
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            String mealName = postSnapshot.child("name").getValue(String.class);
-                            String calories = String.valueOf(postSnapshot.child("calories")
-                                                .getValue(Long.class));
-                            meals.add(new Meal(mealName, Integer.parseInt(calories)));
-                        }
-                        user.setMeals(meals);
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d(TAG, "assignUser:Failure");
-                    }
-                });
         mDatabase.child("users").child(user.getUserId())
                     .addValueEventListener(new ValueEventListener() {
                         @Override
@@ -202,6 +185,25 @@ public class LoginViewModel {
                             Log.d(TAG, "assignUser:Failure");
                         }
                     });
+        //Loads previously inputted meals into user's arraylist
+        mDatabase.child("meals").child(user.getUserId())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        ArrayList<Meal> meals = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String mealName = postSnapshot.child("name").getValue(String.class);
+                            String calories = String.valueOf(postSnapshot.child("calories")
+                                    .getValue(Long.class));
+                            meals.add(new Meal(mealName, Integer.parseInt(calories)));
+                        }
+                        user.setMeals(meals);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "assignUser:Failure");
+                    }
+                });
         mDatabase.child("cookbook")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -210,7 +212,7 @@ public class LoginViewModel {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String recipeName = postSnapshot.child("Name").getValue(String.class);
                             ArrayList<Ingredient> ingredients = new ArrayList<>();
-                            Recipe newRecipe = new Recipe(recipeName, ingredients);
+                            Recipe newRecipe = new CookableRecipe(recipeName, ingredients);
                             DataSnapshot ingList = postSnapshot.child("Ingredients");
                             for (DataSnapshot ds : ingList.getChildren()) {
                                 String name = ds.child("name").getValue(String.class);
@@ -250,6 +252,27 @@ public class LoginViewModel {
                             pantry.add(new Ingredient(name, quantity, calories, expiration));
                         }
                         user.setPantry(pantry);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "assignUser:Failure");
+                    }
+                });
+        mDatabase.child("shoppingList").child(user.getUserId()).child("Items")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        ArrayList<ShoppingItem> shoppingList = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String name = postSnapshot.child("name")
+                                    .getValue(String.class);
+                            String quantity = postSnapshot.child("quantity")
+                                    .getValue(String.class);
+                            String calories = postSnapshot.child("calories")
+                                    .getValue(String.class);
+                            shoppingList.add(new ShoppingItem(name, quantity, calories));
+                        }
+                        user.setShoppingList(shoppingList);
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.views.databinding.ActivityHomeBinding;
 /**
  * Center feature screen; contains navbar and has all aspects of fragments
@@ -34,7 +35,9 @@ public class HomeActivity extends AppCompatActivity {
                 replaceFragment(ingFragment);
                 return true;
             } else if (item.getItemId() == R.id.shopping) {
-                replaceFragment(new ShoppingFragment());
+                ShoppingFragment shopFrag = new ShoppingFragment();
+                shopFrag.setContext(HomeActivity.this);
+                replaceFragment(shopFrag);
                 return true;
             } else if (item.getItemId() == R.id.info) {
                 PersonalInfoFragment pf = new PersonalInfoFragment();
@@ -67,6 +70,18 @@ public class HomeActivity extends AppCompatActivity {
         IngredientsFragment ingFrag = new IngredientsFragment();
         ingFrag.setContext(HomeActivity.this);
         replaceFragment(ingFrag);
+    }
+
+    public void goToShoppingForm() {
+        ShoppingFormFragment formFrag = new ShoppingFormFragment();
+        formFrag.setContext(HomeActivity.this);
+        replaceFragment(formFrag);
+    }
+
+    public void goToShopping() {
+        ShoppingFragment shopFrag = new ShoppingFragment();
+        shopFrag.setContext(HomeActivity.this);
+        replaceFragment(shopFrag);
     }
 
 }

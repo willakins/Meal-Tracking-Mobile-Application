@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/indicator"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="16dp"/>
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="49dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/material_dynamic_primary40"
+        android:text="+" />
+
+    <Button
+        android:id="@+id/removeButton"
+        android:layout_width="49dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/material_dynamic_primary40"
+        android:text="-" />
 
     <TextView
-        android:id="@+id/recipeName"
+        android:id="@+id/ShoppingName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"/>
 
     <CheckBox
-        android:id="@+id/addToShoppingButton"
+        android:id="@+id/buyButton"
         android:layout_width="164dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -26,6 +35,6 @@
         android:buttonTint="@color/white"
         android:textStyle="bold"
         android:textSize="15dp"
-        android:text="Add" />
+        android:text="Buy" />
 
 </LinearLayout>

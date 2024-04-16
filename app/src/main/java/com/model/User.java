@@ -1,5 +1,7 @@
 package com.model;
 
+import com.model.StrategySprint4.Recipe;
+
 import java.util.ArrayList;
 
 //user class
@@ -15,6 +17,7 @@ public class User {
     private ArrayList<Meal> meals = new ArrayList<>();
     private ArrayList<Recipe> cookBook = new ArrayList<>();
     private ArrayList<Ingredient> pantry = new ArrayList<>();
+    private ArrayList<ShoppingItem> shoppingList = new ArrayList<>();
 
 
     //Height is measured in inches
@@ -25,6 +28,10 @@ public class User {
     private static final boolean DEFAULT_IS_MALE = false;
     private static final int DEFAULT_CALORIE_GOAL = 2000;
     private static final int DEFAULT_CALORIES_TODAY = 0;
+    private static final ArrayList<ShoppingItem> DEFAULT_SHOPPING_LIST = new ArrayList<>();
+    private static final ShoppingItem ITEM1 = new ShoppingItem("Bread", "1", "50");
+    private static final ShoppingItem ITEM2 = new ShoppingItem("Oil", "1", "250");
+
 
 
     public User() {
@@ -40,6 +47,9 @@ public class User {
         this.username = username;
         this.password = password;
         this.userId = generateUserId();
+        this.shoppingList = DEFAULT_SHOPPING_LIST;
+        DEFAULT_SHOPPING_LIST.add(ITEM1);
+        DEFAULT_SHOPPING_LIST.add(ITEM2);
     }
 
 
@@ -88,6 +98,10 @@ public class User {
         this.pantry = pantry;
     }
 
+    public void setShoppingList(ArrayList<ShoppingItem> newList) {
+        this.shoppingList = newList;
+    }
+
     public String getUsername() {
         return this.username;
     }
@@ -130,6 +144,10 @@ public class User {
 
     public ArrayList<Ingredient> getPantry() {
         return this.pantry;
+    }
+
+    public ArrayList<ShoppingItem> getShoppingList() {
+        return this.shoppingList;
     }
 
     /**
@@ -197,6 +215,22 @@ public class User {
         for (int i = 0; i < this.pantry.size(); i++) {
             if (target.getName() != null && pantry.get(i).getName().toUpperCase()
                     .equals(target.getName().toUpperCase())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Helper method for locating duplicates in shopping list
+     *
+     * @param target the shopping Item being searched for
+     * @return -1 if not found, an int representing the index found at otherwise
+     */
+    public int findShoppingItem(ShoppingItem target) {
+        for (int i = 0; i < this.shoppingList.size(); i++) {
+            if (target.getName() != null && shoppingList.get(i).getName()
+                    .toUpperCase().equals(target.getName().toUpperCase())) {
                 return i;
             }
         }
