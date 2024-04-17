@@ -44,6 +44,41 @@ public class UnitTestsRyan {
 
     @Test
     public void testTwo() {
+        User user = new User("4ryan@thecorbetts.org", "password");
+        Ingredient testChicken = new Ingredient("Chicken", "2");
+        Ingredient testRice = new Ingredient("Rice", "1");
+        user.getPantry().add(testChicken);
+        user.getPantry().add(testRice);
 
+        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+        Ingredient chicken = new Ingredient("Chicken", "2");
+        Ingredient rice = new Ingredient("Rice", "2");
+        ingredients.add(chicken);
+        ingredients.add(rice);
+        CookableRecipe recipe = new CookableRecipe("Chicken and Rice", ingredients);
+
+        int chickenDifference = Integer.parseInt(recipe.getIngredients().get(0).getQuantity())
+                - Integer.parseInt(user.getPantry().get(0).getQuantity());
+        int riceDifference = Integer.parseInt(recipe.getIngredients().get(1).getQuantity())
+                - Integer.parseInt(user.getPantry().get(1).getQuantity());
+
+        boolean needToAddChicken;
+        boolean needToAddRice;
+
+        if(chickenDifference >= 1) {
+            needToAddChicken = true;
+        }else{
+            needToAddChicken = false;
+        }
+
+        if(riceDifference >= 1) {
+            needToAddRice = true;
+        }else {
+            needToAddRice = false;
+        }
+
+
+        assertEquals(false, needToAddChicken);
+        assertEquals(true, needToAddRice);
     }
 }
