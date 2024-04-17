@@ -3,6 +3,7 @@ package com.example.sprint3tests;
 import static org.junit.Assert.assertEquals;
 
 import com.model.Ingredient;
+import com.model.StrategySprint4.CookableRecipe;
 import com.model.StrategySprint4.Recipe;
 
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class UnitTestsJace {
         ingredients.add(new Ingredient("tomatoes", "1"));
         ingredients.add(new Ingredient("onions", "2"));
         ingredients.add(new Ingredient("lettuce", "3"));
-        Recipe testRecipe = new Recipe(testRecipeName, ingredients);
+        Recipe testRecipe = new CookableRecipe(testRecipeName, ingredients);
 
         testRecipe.setName("newRecipe");
 
