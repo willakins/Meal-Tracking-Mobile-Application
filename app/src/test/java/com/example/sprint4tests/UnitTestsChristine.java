@@ -2,8 +2,10 @@ package com.example.sprint4tests;
 
 import static org.junit.Assert.assertEquals;
 
+import com.model.Ingredient;
 import com.model.ShoppingItem;
 import com.model.User;
+import com.viewmodels.PantryViewModel;
 
 import org.junit.Test;
 
@@ -52,7 +54,29 @@ public class UnitTestsChristine {
     }
 
     @Test
-    public void testTwo() {
+    public void testDuplicateItem() {
+
+        String testUsername = "unis4christine@gmail.com";
+        String testPassword = "password";
+        User testUser = new User(testUsername, testPassword);
+
+        ArrayList<ShoppingItem> shoppingList = new ArrayList<>();
+        ShoppingItem item1 = new ShoppingItem("Pasta", "2", "20");
+        ShoppingItem item2 = new ShoppingItem("Cheese", "3", "80");
+        ShoppingItem item3 = new ShoppingItem("Chicken", "4", "100");
+        ShoppingItem item4 = new ShoppingItem("Butter", "1", "30");
+
+        shoppingList.add(item1);
+        shoppingList.add(item1);
+        shoppingList.add(item2);
+        shoppingList.add(item3);
+        shoppingList.add(item4);
+
+        testUser.setShoppingList(shoppingList);
+
+        assertEquals(0, testUser.findShoppingItem(item1));
+        assertEquals(2, testUser.findShoppingItem(item2));
+
 
     }
 
