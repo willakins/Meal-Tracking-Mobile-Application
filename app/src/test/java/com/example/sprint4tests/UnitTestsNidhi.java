@@ -35,6 +35,8 @@ public class UnitTestsNidhi {
         user.setShoppingList(shoppingList);
         boolean item12 = item1.equals(item2);
         boolean item13 = item1.equals(item3);
+
+        //check if equal
         assertEquals(true, item12);
         assertEquals(false, item13);
     }
@@ -64,8 +66,9 @@ public class UnitTestsNidhi {
         if(sugarDifference >= 1) {
             needToAddSugar = true;
         }
+
+        //check if equal
         assertEquals(false, needToAddFlour);
         assertEquals(false, needToAddSugar);
     }
 }
-
