@@ -1,5 +1,12 @@
 package com.example.sprint4tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+
+import com.model.Ingredient;
+import com.viewmodels.PantryViewModel;
+
 import org.junit.Test;
 
 /**
@@ -12,15 +19,18 @@ import org.junit.Test;
  */
 public class UnitTestsJessica {
     @Test
-    public void testOne() {
-        /*
-        * Testing out measurement
-        */
-
+    public void testIngredientQuantity() {
+        Ingredient ingredient = new Ingredient("Chicken", "2");
+        assertEquals(2, Integer.parseInt(ingredient.getQuantity()));
     }
 
     @Test
-    public void testTwo() {
+    public void testIngredientWhiteSpaceAndNull() {
+        Ingredient ingredient = new Ingredient("   ", null);
+        boolean hasWhiteSpace = !ingredient.getName().trim().isEmpty();
+        boolean isNotNull = ingredient.getQuantity() != null;
 
+        assertEquals(false, hasWhiteSpace);
+        assertEquals(false, isNotNull);
     }
 }
