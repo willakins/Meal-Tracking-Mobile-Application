@@ -20,12 +20,14 @@ import org.junit.Test;
 public class UnitTestsJessica {
     @Test
     public void testIngredientQuantity() {
+        //check if quanitity gets updated
         Ingredient ingredient = new Ingredient("Chicken", "2");
         assertEquals(2, Integer.parseInt(ingredient.getQuantity()));
     }
 
     @Test
     public void testIngredientWhiteSpaceAndNull() {
+        //check if null/whitespace are accounted for
         Ingredient ingredient = new Ingredient("   ", null);
         boolean hasWhiteSpace = !ingredient.getName().trim().isEmpty();
         boolean isNotNull = ingredient.getQuantity() != null;
