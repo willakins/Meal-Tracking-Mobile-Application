@@ -77,6 +77,7 @@ public class UnitTestsChristine {
         assertEquals(0, testUser.findShoppingItem(item1));
         assertEquals(2, testUser.findShoppingItem(item2));
         assertEquals(3, testUser.findShoppingItem(item3));
+        assertEquals(4, testUser.findShoppingItem(item4));
 
     }
 
